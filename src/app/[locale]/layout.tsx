@@ -1,4 +1,5 @@
-import { NextIntlClientProvider } from 'next-intl';
+import {NextIntlClientProvider} from 'next-intl';
+import {getMessages} from 'next-intl/server';
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "sonner";
 import { QueryProvider } from "@/lib/providers/QueryProvider";
@@ -6,6 +7,7 @@ import { AuthProvider } from "@/lib/providers/AuthProvider";
 import { Header } from "@/components/layout/Header";
 import { BottomNav } from "@/components/layout/BottomNav";
 import "../globals.css";
+import * as React from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,18 +26,16 @@ type Props = {
 
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;
+  const messages = await getMessages();
 
   return (
     <html lang={locale}>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-            style={{background: 'radial-gradient(var(--color-primary), transparent)'}}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <div className="mx-auto max-w-screen-md min-h-screen">
-          <NextIntlClientProvider>
+          <NextIntlClientProvider messages={messages}>
             <QueryProvider>
               <AuthProvider>
-                <Header title="Lovacation" subtitle="함께 만드는 여행 일정" />
-                <main className="pb-[60px]">
+                <main className="pb-[70px]">
                   {children}
                 </main>
                 <BottomNav />

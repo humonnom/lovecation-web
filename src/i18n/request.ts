@@ -5,9 +5,14 @@ export type Locale = (typeof locales)[number];
 
 export const defaultLocale: Locale = 'ko';
 
-export default getRequestConfig(async () => {
-    // Static for now, we'll change this later
-    const locale = defaultLocale;
+export default getRequestConfig(async ({requestLocale}) => {
+    // This typically corresponds to the `[locale]` segment
+    let locale = await requestLocale;
+
+    // Ensure that a valid locale is used
+    if (!locale || !locales.includes(locale as Locale)) {
+        locale = defaultLocale;
+    }
 
     return {
         locale,

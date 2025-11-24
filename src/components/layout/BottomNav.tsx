@@ -51,7 +51,7 @@ export const BottomNav = () => {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#F0F0F0] max-w-screen-md mx-auto">
-      <div className="mx-auto max-w-screen-md py-2.5 px-5 h-[60px] flex flex-row">
+      <div className="mx-auto max-w-screen-md py-2 px-5 h-[70px] flex flex-row">
         {navItems.map((item) => {
         const Icon = item.icon;
         const active = isActive(item.href);
@@ -63,8 +63,8 @@ export const BottomNav = () => {
             className="flex-1 flex flex-col items-center justify-center py-2 transition-colors"
           >
             <Icon
-              size={24}
-              className={active ? 'text-primary mb-1' : 'text-[#666] mb-1'}
+              size={28}
+              className={active ? 'text-primary mb-0.5' : 'text-[#666] mb-0.5'}
             />
             <span
               className={`text-xs font-semibold ${

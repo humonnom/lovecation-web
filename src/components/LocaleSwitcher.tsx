@@ -9,6 +9,8 @@ export function LocaleSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
 
+  console.log(locale);
+
   const switchLocale = (newLocale: string) => {
     // Remove the current locale from the pathname
     const segments = pathname.split('/').filter(Boolean);

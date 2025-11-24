@@ -1,40 +1,63 @@
-import { getTranslations } from 'next-intl/server';
-import { LocaleSwitcher } from '@/components/LocaleSwitcher';
+'use client';
 
-export default async function Home() {
-  const t = await getTranslations();
+import * as React from 'react';
+import { useTranslations } from 'next-intl';
+import { Header } from '@/components/layout/Header';
+import { UserGrid } from '@/components/user';
+import { UserCardSkeleton } from '@/components/skeletons';
+import { useProfiles } from '@/hooks/queries';
+import { useAuthStore } from '@/stores/authStore';
 
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-background">
-      <div className="text-center space-y-6 p-8">
-        <h1 className="text-4xl font-bold text-primary">
-          Love Vacation
-        </h1>
-        <p className="text-xl text-text-secondary">
-          {t('home.title')}
-        </p>
-        <p className="text-base text-text-secondary">
-          {t('home.subtitle')}
-        </p>
-        <div className="pt-4">
-          <p className="text-sm text-text-secondary">
-            {t('common.loading')}
-          </p>
-        </div>
+export default function ExplorePage() {
+  const t = useTranslations();
+  const session = useAuthStore((state) => state.session);
+  const user = useAuthStore((state) => state.user);
+  const isLoggedIn = !!session;
 
-        <div className="mt-8 space-y-2 text-sm text-text-secondary">
-          <p>탭 테스트:</p>
-          <div className="flex gap-2 justify-center">
-            <span>{t('tabs.explore')}</span>
-            <span>|</span>
-            <span>{t('tabs.match')}</span>
-            <span>|</span>
-            <span>{t('tabs.message')}</span>
-            <span>|</span>
-            <span>{t('tabs.profile')}</span>
+  // 로그인한 경우: 반대 성별, 비로그인: 모든 성별
+  const getGenderFilter = () => {
+    if (!isLoggedIn || !user?.user_metadata?.gender) {
+      return null; // 모든 성별
+    }
+    // 반대 성별 반환
+    return user.user_metadata.gender === 'male' ? 'female' : 'male';
+  };
+
+  const { profiles, loading, error } = useProfiles({ gender: getGenderFilter() });
+
+  if (loading) {
+    return (
+      <div className="flex-1 flex flex-col bg-background">
+        <Header title={t('home.title')} subtitle={t('home.subtitle')} />
+        <div className="flex-1 overflow-y-auto">
+          <div className="flex flex-row flex-wrap px-2.5 pb-5 justify-between">
+            {Array.from({ length: 6 }).map((_, index) => (
+              <UserCardSkeleton key={index} />
+            ))}
           </div>
         </div>
       </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex-1 flex flex-col bg-background">
+        <Header title={t('home.title')} subtitle={t('home.subtitle')} />
+        <div className="flex-1 flex flex-col justify-center items-center px-5 gap-2">
+          <p className="text-lg text-[#333] font-semibold text-center">
+            {t('home.errorLoadingProfiles')}
+          </p>
+          <p className="text-sm text-[#666] text-center">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex-1 flex flex-col bg-background">
+      <Header title={t('home.title')} subtitle={t('home.subtitle')} />
+      <UserGrid users={profiles} />
     </div>
   );
 }
