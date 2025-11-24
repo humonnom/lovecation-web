@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { Compass, Heart, MessageCircle, User } from 'lucide-react';
@@ -19,7 +19,7 @@ export const BottomNav = () => {
   const navItems: NavItem[] = [
     {
       name: 'Explore',
-      href: '/explore',
+      href: '/',
       icon: Compass,
       labelKey: 'explore',
     },
