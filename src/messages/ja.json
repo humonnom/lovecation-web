@@ -1,0 +1,182 @@
+{
+  "common": {
+    "loading": "読み込み中...",
+    "inDevelopment": "開発中の機能です",
+    "featureInProgress": "{{feature}}機能準備中",
+    "pleaseWait": "一生懸命作っています。少々お待ちください。",
+    "privacyPolicy": "個人情報処理方針"
+  },
+  "tabs": {
+    "explore": "探索",
+    "match": "マッチ",
+    "message": "メッセージ",
+    "profile": "プロフィール"
+  },
+  "home": {
+    "title": "新しい出会いを探す",
+    "subtitle": "ハートを押して気持ちを伝えましょう。",
+    "loadingProfiles": "プロフィールを読み込み中...",
+    "errorLoadingProfiles": "プロフィールを読み込めません"
+  },
+  "profile": {
+    "title": "プロフィール",
+    "subtitle": "個人情報と設定",
+    "noLocation": "位置情報がありません",
+    "logout": "ログアウト",
+    "logoutConfirm": "本当にログアウトしますか？",
+    "cancel": "キャンセル",
+    "logoutSuccess": "ログアウト完了",
+    "logoutSuccessMessage": "正常にログアウトされました。",
+    "launchRequestComplete": "正式リリース希望完了",
+    "launchRequestMessage": "正式リリース通知を受け取れるように登録されました！"
+  },
+  "interest": {
+    "title": "事前登録する",
+    "earlyBirdTitle": "先着100名限定アーリーバード特典のご案内",
+    "benefit1": "✓ 正式リリース前に先行体験",
+    "benefit2": "✓ 初月プレミアム無料",
+    "benefit3": "✓ プロフィール優先表示",
+    "buttonText": "事前登録して特典を受け取る",
+    "errorTitle": "エラー",
+    "errorCannotOpen": "リンクを開けません。",
+    "errorOpeningLink": "リンクを開く際に問題が発生しました。"
+  },
+  "userDetail": {
+    "demo": "デモ",
+    "online": "オンライン",
+    "aboutMe": "About Me",
+    "interests": "興味・趣味",
+    "languageSkills": "言語能力",
+    "culturalPreferences": "文化の好み",
+    "lifestyle": "ライフスタイル",
+    "futurePlans": "将来の計画",
+    "idealType": "理想のタイプ",
+    "translationNote": "このプロフィールは自動翻訳されました",
+    "demoNotice": "実際のサービスではリアルタイム翻訳提供とより多くのプロフィールを確認できます",
+    "errorLoadingUser": "ユーザー情報を読み込めません",
+    "age": "歳",
+    "languages": {
+      "한국어": "韓国語",
+      "일본어": "日本語",
+      "영어": "英語"
+    },
+    "levels": {
+      "원어민": "ネイティブ",
+      "고급": "上級",
+      "중급": "中級",
+      "초급": "初級"
+    },
+    "culturalLabels": {
+      "한국 음식": "韓国料理",
+      "일본 음식": "日本料理",
+      "K-pop/드라마": "K-pop/ドラマ",
+      "한국 문화 이해도": "韓国文化理解度",
+      "일본 문화 이해도": "日本文化理解度",
+      "애니메이션/만화": "アニメ/マンガ",
+      "온천/여행": "温泉/旅行",
+      "한국 예술/디자인": "韓国アート/デザイン",
+      "일본 예술/디자인": "日本アート/デザイン"
+    },
+    "lifestyleLabels": {
+      "음주": "飲酒",
+      "흡연": "喫煙",
+      "운동": "運動",
+      "반려동물": "ペット"
+    },
+    "lifestyleValues": {
+      "sometimes": "たまに",
+      "none": "しない",
+      "2-3_per_week": "週2-3回",
+      "1-2_per_week": "週1-2回",
+      "3-4_per_week": "週3-4回",
+      "moderate": "適度に",
+      "rarely": "ほとんどしない",
+      "walking_yoga": "散歩/ヨガ",
+      "yoga_1-2_per_week": "ヨガ週1-2回",
+      "occasionally": "たまに",
+      "cat": "猫 🐱",
+      "dog": "犬 🐶",
+      "rabbit": "うさぎ 🐰"
+    },
+    "interestsList": {
+      "kdrama": "Kドラマ",
+      "travel": "旅行",
+      "cafe": "カフェ",
+      "cooking": "料理",
+      "korean_study": "韓国語勉強",
+      "photography": "写真",
+      "music": "音楽",
+      "anime": "アニメ",
+      "gaming": "ゲーム",
+      "food_tour": "グルメ巡り",
+      "japanese_study": "日本語勉強",
+      "movies": "映画",
+      "hiking": "登山",
+      "onsen": "温泉",
+      "reading": "読書",
+      "japanese_culture": "日本文化",
+      "kpop": "K-pop",
+      "fashion": "ファッション",
+      "shopping": "ショッピング",
+      "makeup": "メイク",
+      "design": "デザイン",
+      "drawing": "絵",
+      "handicraft": "手芸",
+      "korean_culture": "韓国文化"
+    },
+    "futurePlansList": {
+      "JP": {
+        "long_distance_ok": "遠距離恋愛大丈夫です",
+        "visit_often": "韓国によく訪問します",
+        "relocation_considering": "将来韓国移住も考えています",
+        "long_distance_serious": "遠距離でも真剣なら大丈夫です",
+        "visit_regularly": "定期的に日本を訪問します",
+        "relocation_possible": "日本居住も検討可能です",
+        "interested_in_life": "日本生活にも興味あります",
+        "long_distance_want": "遠距離恋愛してみたいです",
+        "visit_korea_often": "韓国によく遊びに行きます",
+        "working_holiday": "韓国ワーキングホリデーに興味あります",
+        "get_to_know_slowly": "ゆっくり知り合いたいです",
+        "plan_to_visit": "韓国訪問の計画があります",
+        "want_to_experience": "韓国生活を経験してみたいです"
+      },
+      "KR": {
+        "long_distance_ok": "遠距離恋愛大丈夫です",
+        "visit_often": "日本によく訪問します",
+        "relocation_considering": "将来日本移住も考えています",
+        "date_in_city": "ソウルで一緒にデートしましょう",
+        "weekend_travel": "週末旅行が好きです",
+        "settled": "韓国で定住予定",
+        "serious_relationship": "真剣な出会いを求めています",
+        "travel_together": "一緒に旅行したいです",
+        "stable_life": "韓国で安定した生活",
+        "visit_japan_often": "日本によく遊びに来れます",
+        "life_in_japan": "日本生活も良いです",
+        "get_to_know_slowly": "ゆっくり知り合いたいです",
+        "welcome_visit": "日本訪問歓迎します",
+        "living_in_kyoto": "京都に住んでいます"
+      }
+    },
+    "idealTypeLabels": {
+      "ageRange": "年齢範囲",
+      "personality": "性格",
+      "dateStyle": "デートスタイル"
+    },
+    "idealTypeData": {
+      "personalities": {
+        "humorous_warm": "ユーモアがあって温かい方",
+        "bright_positive": "明るくて前向きな方",
+        "sincere_serious": "誠実で真面目な方",
+        "kind_fun": "優しくて楽しい方",
+        "calm_considerate": "落ち着いていて思いやりのある方"
+      },
+      "dateStyles": {
+        "cafe_movies": "カフェデート、映画鑑賞",
+        "food_movies_games": "グルメ巡り、映画鑑賞、ゲーム",
+        "travel_hiking_onsen": "旅行、登山、温泉",
+        "shopping_cafe_food": "ショッピング、カフェ巡り、グルメ",
+        "cafe_exhibition_walk": "カフェ、展示会、静かな散歩"
+      }
+    }
+  }
+}
