@@ -11,7 +11,7 @@ export default async function Home() {
       </div>
       <div className="text-center space-y-6 p-8">
         <h1 className="text-4xl font-bold text-primary">
-          Lovacation
+          Love Vacation
         </h1>
         <p className="text-xl text-text-secondary">
           {t('home.title')}
