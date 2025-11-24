@@ -1,21 +1,23 @@
 import createMiddleware from 'next-intl/middleware';
 import { NextRequest, NextResponse } from 'next/server';
 import { updateSession } from '@/lib/supabase/middleware';
-import { locales, defaultLocale } from '@/i18n';
+import {defaultLocale, locales} from "@/i18n/request";
 
 // Create the next-intl middleware
 const intlMiddleware = createMiddleware({
   locales,
   defaultLocale,
-  localePrefix: 'as-needed', // Don't add /ko prefix for default locale
+  localePrefix: 'always', // Always add locale prefix (/ko, /ja)
 });
 
 export async function middleware(request: NextRequest) {
   // First, handle internationalization
-  const response = intlMiddleware(request);
+  let response = intlMiddleware(request);
 
   // Then, update Supabase session
-  return await updateSession(request);
+  response = await updateSession(request, response);
+
+  return response;
 }
 
 export const config = {

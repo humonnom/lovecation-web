@@ -1,11 +1,8 @@
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
-import { notFound } from 'next/navigation';
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "sonner";
 import { QueryProvider } from "@/lib/providers/QueryProvider";
 import { AuthProvider } from "@/lib/providers/AuthProvider";
-import { locales } from '@/i18n';
 import "../globals.css";
 
 const geistSans = Geist({
@@ -23,26 +20,13 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
-export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
-}
-
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;
-
-  // Ensure that the incoming `locale` is valid
-  if (!locales.includes(locale as any)) {
-    notFound();
-  }
-
-  // Providing all messages to the client
-  // side is the easiest way to get started
-  const messages = await getMessages();
 
   return (
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider>
           <QueryProvider>
             <AuthProvider>
               {children}
