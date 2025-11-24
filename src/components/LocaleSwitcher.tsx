@@ -2,7 +2,7 @@
 
 import { useLocale } from 'next-intl';
 import { useRouter, usePathname } from 'next/navigation';
-import { locales } from '@/i18n';
+import {Locale, locales} from "@/i18n/request";
 
 export function LocaleSwitcher() {
   const locale = useLocale();
@@ -12,7 +12,7 @@ export function LocaleSwitcher() {
   const switchLocale = (newLocale: string) => {
     // Remove the current locale from the pathname
     const segments = pathname.split('/').filter(Boolean);
-    const currentLocaleIndex = locales.indexOf(segments[0] as any);
+    const currentLocaleIndex = locales.indexOf(segments[0] as Locale);
 
     if (currentLocaleIndex !== -1) {
       segments.shift(); // Remove current locale
