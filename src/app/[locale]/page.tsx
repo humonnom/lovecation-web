@@ -6,9 +6,6 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background">
-      <div className="absolute top-8 right-8">
-        <LocaleSwitcher />
-      </div>
       <div className="text-center space-y-6 p-8">
         <h1 className="text-4xl font-bold text-primary">
           Love Vacation
