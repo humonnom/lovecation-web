@@ -31,7 +31,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <div className="mx-auto max-w-screen-md min-h-screen">
+        <div className="mx-auto max-w-screen-md min-h-screen bg-white">
           <NextIntlClientProvider messages={messages}>
             <QueryProvider>
               <AuthProvider>
