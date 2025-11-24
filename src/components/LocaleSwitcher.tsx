@@ -1,28 +1,17 @@
 'use client';
 
-import { useLocale } from 'next-intl';
-import { useRouter, usePathname } from 'next/navigation';
+import { useParams, useRouter, usePathname } from 'next/navigation';
 import {Locale, locales} from "@/i18n/request";
 
 export function LocaleSwitcher() {
-  const locale = useLocale();
+  const params = useParams();
+  const locale = params.locale as Locale;
   const router = useRouter();
   const pathname = usePathname();
 
-  console.log(locale);
-
-  const switchLocale = (newLocale: string) => {
-    // Remove the current locale from the pathname
-    const segments = pathname.split('/').filter(Boolean);
-    const currentLocaleIndex = locales.indexOf(segments[0] as Locale);
-
-    if (currentLocaleIndex !== -1) {
-      segments.shift(); // Remove current locale
-    }
-
-    // Build new path with new locale
-    const newPath = `/${newLocale}${segments.length > 0 ? '/' + segments.join('/') : ''}`;
-    router.push(newPath);
+  const switchLocale = (newLocale: Locale) => {
+    const newPathname = pathname.replace(`/${locale}`, `/${newLocale}`);
+    router.replace(newPathname);
   };
 
   return (
@@ -36,6 +25,7 @@ export function LocaleSwitcher() {
               ? 'bg-primary text-white'
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
           }`}
+          disabled={locale === loc}
         >
           {loc.toUpperCase()}
         </button>
