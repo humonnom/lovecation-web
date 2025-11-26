@@ -10,19 +10,15 @@ import {useEffect} from "react";
 
 interface MarketingPageProps {
   featureName: string;
-  icon?: string;
 }
 
-export const MarketingPage = ({
-  featureName,
-  icon,
-}: MarketingPageProps) => {
+export const MarketingPage = ({featureName}: MarketingPageProps) => {
   const t = useTranslations();
   const { setHeader } = useHeader();
 
   useEffect(() => {
     setHeader(featureName, '');
-  }, [setHeader]);
+  }, [setHeader, featureName]);
 
   return (
     <div className="min-h-screen bg-background">

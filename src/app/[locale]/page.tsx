@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { Header } from '@/components/layout/Header';
 import { UserGrid } from '@/components/user';
 import { UserCardSkeleton } from '@/components/skeletons';
 import { useProfiles } from '@/hooks/queries';
@@ -15,12 +14,13 @@ export default function ExplorePage() {
   const user = useAuthStore((state) => state.user);
   const isLoggedIn = !!session;
 
-    const { setHeader } = useHeader();
+  const { setHeader } = useHeader();
+  const homeTitle = t('home.title');
+  const homeSubtitle = t('home.subtitle');
 
     useEffect(() => {
-        setHeader('Love Vacation', t('home.subtitle'));
-    }, [setHeader, t]);
-
+        setHeader(homeTitle, homeSubtitle);
+    }, [setHeader, homeTitle, homeSubtitle]);
 
     // 로그인한 경우: 반대 성별, 비로그인: 모든 성별
   const getGenderFilter = () => {

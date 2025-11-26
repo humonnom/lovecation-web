@@ -14,15 +14,15 @@ export async function middleware(request: NextRequest) {
   // First, handle internationalization
   const intlResponse = intlMiddleware(request);
 
-  // Then, update Supabase session
+  // Then, update Supabase session using the intl response
   const supabaseResponse = await updateSession(request);
 
-  // Merge the responses - copy intl headers to supabase response
-  intlResponse.headers.forEach((value, key) => {
-    supabaseResponse.headers.set(key, value);
+  // Merge the responses - copy supabase headers to intl response
+  supabaseResponse.headers.forEach((value, key) => {
+    intlResponse.headers.set(key, value);
   });
 
-  return supabaseResponse;
+  return intlResponse;
 }
 
 export const config = {
