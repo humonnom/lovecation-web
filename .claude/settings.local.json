@@ -7,7 +7,8 @@
       "Bash(npm run dev:*)",
       "Bash(nvm use)",
       "Bash(cat:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(npm run lint:*)"
     ],
     "deny": [],
     "ask": []

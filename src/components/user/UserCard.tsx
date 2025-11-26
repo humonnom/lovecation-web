@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Heart, Lock } from 'lucide-react';
 import type { Profile } from '@/types';
-import { useAuthStore } from '@/stores/authStore';
 
 interface UserCardProps {
   user: Profile;
@@ -14,7 +13,6 @@ interface UserCardProps {
 
 export const UserCard = ({ user, onLikeToggle }: UserCardProps) => {
   const [isLiked, setIsLiked] = React.useState(false);
-  const session = useAuthStore((state) => state.session);
   const isLoggedIn = true; // !!session;
 
   const handleLikePress = (e: React.MouseEvent) => {

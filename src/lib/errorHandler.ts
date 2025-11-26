@@ -4,7 +4,7 @@ export interface ErrorHandlerOptions {
   showToast?: boolean;
   logToSentry?: boolean;
   toastMessage?: string;
-  context?: Record<string, any>;
+  context?: Record<string, unknown>;
 }
 
 /**
@@ -17,7 +17,7 @@ export const handleError = (
 ) => {
   const {
     showToast = true,
-    logToSentry = true,
+    // logToSentry = true,
     toastMessage,
     context = {},
   } = options;

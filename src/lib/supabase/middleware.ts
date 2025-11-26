@@ -15,7 +15,7 @@ export async function updateSession(request: NextRequest) {
           return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
+          cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value)
           );
           supabaseResponse = NextResponse.next({
@@ -34,7 +34,7 @@ export async function updateSession(request: NextRequest) {
   // issues with users being randomly logged out.
 
   const {
-    data: { user },
+    data: {},
   } = await supabase.auth.getUser();
 
   // You can add protected route logic here
