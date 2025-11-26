@@ -14,7 +14,7 @@
   },
   "home": {
     "title": "새로운 인연 찾기",
-    "subtitle": "하트를 눌러 관심을 표현해보세요.",
+    "subtitle": "하트로 관심을 표현하세요.",
     "loadingProfiles": "프로필을 불러오는 중...",
     "errorLoadingProfiles": "프로필을 불러올 수 없습니다"
   },

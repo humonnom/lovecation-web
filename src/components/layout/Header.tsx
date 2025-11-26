@@ -10,11 +10,11 @@ export const Header = () => {
   return (
     <header className={`sticky top-0 ${Z_INDEX.HEADER} flex flex-row justify-between items-start px-5 py-[15px] bg-background border-b border-border`}>
       <div className="flex-1">
-        <h1 className="text-[28px] font-bold text-[#333] mb-1">
+        <h1 className="text-[24px] font-bold text-[#333] mb-1 line-clamp-1">
           {title}
         </h1>
         {subtitle && (
-          <p className="text-base text-[#666]">
+          <p className="text-base text-[#666] line-clamp-1">
             {subtitle}
           </p>
         )}
