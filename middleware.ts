@@ -12,12 +12,17 @@ const intlMiddleware = createMiddleware({
 
 export async function middleware(request: NextRequest) {
   // First, handle internationalization
-  let response = intlMiddleware(request);
+  const intlResponse = intlMiddleware(request);
 
   // Then, update Supabase session
-  response = await updateSession(request, response);
+  const supabaseResponse = await updateSession(request);
 
-  return response;
+  // Merge the responses - copy intl headers to supabase response
+  intlResponse.headers.forEach((value, key) => {
+    supabaseResponse.headers.set(key, value);
+  });
+
+  return supabaseResponse;
 }
 
 export const config = {
