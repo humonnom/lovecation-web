@@ -6,7 +6,8 @@
       "Bash(kill:*)",
       "Bash(npm run dev:*)",
       "Bash(nvm use)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(npm install:*)"
     ],
     "deny": [],
     "ask": []
