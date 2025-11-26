@@ -49,12 +49,8 @@ export const UserCard = ({ user, onLikeToggle }: UserCardProps) => {
 
         <div className="absolute bottom-0 left-0 right-0 bg-black/40 p-3 flex flex-row justify-between items-end">
           <div className="flex-1">
-            <p className="text-white text-base font-semibold mb-0.5">
-              {user.nickname}
-            </p>
-            <p className="text-white/80 text-xs">
-              {user.city}
-            </p>
+            <p className="text-white text-base font-semibold mb-0.5">{user.nickname}</p>
+            <p className="text-white/80 text-xs">{user.city}</p>
           </div>
         </div>
       </Link>
@@ -66,9 +62,7 @@ export const UserCard = ({ user, onLikeToggle }: UserCardProps) => {
       >
         <div
           className={`w-10 h-10 rounded-full flex items-center justify-center shadow-md transition-colors ${
-            isLiked
-              ? 'bg-primary/95 border-0'
-              : 'bg-black/30 border border-white/30'
+            isLiked ? 'bg-primary/95 border-0' : 'bg-black/30 border border-white/30'
           }`}
         >
           <Heart

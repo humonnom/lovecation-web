@@ -5,14 +5,14 @@ import { useTranslations } from 'next-intl';
 import { Construction } from 'lucide-react';
 import { InterestSection } from './InterestSection';
 import Image from 'next/image';
-import {useHeader} from "@/lib/providers/HeaderProvider";
-import {useEffect} from "react";
+import { useHeader } from '@/lib/providers/HeaderProvider';
+import { useEffect } from 'react';
 
 interface MarketingPageProps {
   featureName: string;
 }
 
-export const MarketingPage = ({featureName}: MarketingPageProps) => {
+export const MarketingPage = ({ featureName }: MarketingPageProps) => {
   const t = useTranslations();
   const { setHeader } = useHeader();
 

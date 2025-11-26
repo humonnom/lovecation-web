@@ -1,23 +1,23 @@
-import {NextIntlClientProvider} from 'next-intl';
-import {getMessages} from 'next-intl/server';
-import { Geist, Geist_Mono } from "next/font/google";
-import { Toaster } from "sonner";
-import { QueryProvider } from "@/lib/providers/QueryProvider";
-import { AuthProvider } from "@/lib/providers/AuthProvider";
-import { HeaderProvider } from "@/lib/providers/HeaderProvider";
-import { Header } from "@/components/layout/Header";
-import { BottomNav } from "@/components/layout/BottomNav";
-import "../globals.css";
-import * as React from "react";
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { Geist, Geist_Mono } from 'next/font/google';
+import { Toaster } from 'sonner';
+import { QueryProvider } from '@/lib/providers/QueryProvider';
+import { AuthProvider } from '@/lib/providers/AuthProvider';
+import { HeaderProvider } from '@/lib/providers/HeaderProvider';
+import { Header } from '@/components/layout/Header';
+import { BottomNav } from '@/components/layout/BottomNav';
+import '../globals.css';
+import * as React from 'react';
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
 });
 
 type Props = {
@@ -38,9 +38,7 @@ export default async function LocaleLayout({ children, params }: Props) {
               <AuthProvider>
                 <HeaderProvider>
                   <Header />
-                  <main className="pb-[70px]">
-                    {children}
-                  </main>
+                  <main className="pb-[70px]">{children}</main>
                   <BottomNav />
                   <Toaster position="top-center" richColors />
                 </HeaderProvider>

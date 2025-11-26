@@ -1,7 +1,7 @@
 'use client';
 
 import { useParams, useRouter, usePathname } from 'next/navigation';
-import { Locale } from "@/i18n/request";
+import { Locale } from '@/i18n/request';
 import { KoreanFlag, JapaneseFlag } from './flags';
 
 const localeConfig = {

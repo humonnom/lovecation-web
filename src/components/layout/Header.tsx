@@ -9,7 +9,9 @@ export const Header = () => {
   const { title, subtitle } = useHeader();
 
   return (
-    <header className={`sticky top-0 ${Z_INDEX.HEADER} flex flex-row justify-between items-start px-5 pt-3 pb-0 bg-background border-b border-border`}>
+    <header
+      className={`sticky top-0 ${Z_INDEX.HEADER} flex flex-row justify-between items-start px-5 pt-3 pb-0 bg-background border-b border-border`}
+    >
       <div className="flex-1 min-w-0 h-[60px]">
         <AnimatePresence mode="wait">
           <motion.div

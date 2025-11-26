@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import {useLocale, useTranslations} from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { ArrowRight, User } from 'lucide-react';
 import { PrivacyPolicyLink } from './PrivacyPolicyLink';
 import Image from 'next/image';
@@ -12,11 +12,11 @@ interface InterestedUser {
 }
 
 const mockInterestedUsers: InterestedUser[] = [
-  { id: 1, image: "/profiles/profile2.jpg" },
-  { id: 2, image: "/profiles/profile3.jpg" },
-  { id: 3, image: "/profiles/profile4.jpg" },
-  { id: 4, image: "/profiles/profile5.jpg" },
-  { id: 5, image: "/profiles/profile6.jpg" },
+  { id: 1, image: '/profiles/profile2.jpg' },
+  { id: 2, image: '/profiles/profile3.jpg' },
+  { id: 3, image: '/profiles/profile4.jpg' },
+  { id: 4, image: '/profiles/profile5.jpg' },
+  { id: 5, image: '/profiles/profile6.jpg' },
 ];
 
 const StackedAvatars = () => {
@@ -89,7 +89,9 @@ export const InterestSection = () => {
         className="flex flex-row items-center justify-center bg-primary text-white py-4 px-6 rounded-xl gap-2 w-full hover:opacity-90 transition-opacity"
       >
         <User size={20} />
-        <span className={ `text-base font-semibold ${ locale === 'ko' ? '' : 'max-w-[17ch]'}` }>{t('interest.buttonText')}</span>
+        <span className={`text-base font-semibold ${locale === 'ko' ? '' : 'max-w-[17ch]'}`}>
+          {t('interest.buttonText')}
+        </span>
         <ArrowRight size={20} />
       </button>
     </div>
