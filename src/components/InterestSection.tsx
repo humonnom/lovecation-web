@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { useTranslations } from 'next-intl';
+import {useLocale, useTranslations} from 'next-intl';
 import { ArrowRight, User } from 'lucide-react';
 import { PrivacyPolicyLink } from './PrivacyPolicyLink';
 import Image from 'next/image';
@@ -55,6 +55,7 @@ const StackedAvatars = () => {
 
 export const InterestSection = () => {
   const t = useTranslations();
+  const locale = useLocale();
 
   const handleTypeformPress = () => {
     const typeformUrl = 'https://form.typeform.com/to/GD1xzjd6';
@@ -88,7 +89,7 @@ export const InterestSection = () => {
         className="flex flex-row items-center justify-center bg-primary text-white py-4 px-6 rounded-xl gap-2 w-full hover:opacity-90 transition-opacity"
       >
         <User size={20} />
-        <span className="text-base font-semibold">{t('interest.buttonText')}</span>
+        <span className={ `text-base font-semibold ${ locale === 'ko' ? '' : 'max-w-[17ch]'}` }>{t('interest.buttonText')}</span>
         <ArrowRight size={20} />
       </button>
     </div>
