@@ -13,8 +13,8 @@ jobs:
       - name: Ping Supabase Database
         run: |
           response=$(curl -s -o /dev/null -w "%{http_code}" \
-            -X GET "${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}/rest/v1/rpc/ping" \
-            -H "apikey: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}" \
+            -X GET "${{ secrets.SUPABASE_URL }}/rest/v1/profiles?limit=1" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
             -H "Content-Type: application/json")
 
           echo "Response code: $response"
