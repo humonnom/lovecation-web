@@ -3,7 +3,6 @@
 import { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { UserGrid } from '@/components/user';
-import { UserCardSkeleton } from '@/components/skeletons';
 import { useProfiles } from '@/hooks/queries';
 import { useAuthStore } from '@/stores/authStore';
 import { useHeader } from '@/lib/providers/HeaderProvider';
@@ -33,36 +32,15 @@ export default function ExplorePage() {
 
   const { profiles, loading, error } = useProfiles({ gender: getGenderFilter() });
 
-  if (loading) {
-    return (
-      <div className="flex-1 flex flex-col bg-background">
-        <div className="flex-1 overflow-y-auto">
-          <div className="flex flex-row flex-wrap px-2.5 pb-5 justify-between">
-            {Array.from({ length: 6 }).map((_, index) => (
-              <UserCardSkeleton key={index} />
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex-1 flex flex-col bg-background">
-        <div className="flex-1 flex flex-col justify-center items-center px-5 gap-2">
-          <p className="text-lg text-[#333] font-semibold text-center">
-            {t('home.errorLoadingProfiles')}
-          </p>
-          <p className="text-sm text-[#666] text-center">{error}</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="flex-1 flex flex-col bg-background">
-      <UserGrid users={profiles} />
+      {error && <div className="flex-1 flex flex-col justify-center items-center px-5 gap-2">
+          <p className="text-lg text-[#333] font-semibold text-center">
+              {t('home.errorLoadingProfiles')}
+          </p>
+          <p className="text-sm text-[#666] text-center">{error}</p>
+      </div>}
+      {!error && <UserGrid isLoading={loading} users={profiles} />}
     </div>
   );
 }

@@ -9,8 +9,8 @@ export const Header = () => {
   const { title, subtitle } = useHeader();
 
   return (
-    <header className={`sticky top-0 ${Z_INDEX.HEADER} flex flex-row justify-between items-start px-5 py-[15px] bg-background border-b border-border`}>
-      <div className="flex-1 min-w-0">
+    <header className={`sticky top-0 ${Z_INDEX.HEADER} flex flex-row justify-between items-start px-5 pt-3 pb-0 bg-background border-b border-border`}>
+      <div className="flex-1 min-w-0 h-[60px]">
         <AnimatePresence mode="wait">
           <motion.div
             key={`${title}-${subtitle}`}
@@ -19,14 +19,12 @@ export const Header = () => {
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
           >
-            <h1 className="text-[28px] font-bold text-[#333] mb-1 line-clamp-1">
+            <h1 className="text-[24px] font-bold text-[#333] leading-[28px] mb-0.5 line-clamp-1">
               {title}
             </h1>
-            {subtitle && (
-              <p className="text-base text-[#666] line-clamp-1">
-                {subtitle}
-              </p>
-            )}
+            <p className="text-sm text-[#666] leading-[20px] line-clamp-1">
+              {subtitle || '\u00A0'}
+            </p>
           </motion.div>
         </AnimatePresence>
       </div>
