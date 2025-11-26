@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "sonner";
 import { QueryProvider } from "@/lib/providers/QueryProvider";
 import { AuthProvider } from "@/lib/providers/AuthProvider";
+import { HeaderProvider } from "@/lib/providers/HeaderProvider";
 import { Header } from "@/components/layout/Header";
 import { BottomNav } from "@/components/layout/BottomNav";
 import "../globals.css";
@@ -35,11 +36,14 @@ export default async function LocaleLayout({ children, params }: Props) {
           <NextIntlClientProvider messages={messages}>
             <QueryProvider>
               <AuthProvider>
-                <main className="pb-[70px]">
-                  {children}
-                </main>
-                <BottomNav />
-                <Toaster position="top-center" richColors />
+                <HeaderProvider>
+                  <Header />
+                  <main className="pb-[70px]">
+                    {children}
+                  </main>
+                  <BottomNav />
+                  <Toaster position="top-center" richColors />
+                </HeaderProvider>
               </AuthProvider>
             </QueryProvider>
           </NextIntlClientProvider>
