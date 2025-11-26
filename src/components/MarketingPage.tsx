@@ -7,6 +7,8 @@ import { InterestSection } from './InterestSection';
 import Image from 'next/image';
 import { useHeader } from '@/lib/providers/HeaderProvider';
 import { useEffect } from 'react';
+import { motion } from 'motion/react';
+import AnimatedText from '@/components/AnimatedText';
 
 interface MarketingPageProps {
   featureName: string;
@@ -33,7 +35,12 @@ export const MarketingPage = ({ featureName }: MarketingPageProps) => {
         {/* Main Content */}
         <div className="pt-10">
           {/* Logo */}
-          <div className="flex items-center justify-center mb-6">
+          <motion.div
+            className="flex items-center justify-center mb-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
             <Image
               src="/lovecation-icon.png"
               alt="Lovecation Logo"
@@ -41,19 +48,18 @@ export const MarketingPage = ({ featureName }: MarketingPageProps) => {
               height={120}
               className="object-contain"
             />
-          </div>
+          </motion.div>
 
           {/* Title */}
-          <h2 className="text-2xl font-bold text-foreground text-center mb-2">
+          <AnimatedText as={'h2'} className={'text-2xl font-bold text-foreground text-center mb-2'}>
             {t('common.featureInProgress', { feature: featureName })}
-          </h2>
+          </AnimatedText>
 
           {/* Subtitle */}
-          <p className="text-base text-text-secondary text-center mb-10">
+          <AnimatedText className="text-base text-text-secondary text-center mb-10">
             {t('common.pleaseWait')}
-          </p>
+          </AnimatedText>
 
-          {/* Interest Section */}
           <InterestSection />
         </div>
       </div>

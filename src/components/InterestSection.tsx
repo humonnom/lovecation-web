@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { ArrowRight, User } from 'lucide-react';
 import { PrivacyPolicyLink } from './PrivacyPolicyLink';
 import Image from 'next/image';
+import { motion } from 'motion/react';
 
 interface InterestedUser {
   id: number;
@@ -19,12 +20,19 @@ const mockInterestedUsers: InterestedUser[] = [
   { id: 5, image: '/profiles/profile6.jpg' },
 ];
 
+const TOTAL_DISPLAYED = 3;
+
 const StackedAvatars = () => {
-  const displayUsers = mockInterestedUsers.slice(0, 4);
-  const remainingCount = Math.max(0, mockInterestedUsers.length - 4);
+  const displayUsers = mockInterestedUsers.slice(0, TOTAL_DISPLAYED);
+  const remainingCount = Math.max(0, mockInterestedUsers.length - TOTAL_DISPLAYED);
 
   return (
-    <div className="relative w-[120px] h-[50px] mr-4">
+    <motion.div
+      className="relative w-[120px] h-[50px] mr-4"
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       {displayUsers.map((user, index) => (
         <div
           key={user.id}
@@ -49,7 +57,7 @@ const StackedAvatars = () => {
           <span className="text-white text-xs font-semibold">+{remainingCount}</span>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 
