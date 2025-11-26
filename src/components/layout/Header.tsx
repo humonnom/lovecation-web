@@ -2,12 +2,13 @@
 
 import { LocaleSwitcher } from '../LocaleSwitcher';
 import { useHeader } from '@/lib/providers/HeaderProvider';
+import { Z_INDEX } from '@/constants/zIndex';
 
 export const Header = () => {
   const { title, subtitle } = useHeader();
 
   return (
-    <header className="sticky top-0 z-50 flex flex-row justify-between items-start px-5 py-[15px] bg-background border-b border-border">
+    <header className={`sticky top-0 ${Z_INDEX.HEADER} flex flex-row justify-between items-start px-5 py-[15px] bg-background border-b border-border`}>
       <div className="flex-1">
         <h1 className="text-[28px] font-bold text-[#333] mb-1">
           {title}

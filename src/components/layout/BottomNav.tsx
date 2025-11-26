@@ -4,6 +4,7 @@ import { Link } from '@/i18n/navigation';
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { Compass, Heart, MessageCircle, User } from 'lucide-react';
+import {Z_INDEX} from "@/constants/zIndex";
 
 interface NavItem {
   name: string;
@@ -50,7 +51,7 @@ export const BottomNav = () => {
   };
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#F0F0F0] max-w-screen-md mx-auto">
+    <nav className={`fixed bottom-0 left-0 right-0 bg-white border-t border-[#F0F0F0] max-w-screen-md mx-auto ${Z_INDEX.BOTTOM_NAV}`}>
       <div className="mx-auto max-w-screen-md py-2 px-5 h-[70px] flex flex-row">
         {navItems.map((item) => {
         const Icon = item.icon;
