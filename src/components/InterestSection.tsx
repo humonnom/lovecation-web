@@ -31,7 +31,7 @@ const StackedAvatars = () => {
       className="relative w-[120px] h-[50px] mr-4"
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.3, ease: 'easeInOut' }}
     >
       {displayUsers.map((user, index) => (
         <div
