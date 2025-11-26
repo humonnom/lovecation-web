@@ -27,7 +27,7 @@ export const UserCard = ({ user, onLikeToggle }: UserCardProps) => {
   };
 
   return (
-    <div className="relative mb-2.5 w-[48%]">
+    <div className="relative mb-2.5">
       <Link
         href={`/users/${user.id}`}
         className="block rounded-[20px] overflow-hidden relative shadow-lg aspect-[3/4] active:opacity-90 transition-opacity"

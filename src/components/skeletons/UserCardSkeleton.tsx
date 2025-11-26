@@ -2,7 +2,7 @@ import React from 'react';
 
 export const UserCardSkeleton = () => {
   return (
-    <div className="relative mb-2.5 w-[48%]">
+    <div className="relative mb-2.5">
       <div className="rounded-[20px] overflow-hidden relative shadow-lg aspect-[3/4]">
         {/* Main image skeleton */}
         <div className="w-full h-full bg-gray-200 animate-pulse" />
