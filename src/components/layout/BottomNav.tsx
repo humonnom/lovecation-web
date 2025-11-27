@@ -38,7 +38,7 @@ export const BottomNav = () => {
     },
     {
       name: 'Profile',
-      href: '/profile',
+      href: '/my-profile',
       icon: User,
       labelKey: 'profile',
     },
