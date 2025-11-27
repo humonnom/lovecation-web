@@ -20,7 +20,12 @@
   },
   "chat": {
     "title": "チャット",
-    "subtitle": "新しいメッセージを確認しましょう"
+    "subtitle": "新しいメッセージを確認しましょう",
+    "recentMatches": "最近のマッチ",
+    "messages": "メッセージ",
+    "quickReply": "クイック返信",
+    "markAsRead": "既読にする",
+    "minutesAgo": "{minutes}分前"
   },
   "profile": {
     "title": "プロフィール",

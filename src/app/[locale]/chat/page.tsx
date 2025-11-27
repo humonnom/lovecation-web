@@ -52,12 +52,12 @@ const mockRecentMatches: RecentMatch[] = [
   },
 ];
 
-const mockConversations: Conversation[] = [
+const getMockConversations = (t: (key: string, values?: Record<string, any>) => string): Conversation[] => [
   {
     id: 1,
     user: mockRecentMatches[1],
     lastMessage: '今晩お時間ありますか？',
-    timestamp: '15분 전',
+    timestamp: t('minutesAgo', { minutes: 15 }),
     isOnline: false,
     isPinned: true,
   },
@@ -65,7 +65,7 @@ const mockConversations: Conversation[] = [
     id: 2,
     user: mockRecentMatches[2],
     lastMessage: '그래요? 저도 영화 좋아해요',
-    timestamp: '7분 전',
+    timestamp: t('minutesAgo', { minutes: 7 }),
     isOnline: false,
     isPinned: true,
   },
@@ -73,7 +73,7 @@ const mockConversations: Conversation[] = [
     id: 3,
     user: mockRecentMatches[3],
     lastMessage: '지금 퇴근하고 있어요~',
-    timestamp: '1분 전',
+    timestamp: t('minutesAgo', { minutes: 1 }),
     unreadCount: 4,
     isOnline: true,
   },
@@ -84,6 +84,7 @@ export default function ChatListPage() {
     const t = useTranslations('chat');
     const title = t('title')
     const subtitle = t('subtitle')
+    const mockConversations = getMockConversations(t);
 
     useEffect(() => {
         setHeader(title, subtitle);
@@ -125,7 +126,7 @@ export default function ChatListPage() {
         {/* Messages Section */}
         <div className="mb-5">
           <div className="flex justify-between items-center px-5 mb-4">
-            <h2 className="text-lg font-bold text-[#333]">메시지</h2>
+            <h2 className="text-lg font-bold text-[#333]">{t('messages')}</h2>
             <button onClick={() => {}}>
               <ListFilter size={24} className="text-[#333]" />
             </button>
@@ -185,11 +186,11 @@ export default function ChatListPage() {
         <div className="flex gap-3 px-5 py-5">
           <button className="flex-1 flex items-center justify-center gap-2 bg-[#EE9CA7] py-3.5 rounded-[25px] shadow-md hover:bg-[#EE9CA7]/90 transition-colors">
             <Zap size={20} className="text-white fill-white" />
-            <span className="text-sm font-semibold text-white">빠른 답장</span>
+            <span className="text-sm font-semibold text-white">{t('quickReply')}</span>
           </button>
           <button className="flex items-center justify-center gap-2 bg-white py-3.5 px-5 rounded-[25px] border border-[#E0E0E0] hover:bg-gray-50 transition-colors">
             <CheckCircle size={20} className="text-[#666]" />
-            <span className="text-sm font-semibold text-[#666]">읽음 표시</span>
+            <span className="text-sm font-semibold text-[#666]">{t('markAsRead')}</span>
           </button>
         </div>
       </div>
