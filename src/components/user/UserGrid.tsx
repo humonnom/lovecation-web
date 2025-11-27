@@ -1,10 +1,10 @@
 'use client';
 
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { Profile } from '@/types';
 import { UserCard } from './UserCard';
 import { UserCardSkeleton } from '@/components/skeletons';
-import { AnimatePresence, Easing, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'motion/react';
 
 interface UserGridProps {
   isLoading: boolean;
@@ -53,19 +53,3 @@ export const UserGrid = ({ isLoading, users }: UserGridProps) => {
     </div>
   );
 };
-// <AnimatePresence mode="wait">
-//   <motion.div
-//     key={`${title}-${subtitle}`}
-//     initial={{ opacity: 0, y: -10 }}
-//     animate={{ opacity: 1, y: 0 }}
-//     exit={{ opacity: 0, y: 10 }}
-//     transition={{ duration: 0.3, ease: 'easeInOut' }}
-//   >
-//     <h1 className="text-[24px] font-bold text-[#333] leading-[28px] mb-0.5 line-clamp-1">
-//       {title}
-//     </h1>
-//     <p className="text-sm text-[#666] leading-[20px] line-clamp-1">
-//       {subtitle || '\u00A0'}
-//     </p>
-//   </motion.div>
-// </AnimatePresence>

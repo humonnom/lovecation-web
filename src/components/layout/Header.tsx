@@ -1,9 +1,9 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
 import { LocaleSwitcher } from '../LocaleSwitcher';
 import { useHeader } from '@/lib/providers/HeaderProvider';
 import { Z_INDEX } from '@/constants/zIndex';
+import {AnimatePresence, motion} from "motion/react";
 
 export const Header = () => {
   const { title, subtitle } = useHeader();
