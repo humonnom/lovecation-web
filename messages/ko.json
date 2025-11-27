@@ -9,7 +9,7 @@
   "tabs": {
     "explore": "둘러보기",
     "match": "매치",
-    "message": "메시지",
+    "chat": "채팅",
     "profile": "프로필"
   },
   "home": {
@@ -17,6 +17,10 @@
     "subtitle": "하트로 관심을 표현하세요.",
     "loadingProfiles": "프로필을 불러오는 중...",
     "errorLoadingProfiles": "프로필을 불러올 수 없습니다"
+  },
+  "chat": {
+    "title": "채팅",
+    "subtitle": "새로운 메시지를 확인하세요"
   },
   "profile": {
     "title": "프로필",

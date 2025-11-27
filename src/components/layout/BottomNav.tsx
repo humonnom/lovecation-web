@@ -31,10 +31,10 @@ export const BottomNav = () => {
       labelKey: 'match',
     },
     {
-      name: 'Message',
-      href: '/messages',
+      name: 'Chat',
+      href: '/chat',
       icon: MessageCircle,
-      labelKey: 'message',
+      labelKey: 'chat',
     },
     {
       name: 'Profile',

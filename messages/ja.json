@@ -9,7 +9,7 @@
   "tabs": {
     "explore": "探索",
     "match": "マッチ",
-    "message": "メッセージ",
+    "chat": "チャット",
     "profile": "プロフィール"
   },
   "home": {
@@ -17,6 +17,10 @@
     "subtitle": "ハートで伝えよう。",
     "loadingProfiles": "プロフィールを読み込み中...",
     "errorLoadingProfiles": "プロフィールを読み込めません"
+  },
+  "chat": {
+    "title": "チャット",
+    "subtitle": "新しいメッセージを確認しましょう"
   },
   "profile": {
     "title": "プロフィール",
