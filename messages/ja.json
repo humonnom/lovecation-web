@@ -56,32 +56,32 @@
     "errorLoadingUser": "ユーザー情報を読み込めません",
     "age": "歳",
     "languages": {
-      "한국어": "韓国語",
-      "일본어": "日本語",
-      "영어": "英語"
+      "korean": "韓国語",
+      "japanese": "日本語",
+      "english": "英語"
     },
     "levels": {
-      "원어민": "ネイティブ",
-      "고급": "上級",
-      "중급": "中級",
-      "초급": "初級"
+      "native": "ネイティブ",
+      "advanced": "上級",
+      "intermediate": "中級",
+      "beginner": "初級"
     },
     "culturalLabels": {
-      "한국 음식": "韓国料理",
-      "일본 음식": "日本料理",
-      "K-pop/드라마": "K-pop/ドラマ",
-      "한국 문화 이해도": "韓国文化理解度",
-      "일본 문화 이해도": "日本文化理解度",
-      "애니메이션/만화": "アニメ/マンガ",
-      "온천/여행": "温泉/旅行",
-      "한국 예술/디자인": "韓国アート/デザイン",
-      "일본 예술/디자인": "日本アート/デザイン"
+      "korean_food": "韓国料理",
+      "japanese_food": "日本料理",
+      "kpop_drama": "K-pop/ドラマ",
+      "korean_culture_understanding": "韓国文化理解度",
+      "japanese_culture_understanding": "日本文化理解度",
+      "anime_manga": "アニメ/マンガ",
+      "onsen_travel": "温泉/旅行",
+      "korean_art_design": "韓国アート/デザイン",
+      "japanese_art_design": "日本アート/デザイン"
     },
     "lifestyleLabels": {
-      "음주": "飲酒",
-      "흡연": "喫煙",
-      "운동": "運動",
-      "반려동물": "ペット"
+      "drinking": "飲酒",
+      "smoking": "喫煙",
+      "exercise": "運動",
+      "pet": "ペット"
     },
     "lifestyleValues": {
       "sometimes": "たまに",

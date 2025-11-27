@@ -80,26 +80,26 @@ export default function UserDetailPage() {
 
   const getLevelText = (level: number) => {
     const levelMap: Record<number, string> = {
-      1: t('userDetail.levels.초급'),
-      2: t('userDetail.levels.초급'),
-      3: t('userDetail.levels.중급'),
-      4: t('userDetail.levels.고급'),
-      5: t('userDetail.levels.원어민'),
+      1: t('userDetail.levels.beginner'),
+      2: t('userDetail.levels.beginner'),
+      3: t('userDetail.levels.intermediate'),
+      4: t('userDetail.levels.advanced'),
+      5: t('userDetail.levels.native'),
     };
-    return levelMap[level] || t('userDetail.levels.초급');
+    return levelMap[level] || t('userDetail.levels.beginner');
   };
 
   const languageSkillsConfig = [
-    { key: 'korean', labelKey: 'userDetail.languages.한국어' },
-    { key: 'japanese', labelKey: 'userDetail.languages.일본어' },
-    { key: 'english', labelKey: 'userDetail.languages.영어' },
+    { key: 'korean', labelKey: 'userDetail.languages.korean' },
+    { key: 'japanese', labelKey: 'userDetail.languages.japanese' },
+    { key: 'english', labelKey: 'userDetail.languages.english' },
   ];
 
   const lifestyleConfig = [
-    { key: 'drinking', icon: Wine, labelKey: 'userDetail.lifestyleLabels.음주' },
-    { key: 'smoking', icon: Cigarette, labelKey: 'userDetail.lifestyleLabels.흡연' },
-    { key: 'exercise', icon: Dumbbell, labelKey: 'userDetail.lifestyleLabels.운동' },
-    { key: 'pet', icon: PawPrint, labelKey: 'userDetail.lifestyleLabels.반려동물' },
+    { key: 'drinking', icon: Wine, labelKey: 'userDetail.lifestyleLabels.drinking' },
+    { key: 'smoking', icon: Cigarette, labelKey: 'userDetail.lifestyleLabels.smoking' },
+    { key: 'exercise', icon: Dumbbell, labelKey: 'userDetail.lifestyleLabels.exercise' },
+    { key: 'pet', icon: PawPrint, labelKey: 'userDetail.lifestyleLabels.pet' },
   ];
 
   const futurePlansIcons: Record<string, any> = {
@@ -131,15 +131,15 @@ export default function UserDetailPage() {
   const getCulturalPreferenceLabels = (nationality: string) => {
     if (nationality === 'JP') {
       return [
-        { key: 'food', emoji: '🍗', labelKey: 'userDetail.culturalLabels.한국 음식' },
-        { key: 'entertainment', emoji: '🎵', labelKey: 'userDetail.culturalLabels.K-pop/드라마' },
-        { key: 'culture', emoji: '🇰🇷', labelKey: 'userDetail.culturalLabels.한국 문화 이해도' },
+        { key: 'food', emoji: '🍗', labelKey: 'userDetail.culturalLabels.korean_food' },
+        { key: 'entertainment', emoji: '🎵', labelKey: 'userDetail.culturalLabels.kpop_drama' },
+        { key: 'culture', emoji: '🇰🇷', labelKey: 'userDetail.culturalLabels.korean_culture_understanding' },
       ];
     } else {
       return [
-        { key: 'food', emoji: '🍜', labelKey: 'userDetail.culturalLabels.일본 음식' },
-        { key: 'entertainment', emoji: '🎬', labelKey: 'userDetail.culturalLabels.애니메이션/만화' },
-        { key: 'culture', emoji: '🇯🇵', labelKey: 'userDetail.culturalLabels.일본 문화 이해도' },
+        { key: 'food', emoji: '🍜', labelKey: 'userDetail.culturalLabels.japanese_food' },
+        { key: 'entertainment', emoji: '🎬', labelKey: 'userDetail.culturalLabels.anime_manga' },
+        { key: 'culture', emoji: '🇯🇵', labelKey: 'userDetail.culturalLabels.japanese_culture_understanding' },
       ];
     }
   };
