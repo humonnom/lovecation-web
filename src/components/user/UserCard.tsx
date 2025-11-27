@@ -2,9 +2,9 @@
 
 import * as React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Heart, Lock } from 'lucide-react';
 import type { Profile } from '@/types';
+import { Link } from '@/i18n/navigation';
 
 interface UserCardProps {
   user: Profile;
@@ -29,7 +29,7 @@ export const UserCard = ({ user, onLikeToggle }: UserCardProps) => {
   return (
     <div className="relative mb-2.5">
       <Link
-        href={`/users/${user.id}`}
+        href={`/user-detail/${user.id}`}
         className="block rounded-[20px] overflow-hidden relative shadow-lg aspect-[3/4] active:opacity-90 transition-opacity"
       >
         <Image

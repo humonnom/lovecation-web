@@ -1430,3 +1430,6 @@ export const Constants = {
     },
   },
 } as const
+
+// Export Profile type for easy import
+export type Profile = Tables<'profiles'>

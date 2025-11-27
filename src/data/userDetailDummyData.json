@@ -1,0 +1,197 @@
+{
+  "6ec248c5-5d66-49c2-8bc8-56cc4f462c90": {
+    "descriptions": {
+      "ko": "안녕하세요! 저는 일본 도쿄 출신이고 지금 한국에 살아요. 한국 문화와 음식을 정말 좋아해서 한국어도 열심히 공부하고 있어요. 여행과 사진 찍는 것을 좋아하고, 새로운 사람들을 만나는 것도 즐깁니다. 제 이상형은 유머러스하고 따뜻한 분이에요. 함께 카페 데이트나 영화 감상을 즐길 수 있는 분을 만나고 싶어요!",
+      "ja": "こんにちは！私は日本の東京出身で、今は韓国に住んでいます。韓国の文化と食べ物が本当に好きで、韓国語も一生懸命勉強しています。旅行と写真を撮ることが好きで、新しい人と出会うことも楽しんでいます。私の理想のタイプはユーモアがあって温かい方です。一緒にカフェデートや映画鑑賞を楽しめる方と出会いたいです！"
+    },
+    "interests": ["kdrama", "travel", "cafe", "cooking", "korean_study", "photography", "music"],
+    "languageSkills": {
+      "korean": 3,
+      "japanese": 5,
+      "english": 2
+    },
+    "culturalPreferences": {
+      "JP": {
+        "food": 90,
+        "entertainment": 85,
+        "culture": 80
+      },
+      "KR": {
+        "food": 90,
+        "entertainment": 80,
+        "culture": 85
+      }
+    },
+    "lifestyle": {
+      "drinking": "sometimes",
+      "smoking": "none",
+      "exercise": "2-3_per_week",
+      "pet": "cat"
+    },
+    "futurePlans": {
+      "JP": ["long_distance_ok", "visit_often", "relocation_considering"],
+      "KR": ["long_distance_ok", "visit_often", "relocation_considering"]
+    },
+    "idealType": {
+      "ageRange": "24-32",
+      "personality": "humorous_warm",
+      "dateStyle": "cafe_movies"
+    }
+  },
+  "cbd849e3-c74c-4cc0-9b64-bcd9af197716": {
+    "descriptions": {
+      "ko": "안녕하세요! 25살 서울에 사는 평범한 직장인입니다. IT 회사에서 일하고 있고, 일본 문화와 애니메이션을 좋아해서 일본어 공부도 하고 있어요. 주말에는 친구들과 맛집 탐방하거나 게임하는 걸 좋아합니다. 일본 여행도 자주 가고 싶어요. 밝고 긍정적인 성격이고, 솔직하게 대화할 수 있는 분을 만나고 싶습니다!",
+      "ja": "こんにちは！25歳でソウルに住んでいる普通の会社員です。IT企業で働いていて、日本の文化やアニメが好きなので日本語の勉強もしています。週末は友達とグルメ巡りをしたり、ゲームをするのが好きです。日本旅行にもよく行きたいです。明るくて前向きな性格で、素直に会話できる方と出会いたいです！"
+    },
+    "interests": ["anime", "gaming", "food_tour", "japanese_study", "movies", "music", "travel"],
+    "languageSkills": {
+      "korean": 5,
+      "japanese": 2,
+      "english": 3
+    },
+    "culturalPreferences": {
+      "JP": {
+        "food": 85,
+        "entertainment": 80,
+        "culture": 75
+      },
+      "KR": {
+        "food": 85,
+        "entertainment": 90,
+        "culture": 75
+      }
+    },
+    "lifestyle": {
+      "drinking": "1-2_per_week",
+      "smoking": "none",
+      "exercise": "occasionally",
+      "pet": "none"
+    },
+    "futurePlans": {
+      "JP": ["long_distance_ok", "visit_often", "interested_in_life"],
+      "KR": ["date_in_city", "weekend_travel", "settled"]
+    },
+    "idealType": {
+      "ageRange": "22-28",
+      "personality": "bright_positive",
+      "dateStyle": "food_movies_games"
+    }
+  },
+  "fe010b5d-799f-4f1a-8ff4-bd0807e396d1": {
+    "descriptions": {
+      "ko": "안녕하세요! 28살 부산 출신이고 현재 서울에서 일하고 있습니다. 무역회사에서 일하면서 일본 거래처와 자주 소통하다 보니 일본어도 능숙하게 할 수 있게 되었어요. 취미는 등산과 사진 촬영이고, 여행을 정말 좋아합니다. 특히 일본의 온천 여행을 좋아해요. 진지하게 만날 수 있는 분을 찾고 있습니다!",
+      "ja": "こんにちは！28歳で釜山出身、現在ソウルで働いています。貿易会社で日本の取引先と頻繁にやり取りをしているうちに、日本語も流暢にできるようになりました。趣味は登山と写真撮影で、旅行が本当に好きです。特に日本の温泉旅行が好きです。真剣にお付き合いできる方を探しています！"
+    },
+    "interests": ["hiking", "photography", "travel", "onsen", "reading", "cooking", "japanese_culture"],
+    "languageSkills": {
+      "korean": 5,
+      "japanese": 4,
+      "english": 3
+    },
+    "culturalPreferences": {
+      "JP": {
+        "food": 88,
+        "entertainment": 85,
+        "culture": 90
+      },
+      "KR": {
+        "food": 88,
+        "entertainment": 95,
+        "culture": 85
+      }
+    },
+    "lifestyle": {
+      "drinking": "moderate",
+      "smoking": "none",
+      "exercise": "3-4_per_week",
+      "pet": "dog"
+    },
+    "futurePlans": {
+      "JP": ["long_distance_serious", "visit_regularly", "relocation_possible"],
+      "KR": ["serious_relationship", "travel_together", "stable_life"]
+    },
+    "idealType": {
+      "ageRange": "25-32",
+      "personality": "sincere_serious",
+      "dateStyle": "travel_hiking_onsen"
+    }
+  },
+  "92fc6a44-60f0-40b5-8abf-878dd4b474f4": {
+    "descriptions": {
+      "ko": "안녕하세요! 24살 오사카 출신입니다. 대학을 졸업하고 지금은 패션 관련 일을 하고 있어요. K-pop과 한국 드라마를 보면서 한국에 관심을 갖게 되었고, 한국어 공부도 시작했어요. 쇼핑과 카페 투어를 좋아하고, 귀여운 것들을 수집하는 취미가 있어요. 다정하고 재미있는 분과 함께 서울을 탐험하고 싶어요!",
+      "ja": "こんにちは！24歳で大阪出身です。大学を卒業して、今はファッション関係の仕事をしています。K-popと韓国ドラマを見て韓国に興味を持つようになり、韓国語の勉強も始めました。ショッピングとカフェ巡りが好きで、可愛いものを集める趣味があります。優しくて面白い方と一緒にソウルを探検したいです！"
+    },
+    "interests": ["kpop", "fashion", "shopping", "cafe", "kdrama", "makeup", "photography"],
+    "languageSkills": {
+      "korean": 2,
+      "japanese": 5,
+      "english": 2
+    },
+    "culturalPreferences": {
+      "JP": {
+        "food": 85,
+        "entertainment": 95,
+        "culture": 70
+      },
+      "KR": {
+        "food": 85,
+        "entertainment": 95,
+        "culture": 70
+      }
+    },
+    "lifestyle": {
+      "drinking": "sometimes",
+      "smoking": "none",
+      "exercise": "yoga_1-2_per_week",
+      "pet": "rabbit"
+    },
+    "futurePlans": {
+      "JP": ["long_distance_want", "visit_korea_often", "working_holiday"],
+      "KR": ["long_distance_want", "visit_japan_often", "life_in_japan"]
+    },
+    "idealType": {
+      "ageRange": "23-28",
+      "personality": "kind_fun",
+      "dateStyle": "shopping_cafe_food"
+    }
+  },
+  "221cc2b8-b53d-441f-8631-80f2c4ebe590": {
+    "descriptions": {
+      "ko": "안녕하세요! 25살 후쿠오카 출신이에요. 지금은 교토에서 디자인 일을 하고 있습니다. 한국 음식과 문화를 정말 좋아해서 한국어도 열심히 공부 중이에요. 그림 그리기와 수공예를 좋아하고, 조용한 카페에서 책 읽는 시간을 즐깁니다. 차분하고 배려심 있는 분과 의미 있는 대화를 나누고 싶어요!",
+      "ja": "こんにちは！25歳で福岡出身です。今は京都でデザインの仕事をしています。韓国の食べ物と文化が本当に好きで、韓国語も一生懸命勉強中です。絵を描くことと手芸が好きで、静かなカフェで本を読む時間を楽しんでいます。落ち着いていて思いやりのある方と意味のある会話を交わしたいです！"
+    },
+    "interests": ["design", "drawing", "handicraft", "reading", "cafe", "korean_culture", "cooking"],
+    "languageSkills": {
+      "korean": 3,
+      "japanese": 5,
+      "english": 2
+    },
+    "culturalPreferences": {
+      "JP": {
+        "food": 92,
+        "entertainment": 88,
+        "culture": 82
+      },
+      "KR": {
+        "food": 92,
+        "entertainment": 88,
+        "culture": 82
+      }
+    },
+    "lifestyle": {
+      "drinking": "rarely",
+      "smoking": "none",
+      "exercise": "walking_yoga",
+      "pet": "cat"
+    },
+    "futurePlans": {
+      "JP": ["get_to_know_slowly", "plan_to_visit", "want_to_experience"],
+      "KR": ["get_to_know_slowly", "welcome_visit", "living_in_kyoto"]
+    },
+    "idealType": {
+      "ageRange": "24-30",
+      "personality": "calm_considerate",
+      "dateStyle": "cafe_exhibition_walk"
+    }
+  }
+}
