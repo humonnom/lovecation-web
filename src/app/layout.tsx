@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Lovacation - Connect Across Cultures',
+  title: 'Lovecation - Connect Across Cultures',
   description:
     'Connect with people across Korea and Japan. Experience international dating with real-time translation.',
 };
