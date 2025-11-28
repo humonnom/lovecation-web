@@ -12,7 +12,9 @@ import {
   Play,
   PlusCircle,
   Send,
+  Sparkles,
 } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
 import { DetailHeader } from '@/components/layout/DetailHeader';
 import chatData from '@/data/chatExampleDummyData.json';
 
@@ -50,6 +52,25 @@ const otherUser = {
   isOnline: true,
 };
 
+// AI 추천 문구
+const suggestedMessages = [
+  {
+    id: 1,
+    text: '안녕하세요! 한국어 공부 중이시라니 멋지네요.👍어떻게 시작하게 되셨어요?',
+    translation: 'こんにちは！韓国語を勉強中だなんて素敵ですね。👍どうやって始めたんですか？',
+  },
+  {
+    id: 2,
+    text: '안녕하세요! 프로필 보니까 한국 문화 정말 좋아하시는 것 같아서 인사드려요😊',
+    translation: 'こんにちは！プロフィールを見て韓国文化が本当に好きみたいで挨拶しますね😊',
+  },
+  {
+    id: 3,
+    text: '안녕하세요! 한국 드라마 좋아하신다고 들었는데, 추천 좀 해주실 수 있나요?😃',
+    translation: 'こんにちは！韓国ドラマが好きだと聞きましたが、おすすめを教えてもらえますか？😃',
+  },
+];
+
 export default function ChatDetailPage() {
   const params = useParams();
   const router = useRouter();
@@ -57,6 +78,9 @@ export default function ChatDetailPage() {
   const chatId = params.id as string;
   const [showTranslation, setShowTranslation] = useState(false);
   const [message, setMessage] = useState('');
+  const [showSuggestions, setShowSuggestions] = useState(true);
+  const [selectedSuggestion, setSelectedSuggestion] = useState<string | null>(null);
+  const [messages, setMessages] = useState<Message[]>(mockMessages);
 
   const renderMessage = (msg: Message) => {
     const isMine = msg.isCurrentUser; // 민석 = true (오른쪽), 사쿠라 = false (왼쪽)
@@ -135,7 +159,9 @@ export default function ChatDetailPage() {
               isMine ? 'bg-border rounded-br-sm' : 'bg-text-secondary rounded-bl-sm'
             }`}
           >
-            <p className={`text-[15px] leading-5 mb-1 ${isMine ? 'text-foreground' : 'text-background'}`}>
+            <p
+              className={`text-[15px] leading-5 mb-1 ${isMine ? 'text-foreground' : 'text-background'}`}
+            >
               {displayText}
             </p>
             <div className="flex items-center justify-end gap-1">
@@ -150,8 +176,131 @@ export default function ChatDetailPage() {
     );
   };
 
+  const handleSuggestionClick = (suggestion: { id: number; text: string; translation: string }) => {
+    setSelectedSuggestion(suggestion.text);
+
+    // 선택된 문구를 입력창에 표시
+    setMessage(suggestion.text);
+
+    // 0.5초 후 추천 화면 닫고 메시지 추가
+    setTimeout(() => {
+      setShowSuggestions(false);
+
+      // 첫 번째 메시지로 추가
+      const newMessage: Message = {
+        id: messages.length + 1,
+        senderId: 'minsuk',
+        senderName: '민석',
+        text: suggestion.text,
+        translatedText: suggestion.translation,
+        timestamp: new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }),
+        isRead: false,
+        isCurrentUser: true,
+      };
+
+      // 기존 메시지 앞에 추가
+      setMessages([newMessage, ...messages]);
+
+      // 입력창 클리어
+      setTimeout(() => {
+        setMessage('');
+      }, 100);
+    }, 500);
+  };
+
   return (
     <div className="flex flex-col h-screen bg-background">
+      {/* AI 추천 문구 오버레이 */}
+      <AnimatePresence>
+        {showSuggestions && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="absolute inset-0 z-50 bg-background/95 backdrop-blur-sm flex items-center justify-center p-6"
+          >
+            <div className="w-full max-w-md">
+              {/* 헤더 */}
+              <motion.div
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.1 }}
+                className="text-center mb-8"
+              >
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
+                  <Sparkles size={32} className="text-primary" />
+                </div>
+                <h2 className="text-2xl font-bold text-foreground mb-2">AI가 추천하는 첫 메시지</h2>
+                <p className="text-base text-text-secondary">사쿠라님과의 대화를 시작해보세요!</p>
+              </motion.div>
+
+              {/* 추천 문구 카드들 */}
+              <div className="space-y-3 relative">
+                {/* 데모 안내 말풍선 */}
+                <motion.div
+                  initial={{ x: 10, opacity: 0 }}
+                  animate={{
+                    x: [0, 3, 0],
+                    y: [0, -3, 0],
+                    opacity: 1,
+                  }}
+                  transition={{
+                    x: {
+                      repeat: Infinity,
+                      duration: 1.5,
+                      ease: 'easeInOut',
+                      delay: 0.5,
+                    },
+                    y: {
+                      repeat: Infinity,
+                      duration: 1.5,
+                      ease: 'easeInOut',
+                      delay: 0.5,
+                    },
+                    opacity: { delay: 0.5, duration: 0.3 },
+                  }}
+                  className="absolute -right-2 top-1/2 -translate-y-1/2 z-10"
+                >
+                  <div className="relative">
+                    {/* 말풍선 본체 */}
+                    <div className="bg-primary text-white px-3 py-2 rounded-xl shadow-lg whitespace-nowrap">
+                      <p className="text-xs font-medium">메세지를 선택해보세요!</p>
+                    </div>
+                    {/* 말풍선 꼬리 (왼쪽 중앙) */}
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2">
+                      <div className="w-0 h-0 border-t-[8px] border-t-transparent border-b-[8px] border-b-transparent border-r-[12px] border-r-primary" />
+                    </div>
+                  </div>
+                </motion.div>
+
+                {suggestedMessages.map((suggestion, index) => (
+                  <motion.button
+                    key={suggestion.id}
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ scale: 0.9, opacity: 0 }}
+                    transition={{ delay: 0.2 + index * 0.1 }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => handleSuggestionClick(suggestion)}
+                    className={`w-full p-4 rounded-2xl border-2 transition-all text-left ${
+                      selectedSuggestion === suggestion.text
+                        ? 'border-primary bg-primary/5 shadow-lg'
+                        : 'border-border bg-background hover:border-primary/50 hover:shadow-md'
+                    }`}
+                  >
+                    <p className="text-[15px] font-medium text-foreground mb-1">
+                      {suggestion.text}
+                    </p>
+                    <p className="text-sm text-text-secondary">{suggestion.translation}</p>
+                  </motion.button>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       {/* Header */}
       <DetailHeader
         centerElement={
@@ -198,7 +347,7 @@ export default function ChatDetailPage() {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4">{mockMessages.map(renderMessage)}</div>
+      <div className="flex-1 overflow-y-auto p-4">{messages.map(renderMessage)}</div>
 
       {/* Input Bar */}
       <div className="flex items-end px-4 py-3 bg-background border-t border-border gap-2">
