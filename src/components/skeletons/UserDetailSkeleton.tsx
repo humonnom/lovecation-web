@@ -1,10 +1,9 @@
+import { DetailHeader } from '@/components/layout/DetailHeader';
+
 export default function UserDetailSkeleton() {
   return (
     <div className="min-h-screen bg-[#FDFDFD]">
-      {/* Header */}
-      <div className="flex items-center justify-between px-5 py-3">
-        <div className="w-10 h-10 bg-gray-200 rounded-full animate-pulse" />
-      </div>
+      <DetailHeader loading />
 
       {/* Main photo skeleton */}
       <div className="w-full h-[500px] bg-gray-200 animate-pulse" />

@@ -1,28 +1,28 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter, useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useParams, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import {
-  ArrowLeft,
   Cake,
-  MapPin,
-  Languages,
-  Info,
-  Heart,
-  Plane,
-  Home,
-  Wine,
   Cigarette,
   Dumbbell,
+  Heart,
+  Home,
+  Info,
+  Languages,
+  MapPin,
   PawPrint,
+  Plane,
+  Wine,
 } from 'lucide-react';
 import { UserDetailSkeleton } from '@/components/skeletons';
 import userDetailData from '@/data/userDetailDummyData.json';
 import { supabase } from '@/lib/supabase/client';
 import type { Profile } from '@/types/supabase';
 import type { UserDetailDataMap } from '@/types/userDetail';
+import { DetailHeader } from '@/components/layout/DetailHeader';
 
 export default function UserDetailPage() {
   const router = useRouter();
@@ -67,9 +67,7 @@ export default function UserDetailPage() {
     fetchUserProfile();
   }, [params.id]);
 
-  const userDetails = user?.id
-    ? (userDetailData as UserDetailDataMap)[user.id]
-    : null;
+  const userDetails = user?.id ? (userDetailData as UserDetailDataMap)[user.id] : null;
 
   const photos = [
     '/placeholder.svg?height=500&width=400',
@@ -133,13 +131,21 @@ export default function UserDetailPage() {
       return [
         { key: 'food', emoji: '🍗', labelKey: 'userDetail.culturalLabels.korean_food' },
         { key: 'entertainment', emoji: '🎵', labelKey: 'userDetail.culturalLabels.kpop_drama' },
-        { key: 'culture', emoji: '🇰🇷', labelKey: 'userDetail.culturalLabels.korean_culture_understanding' },
+        {
+          key: 'culture',
+          emoji: '🇰🇷',
+          labelKey: 'userDetail.culturalLabels.korean_culture_understanding',
+        },
       ];
     } else {
       return [
         { key: 'food', emoji: '🍜', labelKey: 'userDetail.culturalLabels.japanese_food' },
         { key: 'entertainment', emoji: '🎬', labelKey: 'userDetail.culturalLabels.anime_manga' },
-        { key: 'culture', emoji: '🇯🇵', labelKey: 'userDetail.culturalLabels.japanese_culture_understanding' },
+        {
+          key: 'culture',
+          emoji: '🇯🇵',
+          labelKey: 'userDetail.culturalLabels.japanese_culture_understanding',
+        },
       ];
     }
   };
@@ -151,11 +157,7 @@ export default function UserDetailPage() {
   if (!user) {
     return (
       <div className="min-h-screen bg-[#FDFDFD]">
-        <div className="flex items-center justify-between px-5 py-3">
-          <button onClick={() => router.back()} className="p-2">
-            <ArrowLeft size={24} className="text-gray-800" />
-          </button>
-        </div>
+        <DetailHeader loading={false} />
         <div className="flex items-center justify-center h-96">
           <p className="text-gray-600">{t('userDetail.errorLoadingUser')}</p>
         </div>
@@ -165,13 +167,7 @@ export default function UserDetailPage() {
 
   return (
     <div className="min-h-screen bg-[#FDFDFD]">
-      {/* Header */}
-      <div className="flex items-center justify-between px-5 py-3 sticky top-0 bg-[#FDFDFD] z-10">
-        <button onClick={() => router.back()} className="p-2">
-          <ArrowLeft size={24} className="text-gray-800" />
-        </button>
-      </div>
-
+      <DetailHeader loading={false} />
       {/* Photo Gallery */}
       <div className="relative w-full h-[500px]">
         <Image
@@ -201,9 +197,7 @@ export default function UserDetailPage() {
             <div
               key={index}
               className={`h-1.5 rounded-full transition-all ${
-                currentPhotoIndex === index
-                  ? 'w-6 bg-white'
-                  : 'w-1.5 bg-white/50'
+                currentPhotoIndex === index ? 'w-6 bg-white' : 'w-1.5 bg-white/50'
               }`}
             />
           ))}
@@ -224,7 +218,10 @@ export default function UserDetailPage() {
           {user.age && (
             <div className="flex items-center gap-2">
               <Cake size={18} className="text-gray-500" />
-              <span className="text-base text-gray-600">{user.age}{t('userDetail.age')}</span>
+              <span className="text-base text-gray-600">
+                {user.age}
+                {t('userDetail.age')}
+              </span>
             </div>
           )}
           {user.city && user.nationality && (
@@ -243,14 +240,9 @@ export default function UserDetailPage() {
         <div className="px-5 py-4 border-b border-gray-100">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-xl font-bold text-gray-800">{t('userDetail.aboutMe')}</h2>
-            <button
-              onClick={() => setIsKR(!isKR)}
-              className="flex items-center gap-1 px-2 py-1"
-            >
+            <button onClick={() => setIsKR(!isKR)} className="flex items-center gap-1 px-2 py-1">
               <Languages size={16} className="text-[#EE9CA7]" />
-              <span className="text-sm text-[#EE9CA7] font-semibold">
-                {isKR ? 'JP' : 'KR'}
-              </span>
+              <span className="text-sm text-[#EE9CA7] font-semibold">{isKR ? 'JP' : 'KR'}</span>
             </button>
           </div>
           <p className="text-base text-gray-800 leading-6 mb-2">
@@ -268,12 +260,13 @@ export default function UserDetailPage() {
           <h2 className="text-xl font-bold text-gray-800 mb-3">{t('userDetail.interests')}</h2>
           <div className="flex flex-wrap gap-2">
             {userDetails.interests.map((interest, index) => (
-              <div
-                key={index}
-                className="bg-[#FFCBD2] px-3 py-1.5 rounded-full"
-              >
+              <div key={index} className="bg-[#FFCBD2] px-3 py-1.5 rounded-full">
                 <span className="text-sm text-[#EE9CA7] font-semibold">
-                  #{t(`userDetail.interestsList.${interest}`) !== `userDetail.interestsList.${interest}` ? t(`userDetail.interestsList.${interest}`) : interest}
+                  #
+                  {t(`userDetail.interestsList.${interest}`) !==
+                  `userDetail.interestsList.${interest}`
+                    ? t(`userDetail.interestsList.${interest}`)
+                    : interest}
                 </span>
               </div>
             ))}
@@ -287,25 +280,19 @@ export default function UserDetailPage() {
           <h2 className="text-xl font-bold text-gray-800 mb-3">{t('userDetail.languageSkills')}</h2>
           {languageSkillsConfig.map((langConfig) => {
             const level =
-              userDetails.languageSkills[
-                langConfig.key as keyof typeof userDetails.languageSkills
-              ];
+              userDetails.languageSkills[langConfig.key as keyof typeof userDetails.languageSkills];
             if (!level) return null;
 
             const levelText = getLevelText(level);
 
             return (
               <div key={langConfig.key} className="flex items-center mb-3">
-                <span className="text-base text-gray-800 w-20">
-                  {t(langConfig.labelKey)}
-                </span>
+                <span className="text-base text-gray-800 w-20">{t(langConfig.labelKey)}</span>
                 <div className="flex gap-0.5 mr-3">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <span
                       key={star}
-                      className={`text-lg ${
-                        star <= level ? 'text-yellow-500' : 'text-gray-300'
-                      }`}
+                      className={`text-lg ${star <= level ? 'text-yellow-500' : 'text-gray-300'}`}
                     >
                       ★
                     </span>
@@ -321,14 +308,15 @@ export default function UserDetailPage() {
       {/* Cultural Preferences */}
       {userDetails?.culturalPreferences && user?.nationality && (
         <div className="px-5 py-4 border-b border-gray-100">
-          <h2 className="text-xl font-bold text-gray-800 mb-3">{t('userDetail.culturalPreferences')}</h2>
+          <h2 className="text-xl font-bold text-gray-800 mb-3">
+            {t('userDetail.culturalPreferences')}
+          </h2>
           {getCulturalPreferenceLabels(user.nationality).map((item) => {
             const preferences =
               userDetails.culturalPreferences[
                 user.nationality as keyof typeof userDetails.culturalPreferences
               ];
-            const percentage =
-              preferences?.[item.key as keyof typeof preferences];
+            const percentage = preferences?.[item.key as keyof typeof preferences];
             if (percentage === undefined) return null;
 
             return (
@@ -354,10 +342,7 @@ export default function UserDetailPage() {
           <h2 className="text-xl font-bold text-gray-800 mb-3">{t('userDetail.lifestyle')}</h2>
           <div className="flex flex-wrap gap-3">
             {lifestyleConfig.map((config) => {
-              const value =
-                userDetails.lifestyle[
-                  config.key as keyof typeof userDetails.lifestyle
-                ];
+              const value = userDetails.lifestyle[config.key as keyof typeof userDetails.lifestyle];
               if (!value) return null;
 
               const IconComponent = config.icon;
@@ -368,11 +353,12 @@ export default function UserDetailPage() {
                   className="w-[calc(50%-6px)] bg-[#FAFAFA] p-4 rounded-xl flex flex-col items-center"
                 >
                   <IconComponent size={24} className="text-gray-600 mb-2" />
-                  <span className="text-sm text-gray-600 mb-1">
-                    {t(config.labelKey)}
-                  </span>
+                  <span className="text-sm text-gray-600 mb-1">{t(config.labelKey)}</span>
                   <span className="text-base text-gray-800 font-semibold">
-                    {t(`userDetail.lifestyleValues.${value}`) !== `userDetail.lifestyleValues.${value}` ? t(`userDetail.lifestyleValues.${value}`) : value}
+                    {t(`userDetail.lifestyleValues.${value}`) !==
+                    `userDetail.lifestyleValues.${value}`
+                      ? t(`userDetail.lifestyleValues.${value}`)
+                      : value}
                   </span>
                 </div>
               );
@@ -385,18 +371,20 @@ export default function UserDetailPage() {
       {userDetails?.futurePlans && user?.nationality && (
         <div className="px-5 py-4 border-b border-gray-100">
           <h2 className="text-xl font-bold text-gray-800 mb-3">{t('userDetail.futurePlans')}</h2>
-          {userDetails.futurePlans[
-            user.nationality as keyof typeof userDetails.futurePlans
-          ]?.map((planKey, index) => {
-            const IconComponent = futurePlansIcons[planKey] || Heart;
+          {userDetails.futurePlans[user.nationality as keyof typeof userDetails.futurePlans]?.map(
+            (planKey, index) => {
+              const IconComponent = futurePlansIcons[planKey] || Heart;
 
-            return (
-              <div key={index} className="flex items-center gap-2 mb-3">
-                <IconComponent size={20} className="text-[#EE9CA7]" />
-                <span className="text-base text-gray-800">{t(`userDetail.futurePlansList.${user.nationality}.${planKey}`)}</span>
-              </div>
-            );
-          })}
+              return (
+                <div key={index} className="flex items-center gap-2 mb-3">
+                  <IconComponent size={20} className="text-[#EE9CA7]" />
+                  <span className="text-base text-gray-800">
+                    {t(`userDetail.futurePlansList.${user.nationality}.${planKey}`)}
+                  </span>
+                </div>
+              );
+            }
+          )}
         </div>
       )}
 
@@ -405,13 +393,22 @@ export default function UserDetailPage() {
         <div className="px-5 py-4 border-b border-gray-100">
           <h2 className="text-xl font-bold text-gray-800 mb-3">{t('userDetail.idealType')}</h2>
           <p className="text-base text-gray-800 leading-6 mb-2">
-            • {t('userDetail.idealTypeLabels.ageRange')}: {userDetails.idealType.ageRange}{t('userDetail.age')}
+            • {t('userDetail.idealTypeLabels.ageRange')}: {userDetails.idealType.ageRange}
+            {t('userDetail.age')}
           </p>
           <p className="text-base text-gray-800 leading-6 mb-2">
-            • {t('userDetail.idealTypeLabels.personality')}: {t(`userDetail.idealTypeData.personalities.${userDetails.idealType.personality}`) !== `userDetail.idealTypeData.personalities.${userDetails.idealType.personality}` ? t(`userDetail.idealTypeData.personalities.${userDetails.idealType.personality}`) : userDetails.idealType.personality}
+            • {t('userDetail.idealTypeLabels.personality')}:{' '}
+            {t(`userDetail.idealTypeData.personalities.${userDetails.idealType.personality}`) !==
+            `userDetail.idealTypeData.personalities.${userDetails.idealType.personality}`
+              ? t(`userDetail.idealTypeData.personalities.${userDetails.idealType.personality}`)
+              : userDetails.idealType.personality}
           </p>
           <p className="text-base text-gray-800 leading-6">
-            • {t('userDetail.idealTypeLabels.dateStyle')}: {t(`userDetail.idealTypeData.dateStyles.${userDetails.idealType.dateStyle}`) !== `userDetail.idealTypeData.dateStyles.${userDetails.idealType.dateStyle}` ? t(`userDetail.idealTypeData.dateStyles.${userDetails.idealType.dateStyle}`) : userDetails.idealType.dateStyle}
+            • {t('userDetail.idealTypeLabels.dateStyle')}:{' '}
+            {t(`userDetail.idealTypeData.dateStyles.${userDetails.idealType.dateStyle}`) !==
+            `userDetail.idealTypeData.dateStyles.${userDetails.idealType.dateStyle}`
+              ? t(`userDetail.idealTypeData.dateStyles.${userDetails.idealType.dateStyle}`)
+              : userDetails.idealType.dateStyle}
           </p>
         </div>
       )}
@@ -419,9 +416,7 @@ export default function UserDetailPage() {
       {/* Demo Notice */}
       <div className="flex items-start gap-3 bg-orange-50 p-4 mx-5 my-4 rounded-xl">
         <Info size={20} className="text-orange-500 flex-shrink-0 mt-0.5" />
-        <p className="flex-1 text-sm text-orange-500 leading-5">
-          {t('userDetail.demoNotice')}
-        </p>
+        <p className="flex-1 text-sm text-orange-500 leading-5">{t('userDetail.demoNotice')}</p>
       </div>
 
       <div className="h-24" />

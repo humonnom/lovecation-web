@@ -5,7 +5,7 @@ import { useHeader } from '@/lib/providers/HeaderProvider';
 import { Z_INDEX } from '@/constants/zIndex';
 import {AnimatePresence, motion} from "motion/react";
 
-export const Header = () => {
+export const MainHeader = () => {
   const { title, subtitle } = useHeader();
 
   return (

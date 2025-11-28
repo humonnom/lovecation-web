@@ -5,7 +5,7 @@ import { Toaster } from 'sonner';
 import { QueryProvider } from '@/lib/providers/QueryProvider';
 import { AuthProvider } from '@/lib/providers/AuthProvider';
 import { HeaderProvider } from '@/lib/providers/HeaderProvider';
-import { Header } from '@/components/layout/Header';
+import { HeaderWrapper } from '@/components/layout/HeaderWrapper';
 import { BottomNav } from '@/components/layout/BottomNav';
 import '../globals.css';
 import * as React from 'react';
@@ -37,7 +37,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             <QueryProvider>
               <AuthProvider>
                 <HeaderProvider>
-                  <Header />
+                  <HeaderWrapper />
                   <main className="pb-[70px]">{children}</main>
                   <BottomNav />
                   <Toaster position="top-center" richColors />
