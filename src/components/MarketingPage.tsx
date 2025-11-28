@@ -2,8 +2,8 @@
 
 import * as React from 'react';
 import { useTranslations } from 'next-intl';
-import { Construction } from 'lucide-react';
 import { InterestSection } from './InterestSection';
+import { DevelopmentBanner } from './DevelopmentBanner';
 import Image from 'next/image';
 import { useHeader } from '@/lib/providers/HeaderProvider';
 import { useEffect } from 'react';
@@ -26,11 +26,7 @@ export const MarketingPage = ({ featureName }: MarketingPageProps) => {
     <div className="min-h-screen bg-background">
       {/* Content */}
       <div className="px-5 pb-5 overflow-y-auto">
-        {/* Development Banner */}
-        <div className="flex flex-row items-center justify-center bg-[#FFF3E0] py-3 px-5 mt-2.5 rounded-xl gap-2">
-          <Construction className="text-[#FF9800]" size={24} />
-          <span className="text-sm text-[#FF9800] font-semibold">{t('common.inDevelopment')}</span>
-        </div>
+        <DevelopmentBanner />
 
         {/* Main Content */}
         <div className="pt-10">

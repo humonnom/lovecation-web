@@ -2,11 +2,12 @@
 
 import Image from 'next/image';
 import { Star, ListFilter, Heart, Zap, CheckCircle } from 'lucide-react';
-import {useRouter} from "next/navigation";
-import {useHeader} from "@/lib/providers/HeaderProvider";
-import {useTranslations} from "next-intl";
-import {useEffect} from "react";
-import {useProfiles} from "@/hooks/queries";
+import { Link } from '@/i18n/navigation';
+import { useHeader } from '@/lib/providers/HeaderProvider';
+import { useTranslations } from 'next-intl';
+import { useEffect } from 'react';
+import SkeletonImageSVG from "@/components/SkeletonImageSVG";
+import { DevelopmentBanner } from '@/components/DevelopmentBanner';
 
 interface RecentMatch {
   id: number;
@@ -79,20 +80,32 @@ const getMockConversations = (t: (key: string, values?: Record<string, any>) => 
   },
 ];
 
+// const toBase64 = (str: string) =>
+//     typeof window === 'undefined'
+//         ? Buffer.from(str).toString('base64')
+//         : window.btoa(str);
+
+// const shimmerHtmlString = renderToString(
+//     <SkeletonImageSVG w={bounds.width} h={bounds.height} />,
+// );
 export default function ChatListPage() {
-    const {setHeader} = useHeader();
+    const { setHeader } = useHeader();
     const t = useTranslations('chat');
-    const title = t('title')
-    const subtitle = t('subtitle')
+    const title = t('title');
+    const subtitle = t('subtitle');
     const mockConversations = getMockConversations(t);
 
     useEffect(() => {
         setHeader(title, subtitle);
-    }, [title, subtitle])
+    }, [title, subtitle, setHeader]);
 
   return (
-    <div className="flex-1 bg-[#FDFDFD]">
-      <div className="flex-1 overflow-y-auto">
+    <div className="flex-1 bg-[#FDFDFD] flex flex-col">
+      <div className="flex-1 overflow-y-auto pb-20">
+        <div className="px-5">
+          <DevelopmentBanner />
+        </div>
+
         {/* Recent Matches Section */}
         <div className="mb-5">
           <div className="flex overflow-x-auto px-5 gap-4 no-scrollbar py-2">
@@ -133,10 +146,10 @@ export default function ChatListPage() {
           </div>
 
           {mockConversations.map((conversation) => (
-            <button
+            <Link
               key={conversation.id}
+              href={`/chat/${conversation.id}`}
               className="flex items-center px-5 py-3 bg-white w-full hover:bg-gray-50 transition-colors"
-              onClick={() => {}}
             >
               <div className="mr-3">
                 <div className="relative">
@@ -146,6 +159,8 @@ export default function ChatListPage() {
                       alt={conversation.user.name}
                       fill
                       className="object-cover object-center"
+                      // placeholder={'blur'}
+                      // blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmerHtmlString)}`}
                     />
                   </div>
                   {conversation.isOnline && (
@@ -178,12 +193,14 @@ export default function ChatListPage() {
                   </span>
                 </div>
               )}
-            </button>
+            </Link>
           ))}
         </div>
+      </div>
 
-        {/* Quick Actions */}
-        <div className="flex gap-3 px-5 py-5">
+      {/* Quick Actions - Fixed at bottom */}
+      <div className="fixed bottom-[70px] left-0 right-0 max-w-screen-md mx-auto bg-white border-t border-gray-100 px-5 py-3 shadow-lg">
+        <div className="flex gap-3">
           <button className="flex-1 flex items-center justify-center gap-2 bg-[#EE9CA7] py-3.5 rounded-[25px] shadow-md hover:bg-[#EE9CA7]/90 transition-colors">
             <Zap size={20} className="text-white fill-white" />
             <span className="text-sm font-semibold text-white">{t('quickReply')}</span>
