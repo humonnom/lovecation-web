@@ -80,7 +80,7 @@ export default function ChatDetailPage() {
   const [message, setMessage] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(true);
   const [selectedSuggestion, setSelectedSuggestion] = useState<string | null>(null);
-  const [messages, setMessages] = useState<Message[]>(mockMessages);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   const renderMessage = (msg: Message) => {
     const isMine = msg.isCurrentUser; // 민석 = true (오른쪽), 사쿠라 = false (왼쪽)
@@ -214,7 +214,7 @@ export default function ChatDetailPage() {
       <AnimatePresence>
         {showSuggestions && (
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={{ opacity: 1 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
@@ -223,9 +223,8 @@ export default function ChatDetailPage() {
             <div className="w-full max-w-md">
               {/* 헤더 */}
               <motion.div
-                initial={{ y: -20, opacity: 0 }}
+                initial={{ y: 0, opacity: 1 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.1 }}
                 className="text-center mb-8"
               >
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
@@ -239,7 +238,7 @@ export default function ChatDetailPage() {
               <div className="space-y-3 relative">
                 {/* 데모 안내 말풍선 */}
                 <motion.div
-                  initial={{ x: 10, opacity: 0 }}
+                  initial={{ x: 0, y: 0, opacity: 1 }}
                   animate={{
                     x: [0, 3, 0],
                     y: [0, -3, 0],
@@ -250,15 +249,12 @@ export default function ChatDetailPage() {
                       repeat: Infinity,
                       duration: 1.5,
                       ease: 'easeInOut',
-                      delay: 0.5,
                     },
                     y: {
                       repeat: Infinity,
                       duration: 1.5,
                       ease: 'easeInOut',
-                      delay: 0.5,
                     },
-                    opacity: { delay: 0.5, duration: 0.3 },
                   }}
                   className="absolute -right-2 top-1/2 -translate-y-1/2 z-10"
                 >
@@ -277,10 +273,9 @@ export default function ChatDetailPage() {
                 {suggestedMessages.map((suggestion, index) => (
                   <motion.button
                     key={suggestion.id}
-                    initial={{ y: 20, opacity: 0 }}
+                    initial={{ y: 0, opacity: 1 }}
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ scale: 0.9, opacity: 0 }}
-                    transition={{ delay: 0.2 + index * 0.1 }}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => handleSuggestionClick(suggestion)}
