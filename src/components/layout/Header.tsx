@@ -4,19 +4,9 @@ import { LocaleSwitcher } from '../LocaleSwitcher';
 import { useHeader } from '@/lib/providers/HeaderProvider';
 import { Z_INDEX } from '@/constants/zIndex';
 import {AnimatePresence, motion} from "motion/react";
-import {usePathname} from "@/i18n/navigation";
-
-const getBasePath = (pathname: string) => {
-    return pathname.split('/')[1];
-}
 
 export const Header = () => {
   const { title, subtitle } = useHeader();
-  const pathname  = usePathname();
-
-  if (['user-detail'].includes(getBasePath(pathname))) {
-      return null;
-  }
 
   return (
     <header
