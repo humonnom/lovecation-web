@@ -86,9 +86,9 @@ export function ChatMessage({ message, currentUser, otherUser, showTranslation }
           {/* 번역 텍스트 (사쿠라 메시지에만, 번역 켜진 경우) */}
           {showTranslatedText && (
             <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease: 'easeOut' }}
               className="mt-2 pt-2 border-t border-background/20"
             >
               <p className="text-sm text-background/80 leading-5">{message.translatedText}</p>

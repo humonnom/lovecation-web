@@ -56,6 +56,7 @@ export default function ChatDetailPage() {
   const [autoPlayStarted, setAutoPlayStarted] = useState(false);
   const [showTranslationHint, setShowTranslationHint] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
   // 스크롤 자동 이동
   useEffect(() => {
@@ -97,11 +98,16 @@ export default function ChatDetailPage() {
               setShowTranslation(true);
             }, 2300);
 
-            // 3. 메시지 숨기기 (번역 켜진 후 2.5초)
+            // 3. 메시지 숨기기 후 다음 메시지 재생 (추가 딜레이)
             setTimeout(() => {
               setShowTranslationHint(false);
-              playNextMessage();
+              // 메시지3 등장을 더 딜레이 (2초 추가)
+              setTimeout(playNextMessage, 2000);
             }, 4800);
+          } else if (msg.id === 3) {
+            // id3 타이핑 끝나는 시점에 스크롤을 맨 위로
+            messagesContainerRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(playNextMessage, 1500 + Math.random() * 1000);
           } else {
             setTimeout(playNextMessage, 1500 + Math.random() * 1000);
           }
@@ -212,7 +218,7 @@ export default function ChatDetailPage() {
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4">
+          <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-4">
             {messages.map((msg) => (
               <ChatMessage
                 key={msg.id}

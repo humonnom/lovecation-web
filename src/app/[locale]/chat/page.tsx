@@ -1,12 +1,13 @@
 'use client';
 
 import Image from 'next/image';
-import { CheckCircle, Heart, ListFilter, Star, Zap } from 'lucide-react';
+import { CheckCircle, Heart, ListFilter, Sparkles, Star, Zap } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { useHeader } from '@/lib/providers/HeaderProvider';
 import { useTranslations } from 'next-intl';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { DevelopmentBanner } from '@/components/DevelopmentBanner';
+import { BouncingSpeechBubble } from '@/components/common/BouncingSpeechBubble';
 
 interface RecentMatch {
   id: number;
@@ -26,30 +27,25 @@ interface Conversation {
   isOnline?: boolean;
   unreadCount?: number;
   isPinned?: boolean;
+  isNew?: boolean;
 }
 
 const mockRecentMatches: RecentMatch[] = [
   {
     id: 1,
-    name: 'New Match!',
+    name: 'Sakura',
     image:
-      'https://tfvieqghcwnhsqexspxy.supabase.co/storage/v1/object/public/profile-images/sample3.jpg',
+      'https://tfvieqghcwnhsqexspxy.supabase.co/storage/v1/object/public/profile-images/sample2.jpg',
     isNew: true,
   },
   {
     id: 2,
-    name: 'Sakura',
-    image:
-      'https://tfvieqghcwnhsqexspxy.supabase.co/storage/v1/object/public/profile-images/sample2.jpg',
-  },
-  {
-    id: 3,
     name: 'Yui',
     image:
       'https://tfvieqghcwnhsqexspxy.supabase.co/storage/v1/object/public/profile-images/sample4.jpg',
   },
   {
-    id: 4,
+    id: 3,
     name: 'Sato',
     image:
       'https://tfvieqghcwnhsqexspxy.supabase.co/storage/v1/object/public/profile-images/sample1.jpg',
@@ -57,31 +53,34 @@ const mockRecentMatches: RecentMatch[] = [
 ];
 
 const getMockConversations = (
-  t: (key: string, values?: Record<string, any>) => string
+  t: (key: string, values?: Record<string, unknown>) => string
 ): Conversation[] => [
   {
     id: 1,
-    user: mockRecentMatches[1],
-    lastMessage: '今晩お時間ありますか？',
+    user: mockRecentMatches[0],
+    lastMessage: '',
     timestamp: t('minutesAgo', { minutes: 15 }),
-    isOnline: false,
-    isPinned: true,
+    isOnline: true,
+    isPinned: false,
+    isNew: true,
   },
   {
     id: 2,
-    user: mockRecentMatches[2],
-    lastMessage: '그래요? 저도 영화 좋아해요',
+    user: mockRecentMatches[1],
+    lastMessage: '今日は夕方にキムチチャーハンを作って食べるつもりです。',
     timestamp: t('minutesAgo', { minutes: 7 }),
     isOnline: false,
     isPinned: true,
+    isNew: false,
   },
   {
     id: 3,
-    user: mockRecentMatches[3],
+    user: mockRecentMatches[2],
     lastMessage: '지금 퇴근하고 있어요~',
     timestamp: t('minutesAgo', { minutes: 1 }),
     unreadCount: 4,
     isOnline: true,
+    isNew: false,
   },
 ];
 
@@ -98,11 +97,23 @@ export default function ChatListPage() {
   const t = useTranslations('chat');
   const title = t('title');
   const subtitle = t('subtitle');
-  const mockConversations = getMockConversations(t);
+  const mockConversations = getMockConversations(
+    t as (key: string, values?: Record<string, unknown>) => string
+  );
+  const [showHint, setShowHint] = useState(false);
 
   useEffect(() => {
     setHeader(title, subtitle);
   }, [title, subtitle, setHeader]);
+
+  // 페이지 진입 1초 후 힌트 말풍선 표시
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowHint(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="flex-1 bg-[#FDFDFD] flex flex-col">
@@ -150,52 +161,86 @@ export default function ChatListPage() {
             </button>
           </div>
 
-          {mockConversations.map((conversation) => (
-            <Link
-              key={conversation.id}
-              href={`/chat/${conversation.id}`}
-              className="flex items-center px-5 py-3 bg-white w-full hover:bg-gray-50 transition-colors"
-            >
-              <div className="mr-3">
-                <div className="relative">
-                  <div className="w-14 h-14 rounded-full overflow-hidden relative">
-                    <Image
-                      src={conversation.user.image}
-                      alt={conversation.user.name}
-                      fill
-                      className="object-cover object-center"
-                      // placeholder={'blur'}
-                      // blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmerHtmlString)}`}
-                    />
-                  </div>
-                  {conversation.isOnline && (
-                    <div className="absolute bottom-0.5 right-0.5 w-3.5 h-3.5 rounded-full bg-[#4CAF50] border-2 border-white" />
-                  )}
-                </div>
-              </div>
+          {mockConversations.map((conversation, index) => {
+            const isFirstNew =
+              conversation.isNew && mockConversations.findIndex((c) => c.isNew) === index;
 
-              <div className="flex-1">
-                <div className="flex justify-between items-center mb-1">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-base font-semibold text-[#333]">
-                      {conversation.user.name}
-                    </span>
-                    {conversation.isPinned && (
-                      <Heart size={16} className="text-[#EE9CA7] fill-[#EE9CA7]" />
+            return (
+              <Link
+                key={conversation.id}
+                href={`/chat/${conversation.id}`}
+                onClick={(e) => {
+                  if (!isFirstNew) {
+                    e.preventDefault();
+                  }
+                }}
+                className={`flex items-center px-5 py-3 w-full transition-colors relative ${
+                  conversation.isNew
+                    ? 'bg-primary/5 hover:bg-primary/10 border-l-2 border-primary'
+                    : 'bg-white hover:bg-gray-50'
+                }`}
+              >
+                <div className="mr-3">
+                  <div className="relative">
+                    <div className="w-14 h-14 rounded-full overflow-hidden relative">
+                      <Image
+                        src={conversation.user.image}
+                        alt={conversation.user.name}
+                        fill
+                        className="object-cover object-center"
+                        // placeholder={'blur'}
+                        // blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmerHtmlString)}`}
+                      />
+                    </div>
+                    {conversation.isOnline && (
+                      <div className="absolute bottom-0.5 right-0.5 w-3.5 h-3.5 rounded-full bg-[#4CAF50] border-2 border-white" />
                     )}
                   </div>
-                  <span className="text-xs text-[#999]">{conversation.timestamp}</span>
                 </div>
-                <p className="text-sm text-[#666] truncate text-left">{conversation.lastMessage}</p>
-              </div>
 
-              {conversation.unreadCount && (
-                <div className="w-6 h-6 rounded-full bg-[#EE9CA7] flex items-center justify-center ml-2">
-                  <span className="text-xs font-bold text-white">{conversation.unreadCount}</span>
+                <div className="flex-1">
+                  <div className="flex justify-between items-center mb-1">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-base font-semibold text-[#333]">
+                        {conversation.user.name}
+                      </span>
+                      {conversation.isPinned && (
+                        <Heart size={16} className="text-[#EE9CA7] fill-[#EE9CA7]" />
+                      )}
+                    </div>
+                    <span className="text-xs text-[#999]">{conversation.timestamp}</span>
+                  </div>
+                  {conversation.isNew ? (
+                    <div className="flex items-center gap-1.5">
+                      <Sparkles size={14} className="text-primary flex-shrink-0" />
+                      <p className="text-sm text-primary font-medium truncate text-left">
+                        첫 대화를 시작해보세요!
+                      </p>
+                    </div>
+                  ) : (
+                    <p className="text-sm text-[#666] truncate text-left max-w-[36ch]">
+                      {conversation.lastMessage}
+                    </p>
+                  )}
                 </div>
-              )}
-            </Link>
-          ))}
+
+                {conversation.unreadCount && (
+                  <div className="w-6 h-6 rounded-full bg-[#EE9CA7] flex items-center justify-center ml-2">
+                    <span className="text-xs font-bold text-white">{conversation.unreadCount}</span>
+                  </div>
+                )}
+
+                {/* 첫 번째 isNew 요소에 말풍선 표시 */}
+                {isFirstNew && showHint && (
+                  <BouncingSpeechBubble
+                    text="클릭해서 첫 대화를 시도하세요!"
+                    position="bottom"
+                    className="absolute right-5 -top-4"
+                  />
+                )}
+              </Link>
+            );
+          })}
         </div>
       </div>
 
