@@ -235,7 +235,7 @@ export default function ChatListPage() {
                   <BouncingSpeechBubble
                     text="클릭해서 첫 대화를 시도하세요!"
                     position="bottom"
-                    className="absolute right-5 -top-4"
+                    className="absolute right-16 -top-4"
                   />
                 )}
               </Link>
