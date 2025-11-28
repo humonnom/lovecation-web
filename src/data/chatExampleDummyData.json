@@ -2,9 +2,9 @@
   {
     "id": 2,
     "senderId": "sakura",
-    "senderName": "사쿠라",
-    "text": "안녕하세요! 네, 한국 드라마를 보면서 한국어를 공부하고 있어요 ㅎㅎ",
-    "translatedText": "こんにちは！はい、韓国ドラマを見ながら韓国語を勉強しています ㅎㅎ",
+    "senderName": "さくら",
+    "text": "こんにちは！はい、韓国ドラマを見ながら韓国語を勉強しています ㅎㅎ",
+    "translatedText": "안녕하세요! 네, 한국 드라마를 보면서 한국어를 공부하고 있어요 ㅎㅎ",
     "timestamp": "10:32",
     "isRead": true,
     "isCurrentUser": false
@@ -13,8 +13,8 @@
     "id": 3,
     "senderId": "minsuk",
     "senderName": "민석",
-    "text": "오 대박! 저는 반대로 일본어를 회사에서 쓰다 보니 자연스럽게 배웠어요. 어떤 드라마 좋아하세요?",
-    "translatedText": "おお、すごい！私は逆に日本語を会社で使っているうちに自然に覚えました。どんなドラマが好きですか？",
+    "text": "오 저도 드라마 엄청 좋아해요! 어떤 드라마 좋아하세요?",
+    "translatedText": "おお、私もドラマめっちゃ好きです！どんなドラマが好きですか？",
     "timestamp": "10:33",
     "isRead": true,
     "isCurrentUser": true
@@ -22,9 +22,9 @@
   {
     "id": 4,
     "senderId": "sakura",
-    "senderName": "사쿠라",
-    "text": "요즘 이상한 변호사 우영우 보고 있어요! 민석 씨는 일본 어디 자주 가세요?",
-    "translatedText": "最近は「ウ・ヨンウ弁護士は天才肌」を見ています！ミンソクさんは日本のどこによく行きますか？",
+    "senderName": "さくら",
+    "text": "最近は「ウ・ヨンウ弁護士は天才肌」を見ています！ミンソクさんは？",
+    "translatedText": "요즘 이상한 변호사 우영우 보고 있어요! 민석 씨는요?",
     "timestamp": "10:34",
     "isRead": true,
     "isCurrentUser": false
@@ -33,8 +33,8 @@
     "id": 5,
     "senderId": "minsuk",
     "senderName": "민석",
-    "text": "온천 여행 좋아해서 벳푸나 하코네 자주 가요. 아 그리고 프로필에 고양이 키운다고 했는데, 저도 강아지 키우거든요!",
-    "translatedText": "温泉旅行が好きで別府や箱根によく行きます。あ、それとプロフィールに猫を飼っているって書いてありましたが、私も犬を飼っているんですよ！",
+    "text": "우영우 진짜 명작이죠! 저는 요즘 슬기로운 의사생활 다시 보고 있어요 ㅋㅋ",
+    "translatedText": "ウ・ヨンウ本当に名作ですよね！私は最近「賢い医師生活」をもう一度見ています ㅋㅋ",
     "timestamp": "10:35",
     "isRead": true,
     "isCurrentUser": true
@@ -42,70 +42,50 @@
   {
     "id": 6,
     "senderId": "sakura",
-    "senderName": "사쿠라",
-    "text": "와 정말요? 잠깐만요, 지금 옆에 있는데 소리 들려드릴게요!",
-    "translatedText": "え、本当ですか？ちょっと待ってください、今隣にいるので声を聞かせますね！",
+    "senderName": "さくら",
+    "text": "え！私もそれ超好きです！特にOSTがすごく良かったです 🎵",
+    "translatedText": "헐! 저도 그거 완전 좋아해요! 특히 OST가 너무 좋더라고요 🎵",
     "timestamp": "10:36",
     "isRead": true,
     "isCurrentUser": false
   },
   {
     "id": 7,
-    "senderId": "sakura",
-    "senderName": "사쿠라",
-    "voiceDuration": "00:15",
+    "senderId": "minsuk",
+    "senderName": "민석",
+    "text": "맞아요! 아이유 '사랑의 불시착'도 OST 좋던데 들어보셨어요?",
+    "translatedText": "そうですよね！IUの「愛の不時着」もOST良かったけど聞きましたか？",
     "timestamp": "10:37",
     "isRead": true,
-    "isCurrentUser": false,
-    "isVoiceMessage": true
+    "isCurrentUser": true
   },
   {
     "id": 8,
-    "senderId": "minsuk",
-    "senderName": "민석",
-    "text": "ㅋㅋㅋ 너무 귀엽다! 우리 강아지는 초코인데, 저도 다음엔 목소리 들려드릴게요 ㅎㅎ",
-    "translatedText": "ㅋㅋㅋ 超かわいい！うちの犬はチョコっていうんですけど、私も次は声を聞かせますね ㅎㅎ",
+    "senderId": "sakura",
+    "senderName": "さくら",
+    "text": "もちろんです！不時着は日本でもめっちゃ人気でした 😊",
+    "translatedText": "당연하죠! 불시착은 일본에서도 엄청 인기였어요 😊",
     "timestamp": "10:38",
     "isRead": true,
-    "isCurrentUser": true
+    "isCurrentUser": false
   },
   {
     "id": 9,
     "senderId": "minsuk",
     "senderName": "민석",
-    "text": "근데 사쿠라 씨 한국어 진짜 잘하시네요?",
-    "translatedText": "ところでサクラさん、韓国語本当に上手ですね？",
-    "timestamp": "10:38",
+    "text": "우와 드라마 취향이 완전 비슷하네요! 다음에 같이 추천하면서 얘기해요 ㅎㅎ",
+    "translatedText": "わあ、ドラマの好みが完全に似てますね！今度一緒におすすめしながら話しましょう ㅎㅎ",
+    "timestamp": "10:39",
     "isRead": true,
     "isCurrentUser": true
   },
   {
     "id": 10,
     "senderId": "sakura",
-    "senderName": "사쿠라",
-    "text": "아직 멀었어요 ㅠㅠ 한국 가서 더 배우고 싶어요!",
-    "translatedText": "まだまだです ㅠㅠ 韓国に行ってもっと学びたいです！",
-    "timestamp": "10:41",
-    "isRead": true,
-    "isCurrentUser": false
-  },
-  {
-    "id": 11,
-    "senderId": "minsuk",
-    "senderName": "민석",
-    "text": "그럼 한국 오시면 제가 맛집도 안내하고 한국어도 알려드릴게요 😊",
-    "translatedText": "それなら韓国に来たら私が美味しいお店も案内して韓国語も教えますよ 😊",
-    "timestamp": "10:42",
-    "isRead": true,
-    "isCurrentUser": true
-  },
-  {
-    "id": 12,
-    "senderId": "sakura",
-    "senderName": "사쿠라",
-    "text": "정말이에요? 그럼 저도 교토에 오시면 안내할게요! ㅎㅎ",
-    "translatedText": "本当ですか？それなら私も京都に来たら案内しますね！ㅎㅎ",
-    "timestamp": "10:43",
+    "senderName": "さくら",
+    "text": "いいですね！それなら私も日本ドラマおすすめしますね 😊",
+    "translatedText": "좋아요! 그럼 저도 일본 드라마 추천해드릴게요 😊",
+    "timestamp": "10:40",
     "isRead": true,
     "isCurrentUser": false
   }

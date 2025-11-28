@@ -14,6 +14,9 @@ export const Z_INDEX = {
   /** 모달 */
   MODAL: 'z-[100]',
 
-  /** 토스트/알림 */
+  /** 토스트 알림 */
   TOAST: 'z-[200]',
+
+  /** 오버레이 */
+  OVERLAY: 'z-[300]',
 } as const;

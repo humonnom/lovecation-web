@@ -9,7 +9,9 @@
       "Bash(cat:*)",
       "Bash(npm install:*)",
       "Bash(npm run lint:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(git mv:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []
