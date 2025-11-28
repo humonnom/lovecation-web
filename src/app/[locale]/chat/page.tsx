@@ -1,12 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import { Star, ListFilter, Heart, Zap, CheckCircle } from 'lucide-react';
+import { CheckCircle, Heart, ListFilter, Star, Zap } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { useHeader } from '@/lib/providers/HeaderProvider';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
-import SkeletonImageSVG from "@/components/SkeletonImageSVG";
 import { DevelopmentBanner } from '@/components/DevelopmentBanner';
 
 interface RecentMatch {
@@ -33,27 +32,33 @@ const mockRecentMatches: RecentMatch[] = [
   {
     id: 1,
     name: 'New Match!',
-    image: 'https://tfvieqghcwnhsqexspxy.supabase.co/storage/v1/object/public/profile-images/sample3.jpg',
+    image:
+      'https://tfvieqghcwnhsqexspxy.supabase.co/storage/v1/object/public/profile-images/sample3.jpg',
     isNew: true,
   },
   {
     id: 2,
     name: 'Sakura',
-    image: 'https://tfvieqghcwnhsqexspxy.supabase.co/storage/v1/object/public/profile-images/sample2.jpg',
+    image:
+      'https://tfvieqghcwnhsqexspxy.supabase.co/storage/v1/object/public/profile-images/sample2.jpg',
   },
   {
     id: 3,
     name: 'Yui',
-    image: 'https://tfvieqghcwnhsqexspxy.supabase.co/storage/v1/object/public/profile-images/sample4.jpg',
+    image:
+      'https://tfvieqghcwnhsqexspxy.supabase.co/storage/v1/object/public/profile-images/sample4.jpg',
   },
   {
     id: 4,
     name: 'Sato',
-    image: 'https://tfvieqghcwnhsqexspxy.supabase.co/storage/v1/object/public/profile-images/sample1.jpg',
+    image:
+      'https://tfvieqghcwnhsqexspxy.supabase.co/storage/v1/object/public/profile-images/sample1.jpg',
   },
 ];
 
-const getMockConversations = (t: (key: string, values?: Record<string, any>) => string): Conversation[] => [
+const getMockConversations = (
+  t: (key: string, values?: Record<string, any>) => string
+): Conversation[] => [
   {
     id: 1,
     user: mockRecentMatches[1],
@@ -89,15 +94,15 @@ const getMockConversations = (t: (key: string, values?: Record<string, any>) => 
 //     <SkeletonImageSVG w={bounds.width} h={bounds.height} />,
 // );
 export default function ChatListPage() {
-    const { setHeader } = useHeader();
-    const t = useTranslations('chat');
-    const title = t('title');
-    const subtitle = t('subtitle');
-    const mockConversations = getMockConversations(t);
+  const { setHeader } = useHeader();
+  const t = useTranslations('chat');
+  const title = t('title');
+  const subtitle = t('subtitle');
+  const mockConversations = getMockConversations(t);
 
-    useEffect(() => {
-        setHeader(title, subtitle);
-    }, [title, subtitle, setHeader]);
+  useEffect(() => {
+    setHeader(title, subtitle);
+  }, [title, subtitle, setHeader]);
 
   return (
     <div className="flex-1 bg-[#FDFDFD] flex flex-col">
@@ -181,16 +186,12 @@ export default function ChatListPage() {
                   </div>
                   <span className="text-xs text-[#999]">{conversation.timestamp}</span>
                 </div>
-                <p className="text-sm text-[#666] truncate text-left">
-                  {conversation.lastMessage}
-                </p>
+                <p className="text-sm text-[#666] truncate text-left">{conversation.lastMessage}</p>
               </div>
 
               {conversation.unreadCount && (
                 <div className="w-6 h-6 rounded-full bg-[#EE9CA7] flex items-center justify-center ml-2">
-                  <span className="text-xs font-bold text-white">
-                    {conversation.unreadCount}
-                  </span>
+                  <span className="text-xs font-bold text-white">{conversation.unreadCount}</span>
                 </div>
               )}
             </Link>
