@@ -1,6 +1,7 @@
 import { X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from '@/i18n/navigation';
+import { HintBubble } from '@/components/common/HintBubble';
 
 interface ProfileCardBackProps {
   bio: string;
@@ -57,6 +58,13 @@ export function ProfileCardBack({
             </span>
           ))}
         </div>
+        <HintBubble
+          condition={currentIndex === 0}
+          delay={1000}
+          text={tMatch('moreInfoHint')}
+          position="bottom"
+          className="absolute bottom-1/6 left-1/2 -translate-x-1/2 z-20"
+        />
 
         {/* Learn More Button */}
         <button

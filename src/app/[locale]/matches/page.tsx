@@ -208,18 +208,6 @@ export default function SwipePage() {
           className="absolute top-1/2 left-1/2 -translate-x-1/2 z-20"
         />
 
-        {/* More info Hint */}
-        {isFlipped && (
-          <HintBubble
-            condition={currentIndex === 0}
-            dismissCondition={!isFlipped}
-            delay={1000}
-            text={t('moreInfoHint')}
-            position="bottom"
-            className="absolute bottom-30 left-1/2 -translate-x-1/2 z-20"
-          />
-        )}
-
         {/* Second Card Hints: swipe right + heart click */}
         <HintBubble
           condition={currentIndex === 1 && !loading && profiles.length > 1}
@@ -227,7 +215,7 @@ export default function SwipePage() {
           delay={1000}
           text={t('swipeRightHint')}
           position="right"
-          className="absolute right-0 top-0 translate-y-10 translate-x-2 z-20"
+          className="absolute right-1/6 top-0 translate-y-10 translate-x-2 z-20"
         />
         <HintBubble
           condition={currentIndex === 1 && !loading && profiles.length > 1}
@@ -235,7 +223,7 @@ export default function SwipePage() {
           delay={1000}
           text={t('heartActionHint')}
           position="bottom-right"
-          className="absolute bottom-30 right-9 z-20"
+          className="absolute bottom-1/3 right-9 z-20"
         />
 
         {/* Render current and next card; while swiping, only render current card to prevent flicker */}
