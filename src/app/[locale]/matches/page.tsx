@@ -201,7 +201,20 @@ export default function SwipePage() {
           delay={1000}
           text={t('flipCardHint')}
           position="bottom"
+          className="absolute left-1/2 -translate-x-1/2 -mt-13"
         />
+
+        {/* More info Hint */}
+        {isFlipped && (
+          <HintBubble
+            condition={currentIndex === 0}
+            dismissCondition={!isFlipped}
+            delay={1000}
+            text={'더 알아보려면 누르세요'}
+            position="bottom"
+            className="absolute bottom-30 left-1/2 -translate-x-1/2 z-20"
+          />
+        )}
 
         {/* Second Card Hints: swipe right + heart click */}
         <HintBubble
