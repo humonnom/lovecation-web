@@ -7,6 +7,7 @@ interface ProfileCardFrontProps {
   city: string;
   onPass: () => void;
   onLike: () => void;
+  onAnyAction?: () => void;
 }
 
 export function ProfileCardFront({
@@ -15,6 +16,7 @@ export function ProfileCardFront({
   city,
   onPass,
   onLike,
+  onAnyAction,
 }: ProfileCardFrontProps) {
   return (
     <div
@@ -45,7 +47,12 @@ export function ProfileCardFront({
               </div>
             </div>
           </div>
-          <div onClick={(e) => e.stopPropagation()}>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              onAnyAction?.();
+            }}
+          >
             <SwipeActionButtons onPass={onPass} onLike={onLike} disabled={false} />
           </div>
         </div>

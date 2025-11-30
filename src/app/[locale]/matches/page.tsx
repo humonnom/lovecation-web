@@ -12,8 +12,17 @@ import { ProfileCardFront } from '@/components/matches/ProfileCardFront';
 import { ProfileCardBack } from '@/components/matches/ProfileCardBack';
 import { HintBubble } from '@/components/common/HintBubble';
 
-const PageContainer = ({ children }: { children: React.ReactNode }) => (
-  <div className="fixed inset-0 bg-gradient-to-b from-primary-light/30 to-white flex items-center justify-center p-4">
+const PageContainer = ({
+  children,
+  onClick,
+}: {
+  children: React.ReactNode;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
+}) => (
+  <div
+    className="fixed inset-0 bg-gradient-to-b from-primary-light/30 to-white flex items-center justify-center p-4"
+    onClick={onClick}
+  >
     {children}
   </div>
 );
@@ -60,7 +69,6 @@ export default function SwipePage() {
   }, [dbProfiles, locale]);
 
   const currentProfile = profiles[currentIndex];
-  const hasMoreProfiles = currentIndex < profiles.length - 1;
 
   useEffect(() => {
     setHeader(t('title'), t('subtitle'));
@@ -189,10 +197,28 @@ export default function SwipePage() {
         {/* Flip Hint */}
         <HintBubble
           condition={currentIndex === 0 && !loading && profiles.length > 0}
-          dismissCondition={isFlipped}
+          dismissCondition={isFlipped} // TODO
           delay={1000}
           text={t('flipCardHint')}
           position="bottom"
+        />
+
+        {/* Second Card Hints: swipe right + heart click */}
+        <HintBubble
+          condition={currentIndex === 1 && !loading && profiles.length > 1}
+          dismissCondition={isFlipped}
+          delay={1000}
+          text="오른쪽으로 스와이프 하세요"
+          position="right"
+          className="absolute right-0 top-0 translate-y-10 translate-x-2 z-20"
+        />
+        <HintBubble
+          condition={currentIndex === 1 && !loading && profiles.length > 1}
+          dismissCondition={isFlipped}
+          delay={1000}
+          text="하트 버튼을 눌러도 호감을 표현할 수 있습니다"
+          position="bottom-right"
+          className="absolute bottom-30 right-9 z-20"
         />
 
         {/* Render current and next card */}
@@ -254,13 +280,19 @@ export default function SwipePage() {
                 }
               >
                 {/* Front Face */}
-                <ProfileCardFront
-                  avatarUrl={profile.avatar_url || '/placeholder.svg'}
-                  nickname={profile.nickname}
-                  city={profile.city || ''}
-                  onPass={() => handleSwipe('left')}
-                  onLike={() => handleSwipe('right')}
-                />
+                <div
+                  onClick={() => {
+                    console.log('clicked');
+                  }}
+                >
+                  <ProfileCardFront
+                    avatarUrl={profile.avatar_url || '/placeholder.svg'}
+                    nickname={profile.nickname}
+                    city={profile.city || ''}
+                    onPass={() => handleSwipe('left')}
+                    onLike={() => handleSwipe('right')}
+                  />
+                </div>
 
                 {/* Back Face */}
                 <ProfileCardBack

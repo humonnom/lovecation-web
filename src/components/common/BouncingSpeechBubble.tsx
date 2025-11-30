@@ -1,8 +1,10 @@
 import { motion } from 'motion/react';
 
-interface BouncingSpeechBubbleProps {
+type BubblePosition = 'left' | 'right' | 'top' | 'bottom' | 'bottom-right';
+
+export interface BouncingSpeechBubbleProps {
   text: string;
-  position?: 'left' | 'right' | 'top' | 'bottom';
+  position?: BubblePosition;
   className?: string;
 }
 
@@ -17,6 +19,7 @@ export function BouncingSpeechBubble({
     right: 'absolute right-0 top-1/2 -translate-y-1/2 translate-x-2',
     top: 'absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2',
     bottom: 'absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-2',
+    'bottom-right': 'absolute bottom-0 right-0 -translate-x-1/2 translate-y-2',
   };
 
   // 말풍선 꼬리 border 스타일
@@ -26,6 +29,8 @@ export function BouncingSpeechBubble({
       'border-t-[8px] border-t-transparent border-b-[8px] border-b-transparent border-l-[12px] border-l-primary',
     top: 'border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[12px] border-b-primary',
     bottom:
+      'border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[12px] border-t-primary',
+    'bottom-right':
       'border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[12px] border-t-primary',
   };
 

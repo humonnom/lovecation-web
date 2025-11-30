@@ -1,13 +1,10 @@
-import { BouncingSpeechBubble } from './BouncingSpeechBubble';
+import { BouncingSpeechBubble, type BouncingSpeechBubbleProps } from './BouncingSpeechBubble';
 import { useHint } from '@/hooks/useHint';
 
-interface HintBubbleProps {
+interface HintBubbleProps extends BouncingSpeechBubbleProps{
   condition: boolean;
   dismissCondition?: boolean;
   delay?: number;
-  text: string;
-  position?: 'left' | 'right' | 'top' | 'bottom';
-  className?: string; // wrapper class for positioning
 }
 
 export function HintBubble({
