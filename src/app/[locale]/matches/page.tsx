@@ -66,7 +66,6 @@ export default function SwipePage() {
     setHeader(t('title'), t('subtitle'));
   }, [setHeader, t]);
 
-
   const handleSwipe = (swipeDirection: 'left' | 'right') => {
     setDirection(swipeDirection);
     setIsFlipped(false); // 스와이프 시 flip 상태 초기화
@@ -193,7 +192,7 @@ export default function SwipePage() {
           dismissCondition={isFlipped}
           delay={1000}
           text={t('flipCardHint')}
-          position="top"
+          position="bottom"
         />
 
         {/* Render current and next card */}

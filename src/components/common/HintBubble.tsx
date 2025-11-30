@@ -15,7 +15,7 @@ export function HintBubble({
   dismissCondition,
   delay = 1000,
   text,
-  position = 'top',
+  position,
   className = 'absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full mb-4 z-20',
 }: HintBubbleProps) {
   const { showHint } = useHint({ condition, delay, dismissCondition });

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface UseHintOptions {
   condition: boolean;
@@ -17,6 +17,7 @@ export function useHint({ condition, delay = 1000, dismissCondition }: UseHintOp
       }, delay);
       return () => clearTimeout(timer);
     } else {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setShowHint(false);
     }
   }, [condition, delay]);
@@ -24,6 +25,7 @@ export function useHint({ condition, delay = 1000, dismissCondition }: UseHintOp
   // dismissCondition이 true가 되면 힌트 숨기기
   useEffect(() => {
     if (dismissCondition) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setShowHint(false);
     }
   }, [dismissCondition]);
