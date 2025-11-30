@@ -128,9 +128,9 @@ export default function SwipePage() {
   }
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-b from-primary-light/30 to-white flex items-center justify-center">
+    <div className="fixed inset-0 bg-gradient-to-b from-primary-light/30 to-white flex items-center justify-center p-4">
       {/* Main Content */}
-      <div className="max-w-md w-full relative">
+      <div className="w-full max-w-sm relative" style={{ maxHeight: 'min(80vh, 600px)' }}>
         {/* Card Stack - 뒤에 있는 카드들 (뒤집거나 스와이프할 때만 표시) */}
         {profiles.slice(currentIndex, currentIndex + 3).map((profile, index) => {
           if (index === 0) return null; // 현재 카드는 따로 렌더링
@@ -147,7 +147,7 @@ export default function SwipePage() {
                 transformOrigin: 'center bottom',
               }}
             >
-              <div className="bg-white rounded-3xl shadow-2xl overflow-hidden h-[70vh]">
+              <div className="bg-white rounded-3xl shadow-2xl overflow-hidden w-full aspect-[2/3]">
                 <div className="relative h-full">
                   <Image
                     width={500}
@@ -177,7 +177,7 @@ export default function SwipePage() {
           >
             {/* Card Container with 3D flip */}
             <div
-              className={`relative w-full h-[70vh] transition-transform duration-700 cursor-pointer`}
+              className={`relative w-full aspect-[2/3] transition-transform duration-700 cursor-pointer`}
               style={{
                 transformStyle: 'preserve-3d',
                 transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
