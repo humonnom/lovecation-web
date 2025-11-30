@@ -70,9 +70,7 @@ export default function SwipePage() {
   };
 
   const moveToNext = () => {
-    if (hasMoreProfiles) {
-      setCurrentIndex(currentIndex + 1);
-    }
+    setCurrentIndex(currentIndex + 1);
   };
 
   const handleMatchClose = () => {
