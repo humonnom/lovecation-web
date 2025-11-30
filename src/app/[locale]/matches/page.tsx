@@ -197,122 +197,126 @@ export default function SwipePage() {
   return (
     <PageContainer>
       {/* Main Content */}
-      <div className="w-full max-w-sm relative" style={{ height: 'min(70vh, 600px)' }}>
-        {/* Flip Hint */}
-        <HintBubble
-          condition={currentIndex === 0 && !loading && profiles.length > 0}
-          dismissCondition={isFlipped}
-          delay={1000}
-          text={t('flipCardHint')}
-          position="bottom"
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 z-20"
-        />
+      <div className="w-full flex flex-col items-center" style={{ height: '100dvh' }}>
+        <div className="flex-1" />
+        <div className="w-full max-w-sm relative" style={{ height: 'min(75dvh, 640px)' }}>
+          {/* Flip Hint */}
+          <HintBubble
+            condition={currentIndex === 0 && !loading && profiles.length > 0}
+            dismissCondition={isFlipped}
+            delay={1000}
+            text={t('flipCardHint')}
+            position="bottom"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 z-20"
+          />
 
-        {/* Second Card Hints: swipe right + heart click */}
-        <HintBubble
-          condition={currentIndex === 1 && !loading && profiles.length > 1}
-          dismissCondition={isFlipped}
-          delay={1000}
-          text={t('swipeRightHint')}
-          position="right"
-          className="absolute right-1/6 top-0 translate-y-10 translate-x-2 z-20"
-        />
-        <HintBubble
-          condition={currentIndex === 1 && !loading && profiles.length > 1}
-          dismissCondition={isFlipped}
-          delay={1000}
-          text={t('heartActionHint')}
-          position="bottom-right"
-          className="absolute bottom-1/3 right-9 z-20"
-        />
+          {/* Second Card Hints: swipe right + heart click */}
+          <HintBubble
+            condition={currentIndex === 1 && !loading && profiles.length > 1}
+            dismissCondition={isFlipped}
+            delay={1000}
+            text={t('swipeRightHint')}
+            position="right"
+            className="absolute right-1/6 top-0 translate-y-10 translate-x-2 z-20"
+          />
+          <HintBubble
+            condition={currentIndex === 1 && !loading && profiles.length > 1}
+            dismissCondition={isFlipped}
+            delay={1000}
+            text={t('heartActionHint')}
+            position="bottom-right"
+            className="absolute bottom-1/5 right-9 z-20"
+          />
 
-        {/* Render current and next card; while swiping, only render current card to prevent flicker */}
-        {profiles.slice(currentIndex, currentIndex + (direction ? 1 : 2)).map((profile, idx) => {
-          const isCurrentCard = idx === 0;
-          const isBackgroundCard = idx === 1;
+          {/* Render current and next card; while swiping, only render current card to prevent flicker */}
+          {profiles.slice(currentIndex, currentIndex + (direction ? 1 : 2)).map((profile, idx) => {
+            const isCurrentCard = idx === 0;
+            const isBackgroundCard = idx === 1;
 
-          return (
-            <div
-              key={profile.id}
-              className={`absolute inset-0 transition-all duration-300 ${
-                isCurrentCard
-                  ? `z-10 ${
-                      direction === 'left'
-                        ? '-translate-x-full opacity-0 rotate-[-30deg]'
-                        : direction === 'right'
-                          ? 'translate-x-full opacity-0 rotate-[30deg]'
-                          : dragStart
-                            ? ''
-                            : 'transition-all duration-200'
-                    }`
-                  : 'z-0'
-              }`}
-              style={{
-                perspective: '1000px',
-                transform:
-                  isCurrentCard && dragStart
-                    ? `translate(${dragOffset.x}px, ${dragOffset.y}px) rotate(${dragOffset.x * 0.1}deg)`
-                    : isBackgroundCard
-                      ? direction !== null
-                        ? 'scale(1)'
-                        : 'scale(0.92)'
-                      : undefined,
-                filter: isBackgroundCard && direction === null ? 'blur(4px)' : 'blur(0px)',
-                opacity: isBackgroundCard && direction === null ? 0.6 : 1,
-              }}
-              onPointerDown={isCurrentCard ? handlePointerDown : undefined}
-              onPointerMove={isCurrentCard ? handlePointerMove : undefined}
-              onPointerUp={isCurrentCard ? handlePointerUp : undefined}
-              onPointerCancel={isCurrentCard ? handlePointerUp : undefined}
-            >
-              {/* Card Container with 3D flip */}
+            return (
               <div
-                className={`relative w-full aspect-[2/3] transition-transform duration-700 ${
-                  isCurrentCard ? 'cursor-pointer touch-none' : 'pointer-events-none'
+                key={profile.id}
+                className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${
+                  isCurrentCard
+                    ? `z-10 ${
+                        direction === 'left'
+                          ? '-translate-x-full opacity-0 rotate-[-30deg]'
+                          : direction === 'right'
+                            ? 'translate-x-full opacity-0 rotate-[30deg]'
+                            : dragStart
+                              ? ''
+                              : 'transition-all duration-200'
+                      }`
+                    : 'z-0'
                 }`}
                 style={{
-                  transformStyle: 'preserve-3d',
-                  transform: isCurrentCard && isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+                  perspective: '1000px',
+                  transform:
+                    isCurrentCard && dragStart
+                      ? `translate(${dragOffset.x}px, ${dragOffset.y}px) rotate(${dragOffset.x * 0.1}deg)`
+                      : isBackgroundCard
+                        ? direction !== null
+                          ? 'scale(1)'
+                          : 'scale(0.92)'
+                        : undefined,
+                  filter: isBackgroundCard && direction === null ? 'blur(4px)' : 'blur(0px)',
+                  opacity: isBackgroundCard && direction === null ? 0.6 : 1,
                 }}
-                onClick={
-                  isCurrentCard
-                    ? () => {
-                        if (Math.abs(dragOffset.x) < 5 && Math.abs(dragOffset.y) < 5) {
-                          setIsFlipped(!isFlipped);
-                        }
-                      }
-                    : undefined
-                }
+                onPointerDown={isCurrentCard ? handlePointerDown : undefined}
+                onPointerMove={isCurrentCard ? handlePointerMove : undefined}
+                onPointerUp={isCurrentCard ? handlePointerUp : undefined}
+                onPointerCancel={isCurrentCard ? handlePointerUp : undefined}
               >
+                {/* Card Container with 3D flip */}
                 <div
-                  onClick={() => {
-                    console.log('clicked');
+                  className={`relative h-full max-h-full aspect-[2/3] w-auto max-w-[92vw] transition-transform duration-700 ${
+                    isCurrentCard ? 'cursor-pointer touch-none' : 'pointer-events-none'
+                  }`}
+                  style={{
+                    transformStyle: 'preserve-3d',
+                    transform: isCurrentCard && isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
                   }}
+                  onClick={
+                    isCurrentCard
+                      ? () => {
+                          if (Math.abs(dragOffset.x) < 5 && Math.abs(dragOffset.y) < 5) {
+                            setIsFlipped(!isFlipped);
+                          }
+                        }
+                      : undefined
+                  }
                 >
-                  <ProfileCardFront
-                    avatarUrl={profile.avatar_url || '/placeholder.svg'}
-                    nickname={profile.nickname}
-                    city={profile.city || ''}
-                    onPass={() => handleSwipe('left')}
-                    onLike={() => handleSwipe('right')}
-                    imagePriority={isCurrentCard || isBackgroundCard}
+                  <div
+                    onClick={() => {
+                      console.log('clicked');
+                    }}
+                  >
+                    <ProfileCardFront
+                      avatarUrl={profile.avatar_url || '/placeholder.svg'}
+                      nickname={profile.nickname}
+                      city={profile.city || ''}
+                      onPass={() => handleSwipe('left')}
+                      onLike={() => handleSwipe('right')}
+                      imagePriority={isCurrentCard || isBackgroundCard}
+                    />
+                  </div>
+
+                  <ProfileCardBack
+                    bio={profile.bio}
+                    interests={profile.interests}
+                    profileId={profile.id}
+                    currentIndex={currentIndex}
+                    onClose={(e) => {
+                      e.stopPropagation();
+                      setIsFlipped(false);
+                    }}
                   />
                 </div>
-
-                <ProfileCardBack
-                  bio={profile.bio}
-                  interests={profile.interests}
-                  profileId={profile.id}
-                  currentIndex={currentIndex}
-                  onClose={(e) => {
-                    e.stopPropagation();
-                    setIsFlipped(false);
-                  }}
-                />
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+        <div className="flex-1" />
       </div>
 
       {showMatch && matchedProfile && (
