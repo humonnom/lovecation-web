@@ -11,6 +11,7 @@ import { MatchModal } from '@/components/matches/MatchModal';
 import { ProfileCardFront } from '@/components/matches/ProfileCardFront';
 import { ProfileCardBack } from '@/components/matches/ProfileCardBack';
 import { HintBubble } from '@/components/common/HintBubble';
+import { useRouter } from '@/i18n/navigation';
 
 const PageContainer = ({
   children,
@@ -54,6 +55,7 @@ export default function SwipePage() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [dragStart, setDragStart] = useState<{ x: number; y: number } | null>(null);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const router = useRouter();
 
   // userDetailData와 결합하여 최종 프로필 생성
   const profiles = useMemo(() => {
@@ -85,13 +87,15 @@ export default function SwipePage() {
         if (isMatch) {
           setMatchedProfile(currentProfile);
           setShowMatch(true);
+          // 매치 발생 시 카드는 오른쪽으로 나간 상태를 유지 (direction을 유지)
         } else {
           moveToNext();
+          setDirection(null);
         }
       } else {
         moveToNext();
+        setDirection(null);
       }
-      setDirection(null);
     }, 300);
   };
 
@@ -177,13 +181,21 @@ export default function SwipePage() {
           <div className="w-24 h-24 bg-primary-light/50 rounded-full flex items-center justify-center mx-auto mb-6">
             <Heart className="w-12 h-12 text-primary" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">더 이상 프로필이 없습니다</h2>
-          <p className="text-gray-600 mb-6">나중에 다시 확인해주세요!</p>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">
+            모든 추천 프로필을 확인하셨습니다.
+          </h2>
+          <p className="text-gray-600 mb-6">매치된 상대와 대화를 시작해보세요.</p>
           <button
             onClick={() => setCurrentIndex(0)}
+            className="mr-3 px-6 py-3 bg-primary text-white rounded-full font-semibold hover:bg-primary/90 transition"
+          >
+            데모 처음부터 다시 사용해보기
+          </button>
+          <button
+            onClick={() => router.push('/chat')}
             className="px-6 py-3 bg-primary text-white rounded-full font-semibold hover:bg-primary/90 transition"
           >
-            처음으로 돌아가기
+            대화하러 가기
           </button>
         </div>
       </PageContainer>
