@@ -6,7 +6,9 @@ import { UserCard } from './UserCard';
 import { UserCardSkeleton } from '@/components/skeletons';
 import { AnimatePresence, motion } from 'motion/react';
 import { Link } from '@/i18n/navigation';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { clsx } from 'clsx';
+import { HintBubble } from '@/components/common/HintBubble';
 
 interface UserGridProps {
   isLoading: boolean;
@@ -15,8 +17,21 @@ interface UserGridProps {
 
 export const UserGrid = ({ isLoading, users }: UserGridProps) => {
   const t = useTranslations('userGrid');
+  const locale = useLocale();
   return (
     <div className="flex-1 overflow-y-auto">
+      <HintBubble
+        text={t('clickToLearnMore')}
+        condition={!isLoading}
+        position={'bottom'}
+        delay={2000}
+        className={clsx(
+          'absolute z-20',
+          locale === 'ja'
+            ? 'top-1/2 -translate-y-20 left-1/4 -translate-x-1/2'
+            : 'top-[100px] right-1/4 translate-x-1/2'
+        )}
+      />
       <div className={'flex flex-row flex-wrap px-2.5 pb-5 pt-2.5 justify-between'}>
         <AnimatePresence mode={'popLayout'}>
           {isLoading
