@@ -130,10 +130,43 @@ export default function SwipePage() {
   return (
     <div className="fixed inset-0 bg-gradient-to-b from-primary-light/30 to-white flex items-center justify-center">
       {/* Main Content */}
-      <div className="max-w-md w-full px-4">
+      <div className="max-w-md w-full relative">
+        {/* Card Stack - 뒤에 있는 카드들 (뒤집거나 스와이프할 때만 표시) */}
+        {profiles.slice(currentIndex, currentIndex + 3).map((profile, index) => {
+          if (index === 0) return null; // 현재 카드는 따로 렌더링
+
+          const opacity = 1 - index * 0.3;
+
+          return (
+            <div
+              key={profile.id}
+              className="absolute inset-0 pointer-events-none transition-opacity duration-300"
+              style={{
+                opacity,
+                zIndex: -index,
+                transformOrigin: 'center bottom',
+              }}
+            >
+              <div className="bg-white rounded-3xl shadow-2xl overflow-hidden h-[70vh]">
+                <div className="relative h-full">
+                  <Image
+                    width={500}
+                    height={500}
+                    src={profile.avatar_url || '/placeholder.svg'}
+                    alt={profile.nickname}
+                    className="w-full h-full object-cover blur-sm"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/60" />
+                </div>
+              </div>
+            </div>
+          );
+        })}
+
+        {/* Current Card */}
         {currentProfile && (
           <div
-            className={`relative transition-all duration-300 ${
+            className={`relative transition-all duration-300 z-10 ${
               direction === 'left'
                 ? '-translate-x-full opacity-0 rotate-[-30deg]'
                 : direction === 'right'
