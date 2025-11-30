@@ -10,6 +10,7 @@ import { Profile } from '@/types/supabase';
 import { MatchModal } from '@/components/matches/MatchModal';
 import { ProfileCardFront } from '@/components/matches/ProfileCardFront';
 import { ProfileCardBack } from '@/components/matches/ProfileCardBack';
+import { BouncingSpeechBubble } from '@/components/common/BouncingSpeechBubble';
 
 const PageContainer = ({ children }: { children: React.ReactNode }) => (
   <div className="fixed inset-0 bg-gradient-to-b from-primary-light/30 to-white flex items-center justify-center p-4">
@@ -26,10 +27,6 @@ export default function SwipePage() {
   const targetGender = locale === 'ja' ? 'male' : 'female';
 
   const { profiles: dbProfiles, loading, error } = useProfiles({ gender: targetGender });
-
-  useEffect(() => {
-    setHeader(t('title'), t('subtitle'));
-  }, [setHeader, t]);
 
   const [currentIndex, setCurrentIndex] = useState(() => {
     // 페이지 로드 시 저장된 인덱스 복원
@@ -48,6 +45,7 @@ export default function SwipePage() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [dragStart, setDragStart] = useState<{ x: number; y: number } | null>(null);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [showFlipHint, setShowFlipHint] = useState(false);
 
   // userDetailData와 결합하여 최종 프로필 생성
   const profiles = useMemo(() => {
@@ -64,6 +62,29 @@ export default function SwipePage() {
 
   const currentProfile = profiles[currentIndex];
   const hasMoreProfiles = currentIndex < profiles.length - 1;
+
+  useEffect(() => {
+    setHeader(t('title'), t('subtitle'));
+  }, [setHeader, t]);
+
+  // 첫 번째 카드에서 flip 힌트 표시
+  useEffect(() => {
+    if (currentIndex === 0 && !loading && profiles.length > 0) {
+      const timer = setTimeout(() => {
+        setShowFlipHint(true);
+      }, 1000);
+      return () => clearTimeout(timer);
+    } else {
+      setShowFlipHint(false);
+    }
+  }, [currentIndex, loading, profiles.length]);
+
+  // 카드가 뒤집히면 힌트 숨기기
+  useEffect(() => {
+    if (isFlipped) {
+      setShowFlipHint(false);
+    }
+  }, [isFlipped]);
 
   const handleSwipe = (swipeDirection: 'left' | 'right') => {
     setDirection(swipeDirection);
@@ -185,6 +206,13 @@ export default function SwipePage() {
     <PageContainer>
       {/* Main Content */}
       <div className="w-full max-w-sm relative" style={{ height: 'min(80vh, 600px)' }}>
+        {/* Flip Hint */}
+        {showFlipHint && (
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full mb-4 z-20">
+            <BouncingSpeechBubble message={t('flipCardHint')} />
+          </div>
+        )}
+
         {/* Render current and next card */}
         {profiles.slice(currentIndex, currentIndex + 2).map((profile, idx) => {
           const isCurrentCard = idx === 0;

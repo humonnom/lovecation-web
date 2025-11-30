@@ -21,7 +21,8 @@
   "match": {
     "title": "新しい出会い",
     "subtitle": "気になるプロフィールを探してみよう",
-    "learnMore": "もっと見る"
+    "learnMore": "もっと見る",
+    "flipCardHint": "カードをタップして詳細を確認してみよう！"
   },
   "chat": {
     "title": "チャット",

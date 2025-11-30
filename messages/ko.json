@@ -21,7 +21,8 @@
   "match": {
     "title": "새로운 인연",
     "subtitle": "마음에 드는 프로필을 찾아보세요",
-    "learnMore": "더 알아보기"
+    "learnMore": "더 알아보기",
+    "flipCardHint": "카드를 눌러서 더 많은 정보를 확인해보세요!"
   },
   "chat": {
     "title": "채팅",
