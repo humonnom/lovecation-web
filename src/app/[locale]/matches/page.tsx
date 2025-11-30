@@ -31,7 +31,17 @@ export default function SwipePage() {
     setHeader(t('title'), t('subtitle'));
   }, [setHeader, t]);
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(() => {
+    // 페이지 로드 시 저장된 인덱스 복원
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('matchesCurrentIndex');
+      if (saved) {
+        localStorage.removeItem('matchesCurrentIndex');
+        return parseInt(saved, 10);
+      }
+    }
+    return 0;
+  });
   const [direction, setDirection] = useState<'left' | 'right' | null>(null);
   const [showMatch, setShowMatch] = useState(false);
   const [matchedProfile, setMatchedProfile] = useState<Profile | null>(null);
@@ -247,6 +257,7 @@ export default function SwipePage() {
                   bio={profile.bio}
                   interests={profile.interests}
                   profileId={profile.id}
+                  currentIndex={currentIndex}
                   onClose={(e) => {
                     e.stopPropagation();
                     setIsFlipped(false);

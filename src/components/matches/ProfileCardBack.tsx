@@ -6,16 +6,25 @@ interface ProfileCardBackProps {
   bio: string;
   interests: string[];
   profileId: string;
+  currentIndex: number;
   onClose: (e: React.MouseEvent) => void;
 }
 
-export function ProfileCardBack({ bio, interests, profileId, onClose }: ProfileCardBackProps) {
+export function ProfileCardBack({
+  bio,
+  interests,
+  profileId,
+  currentIndex,
+  onClose,
+}: ProfileCardBackProps) {
   const t = useTranslations('userDetail.interestsList');
   const tMatch = useTranslations('match');
   const router = useRouter();
 
   const handleLearnMore = (e: React.MouseEvent) => {
     e.stopPropagation();
+    // 현재 인덱스를 localStorage에 저장
+    localStorage.setItem('matchesCurrentIndex', currentIndex.toString());
     router.push(`/user-detail/${profileId}`);
   };
 
