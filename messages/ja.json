@@ -50,6 +50,10 @@
     "launchRequestComplete": "正式リリース希望完了",
     "launchRequestMessage": "正式リリース通知を受け取れるように登録されました！"
   },
+  "userGrid": {
+    "promoMessage": "今すぐ登録して、\n新しい出会いを\n見つけましょう。",
+    "signup": "登録する"
+  },
   "interest": {
     "title": "事前登録する",
     "earlyBirdTitle": "先着100名限定アーリーバード特典のご案内",

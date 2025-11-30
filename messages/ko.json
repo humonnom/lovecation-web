@@ -50,6 +50,10 @@
     "launchRequestComplete": "정식 런치 희망 완료",
     "launchRequestMessage": "정식 런치 알림을 받으실 수 있도록 등록되었습니다!"
   },
+  "userGrid": {
+    "promoMessage": "지금 가입하고,\n 새로운 인연을 만나보세요.",
+    "signup": "가입하기"
+  },
   "interest": {
     "title": "사전 신청하기",
     "earlyBirdTitle": "선착순 100명 한정 얼리버드 혜택 안내",
