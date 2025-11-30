@@ -246,6 +246,7 @@ export default function SwipePage() {
                 <ProfileCardBack
                   bio={profile.bio}
                   interests={profile.interests}
+                  profileId={profile.id}
                   onClose={(e) => {
                     e.stopPropagation();
                     setIsFlipped(false);

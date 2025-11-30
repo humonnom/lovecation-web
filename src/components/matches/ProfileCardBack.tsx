@@ -1,14 +1,23 @@
 import { X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { useRouter } from '@/i18n/navigation';
 
 interface ProfileCardBackProps {
   bio: string;
   interests: string[];
+  profileId: string;
   onClose: (e: React.MouseEvent) => void;
 }
 
-export function ProfileCardBack({ bio, interests, onClose }: ProfileCardBackProps) {
+export function ProfileCardBack({ bio, interests, profileId, onClose }: ProfileCardBackProps) {
   const t = useTranslations('userDetail.interestsList');
+  const tMatch = useTranslations('match');
+  const router = useRouter();
+
+  const handleLearnMore = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    router.push(`/user-detail/${profileId}`);
+  };
 
   return (
     <div
@@ -19,7 +28,7 @@ export function ProfileCardBack({ bio, interests, onClose }: ProfileCardBackProp
         transform: 'rotateY(180deg)',
       }}
     >
-      <div className="p-6 h-full">
+      <div className="p-6 h-full flex flex-col">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-xl font-bold text-gray-800">About</h3>
           <button onClick={onClose} className="p-2 rounded-full hover:bg-gray-100 transition">
@@ -29,7 +38,7 @@ export function ProfileCardBack({ bio, interests, onClose }: ProfileCardBackProp
         <p className="text-gray-700 leading-relaxed mb-4">{bio}</p>
 
         {/* Interests */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 mb-6">
           {interests.map((interest, idx) => (
             <span
               key={idx}
@@ -39,6 +48,14 @@ export function ProfileCardBack({ bio, interests, onClose }: ProfileCardBackProp
             </span>
           ))}
         </div>
+
+        {/* Learn More Button */}
+        <button
+          onClick={handleLearnMore}
+          className="mt-auto w-full py-3 bg-primary text-white rounded-full font-semibold hover:bg-primary/90 transition"
+        >
+          {tMatch('learnMore')}
+        </button>
       </div>
     </div>
   );
