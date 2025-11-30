@@ -197,7 +197,7 @@ export default function SwipePage() {
         {/* Flip Hint */}
         <HintBubble
           condition={currentIndex === 0 && !loading && profiles.length > 0}
-          dismissCondition={isFlipped} // TODO
+          dismissCondition={isFlipped}
           delay={1000}
           text={t('flipCardHint')}
           position="bottom"
