@@ -21,7 +21,7 @@ const PageContainer = ({
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }) => (
   <div
-    className="fixed inset-0 bg-gradient-to-b from-primary-light/30 to-white flex items-center justify-center p-4"
+    className="fixed inset-0 bg-gradient-to-b from-primary-light/30 to-white flex items-center justify-center px-4"
     onClick={onClick}
   >
     {children}
@@ -197,7 +197,7 @@ export default function SwipePage() {
   return (
     <PageContainer>
       {/* Main Content */}
-      <div className="w-full max-w-sm relative" style={{ height: 'min(80vh, 600px)' }}>
+      <div className="w-full max-w-sm relative" style={{ height: 'min(70vh, 600px)' }}>
         {/* Flip Hint */}
         <HintBubble
           condition={currentIndex === 0 && !loading && profiles.length > 0}
@@ -205,7 +205,7 @@ export default function SwipePage() {
           delay={1000}
           text={t('flipCardHint')}
           position="bottom"
-          className="absolute left-1/2 -translate-x-1/2 -mt-13"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 z-20"
         />
 
         {/* More info Hint */}

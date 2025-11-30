@@ -19,7 +19,7 @@ export const UserGrid = ({ isLoading, users }: UserGridProps) => {
   const t = useTranslations('userGrid');
   const locale = useLocale();
   return (
-    <div className="flex-1 overflow-y-auto">
+    <div className="flex-1 overflow-y-auto relative">
       <HintBubble
         text={t('clickToLearnMore')}
         condition={!isLoading}
@@ -28,8 +28,8 @@ export const UserGrid = ({ isLoading, users }: UserGridProps) => {
         className={clsx(
           'absolute z-20',
           locale === 'ja'
-            ? 'top-1/2 -translate-y-20 left-1/4 -translate-x-1/2'
-            : 'top-[100px] right-1/4 translate-x-1/2'
+            ? 'top-1/3 translate-y-1/2 left-1/4 -translate-x-1/2'
+            : 'top-8 right-1/4 translate-x-1/2'
         )}
       />
       <div className={'flex flex-row flex-wrap px-2.5 pb-5 pt-2.5 justify-between'}>

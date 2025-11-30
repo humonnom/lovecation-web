@@ -36,7 +36,7 @@ export function BaseModal({
         {(title || subtitle) && (
           <div className="mb-6">
             {title && (
-              <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary mb-2">
+              <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary mb-2 whitespace-pre-line">
                 {title}
               </h2>
             )}
