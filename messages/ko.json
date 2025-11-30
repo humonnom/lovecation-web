@@ -18,6 +18,10 @@
     "loadingProfiles": "프로필을 불러오는 중...",
     "errorLoadingProfiles": "프로필을 불러올 수 없습니다"
   },
+  "match": {
+    "title": "새로운 인연",
+    "subtitle": "마음에 드는 프로필을 찾아보세요"
+  },
   "chat": {
     "title": "채팅",
     "subtitle": "새로운 메시지를 확인하세요",

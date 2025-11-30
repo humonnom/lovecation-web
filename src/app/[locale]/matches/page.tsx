@@ -1,9 +1,10 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Heart, X } from 'lucide-react';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useProfiles } from '@/hooks/queries/useProfiles';
+import { useHeader } from '@/lib/providers/HeaderProvider';
 import userDetailData from '@/data/userDetailDummyData.json';
 import { Profile } from '@/types/supabase';
 import { MatchModal } from '@/components/matches/MatchModal';
@@ -18,11 +19,17 @@ const PageContainer = ({ children }: { children: React.ReactNode }) => (
 
 export default function SwipePage() {
   const locale = useLocale();
+  const { setHeader } = useHeader();
+  const t = useTranslations('match');
 
   // locale에 따라 gender 결정: ja -> male, ko -> female
   const targetGender = locale === 'ja' ? 'male' : 'female';
 
   const { profiles: dbProfiles, loading, error } = useProfiles({ gender: targetGender });
+
+  useEffect(() => {
+    setHeader(t('title'), t('subtitle'));
+  }, [setHeader, t]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState<'left' | 'right' | null>(null);

@@ -18,6 +18,10 @@
     "loadingProfiles": "プロフィールを読み込み中...",
     "errorLoadingProfiles": "プロフィールを読み込めません"
   },
+  "match": {
+    "title": "新しい出会い",
+    "subtitle": "気になるプロフィールを探してみよう"
+  },
   "chat": {
     "title": "チャット",
     "subtitle": "新しいメッセージを確認しましょう",
