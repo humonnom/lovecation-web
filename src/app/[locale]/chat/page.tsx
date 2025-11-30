@@ -207,7 +207,7 @@ export default function ChatListPage() {
                     <div className="flex items-center gap-1.5">
                       <Sparkles size={14} className="text-primary flex-shrink-0" />
                       <p className="text-sm text-primary font-medium truncate text-left">
-                        첫 대화를 시작해보세요!
+                        {t('startFirstChat')}
                       </p>
                     </div>
                   ) : (
@@ -226,7 +226,7 @@ export default function ChatListPage() {
                 {/* 첫 번째 isNew 요소에 말풍선 표시 */}
                 {isFirstNew && showHint && (
                   <BouncingSpeechBubble
-                    text="클릭해서 첫 대화를 시도하세요!"
+                    text={t('clickFirstChatHint')}
                     position="bottom"
                     className="absolute right-16 -top-4"
                   />

@@ -31,7 +31,9 @@
     "messages": "메시지",
     "quickReply": "빠른 답장",
     "markAsRead": "읽음 표시",
-    "minutesAgo": "{minutes}분 전"
+    "minutesAgo": "{minutes}분 전",
+    "clickFirstChatHint": "클릭해서 첫 대화를 시도하세요!",
+    "startFirstChat": "첫 대화를 시작해보세요!"
   },
   "profile": {
     "title": "프로필",
