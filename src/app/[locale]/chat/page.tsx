@@ -1,11 +1,10 @@
 'use client';
 
-import Image from 'next/image';
 import { CheckCircle, Heart, ListFilter, Sparkles, Star, Zap } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { useHeader } from '@/lib/providers/HeaderProvider';
-import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
+import { useEffect, useMemo, useState } from 'react';
 import { DevelopmentBanner } from '@/components/DevelopmentBanner';
 import { BouncingSpeechBubble } from '@/components/common/BouncingSpeechBubble';
 import { AvatarWithSkeleton } from '@/components/common/AvatarWithSkeleton';
@@ -31,7 +30,8 @@ interface Conversation {
   isNew?: boolean;
 }
 
-const mockRecentMatches: RecentMatch[] = [
+// Default(Female) dataset
+const mockRecentMatchesFemale: RecentMatch[] = [
   {
     id: 1,
     name: 'Sakura',
@@ -53,12 +53,29 @@ const mockRecentMatches: RecentMatch[] = [
   },
 ];
 
+// Male dataset for ja locale
+const mockRecentMatchesMale: RecentMatch[] = [
+  {
+    id: 1,
+    name: 'Jonghun',
+    image:
+      'https://tfvieqghcwnhsqexspxy.supabase.co/storage/v1/object/public/profile-images/sample-m-1.jpg',
+    isNew: true,
+  },
+  {
+    id: 2,
+    name: 'Mindful',
+    image:
+      'https://tfvieqghcwnhsqexspxy.supabase.co/storage/v1/object/public/profile-images/sample-m-8.jpg',
+  },
+];
+
 const getMockConversations = (
   t: (key: string, values?: Record<string, unknown>) => string
 ): Conversation[] => [
   {
     id: 1,
-    user: mockRecentMatches[0],
+    user: mockRecentMatchesFemale[0],
     lastMessage: '',
     timestamp: t('minutesAgo', { minutes: 15 }),
     isOnline: true,
@@ -67,7 +84,7 @@ const getMockConversations = (
   },
   {
     id: 2,
-    user: mockRecentMatches[1],
+    user: mockRecentMatchesFemale[1],
     lastMessage: '今日は夕方にキムチチャーハンを作って食べるつもりです。',
     timestamp: t('minutesAgo', { minutes: 7 }),
     isOnline: false,
@@ -76,7 +93,7 @@ const getMockConversations = (
   },
   {
     id: 3,
-    user: mockRecentMatches[2],
+    user: mockRecentMatchesFemale[2],
     lastMessage: '지금 퇴근하고 있어요~',
     timestamp: t('minutesAgo', { minutes: 1 }),
     unreadCount: 4,
@@ -96,12 +113,26 @@ const getMockConversations = (
 export default function ChatListPage() {
   const { setHeader } = useHeader();
   const t = useTranslations('chat');
+  const locale = useLocale();
   const title = t('title');
   const subtitle = t('subtitle');
   const mockConversations = getMockConversations(
     t as (key: string, values?: Record<string, unknown>) => string
   );
   const [showHint, setShowHint] = useState(false);
+  const recentMatches = locale === 'ja' ? mockRecentMatchesMale : mockRecentMatchesFemale;
+
+  // Derive conversations for ja locale using male users (limited to available items)
+  const conversations = useMemo(() => {
+    if (locale === 'ja') {
+      const count = Math.min(mockRecentMatchesMale.length, mockConversations.length);
+      return Array.from({ length: count }, (_, i) => ({
+        ...mockConversations[i],
+        user: mockRecentMatchesMale[i],
+      }));
+    }
+    return mockConversations;
+  }, [locale, mockConversations]);
 
   useEffect(() => {
     setHeader(title, subtitle);
@@ -126,7 +157,7 @@ export default function ChatListPage() {
         {/* Recent Matches Section */}
         <div className="mb-5">
           <div className="flex overflow-x-auto px-5 gap-4 no-scrollbar py-2">
-            {mockRecentMatches.map((match) => (
+            {recentMatches.map((match) => (
               <button
                 key={match.id}
                 className="flex flex-col items-center flex-shrink-0"
@@ -159,9 +190,9 @@ export default function ChatListPage() {
             </button>
           </div>
 
-          {mockConversations.map((conversation, index) => {
+          {conversations.map((conversation, index) => {
             const isFirstNew =
-              conversation.isNew && mockConversations.findIndex((c) => c.isNew) === index;
+              conversation.isNew && conversations.findIndex((c) => c.isNew) === index;
 
             return (
               <Link
