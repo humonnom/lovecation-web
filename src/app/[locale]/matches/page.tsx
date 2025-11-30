@@ -103,9 +103,8 @@ export default function SwipePage() {
   };
 
   const handleSendMessage = () => {
-    // 채팅 페이지로 이동하는 로직
-    alert('채팅 페이지로 이동합니다!');
     handleMatchClose();
+    router.push('/chat/1');
   };
 
   const handlePointerDown = (e: React.PointerEvent) => {

@@ -1,4 +1,4 @@
-import { Heart, MessageCircle } from 'lucide-react';
+import { Heart, MessageCircle, User } from 'lucide-react';
 import Image from 'next/image';
 import { Profile } from '@/types/supabase';
 
@@ -11,7 +11,7 @@ interface MatchModalProps {
 
 export function MatchModal({
   matchedProfile,
-  currentUserImage = '/korean-man.png',
+  currentUserImage,
   onSendMessage,
   onClose,
 }: MatchModalProps) {
@@ -25,26 +25,24 @@ export function MatchModal({
           <p className="text-gray-600">{matchedProfile.nickname}님과 매칭되었습니다!</p>
         </div>
 
-        {/* Profile Images */}
+        {/* Profile Avatars with icon fallback */}
         <div className="flex items-center justify-center gap-4 mb-8">
-          <div className="w-24 h-24 rounded-full border-4 border-primary overflow-hidden shadow-lg relative">
-            <Image
-              src={currentUserImage}
-              alt="You"
-              fill
-              className="object-cover"
-            />
+          <div className="w-24 h-24 rounded-full border-4 border-primary overflow-hidden shadow-lg relative flex items-center justify-center bg-white">
+            {currentUserImage ? (
+              <Image src={currentUserImage} alt="You" fill className="object-cover" />
+            ) : (
+              <User className="w-12 h-12 text-primary" />
+            )}
           </div>
           <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
             <Heart className="w-6 h-6 text-white fill-white" />
           </div>
-          <div className="w-24 h-24 rounded-full border-4 border-primary overflow-hidden shadow-lg relative">
-            <Image
-              src={matchedProfile.avatar_url || '/placeholder.svg'}
-              alt={matchedProfile.nickname}
-              fill
-              className="object-cover"
-            />
+          <div className="w-24 h-24 rounded-full border-4 border-primary overflow-hidden shadow-lg relative flex items-center justify-center bg-white">
+            {matchedProfile.avatar_url ? (
+              <Image src={matchedProfile.avatar_url} alt={matchedProfile.nickname} fill className="object-cover" />
+            ) : (
+              <User className="w-12 h-12 text-primary" />
+            )}
           </div>
         </div>
 

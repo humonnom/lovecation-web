@@ -11,6 +11,7 @@ import { BouncingSpeechBubble } from '@/components/common/BouncingSpeechBubble';
 import { useFunnel } from '@/hooks/useFunnel';
 import chatData from '@/data/chatExampleDummyData.json';
 import type { Message, SuggestedMessage } from '@/types/chat';
+import { AvatarWithSkeleton } from '@/components/common/AvatarWithSkeleton';
 
 const mockMessages: Message[] = chatData as Message[];
 
@@ -166,14 +167,11 @@ export default function ChatDetailPage() {
           <DetailHeader
             centerElement={
               <div className="flex items-center flex-1">
-                <div className="w-11 h-11 rounded-full overflow-hidden relative mr-3">
-                  <Image
-                    src={otherUser.image}
-                    alt={otherUser.name}
-                    fill
-                    className="object-cover object-center"
-                  />
-                </div>
+                <AvatarWithSkeleton
+                  src={otherUser.image}
+                  alt={otherUser.name}
+                  className="w-11 h-11 rounded-full overflow-hidden relative mr-3"
+                />
                 <div className="flex-1">
                   <h2 className="text-base font-bold text-foreground mb-0.5">{otherUser.name}</h2>
                   <p className="text-sm text-primary font-medium">
@@ -237,14 +235,11 @@ export default function ChatDetailPage() {
                 exit={{ opacity: 0, y: 10 }}
                 className="flex items-end mb-4"
               >
-                <div className="w-9 h-9 rounded-full overflow-hidden relative mx-2 flex-shrink-0">
-                  <Image
-                    src={otherUser.image}
-                    alt="avatar"
-                    fill
-                    className="object-cover object-center"
-                  />
-                </div>
+                <AvatarWithSkeleton
+                  src={otherUser.image}
+                  alt="avatar"
+                  className="w-9 h-9 rounded-full overflow-hidden relative mx-2 flex-shrink-0"
+                />
                 <div className="max-w-[70%]">
                   <p className="text-sm text-primary font-semibold mb-1 ml-3">{otherUser.name}</p>
                   <div className="rounded-[18px] px-5 py-3 bg-text-secondary rounded-bl-sm shadow-sm">

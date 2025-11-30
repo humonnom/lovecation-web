@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { DevelopmentBanner } from '@/components/DevelopmentBanner';
 import { BouncingSpeechBubble } from '@/components/common/BouncingSpeechBubble';
+import { AvatarWithSkeleton } from '@/components/common/AvatarWithSkeleton';
 
 interface RecentMatch {
   id: number;
@@ -137,14 +138,11 @@ export default function ChatListPage() {
                       <Star size={16} className="text-white fill-white" />
                     </div>
                   )}
-                  <div className="w-[60px] h-[60px] rounded-full border-3 border-[#FFCBD2] overflow-hidden relative">
-                    <Image
-                      src={match.image}
-                      alt={match.name}
-                      fill
-                      className="object-cover object-center"
-                    />
-                  </div>
+                  <AvatarWithSkeleton
+                    src={match.image}
+                    alt={match.name}
+                    className="w-[60px] h-[60px] rounded-full border-3 border-[#FFCBD2] overflow-hidden relative"
+                  />
                 </div>
                 <span className="text-xs text-[#666] font-medium">{match.name}</span>
               </button>
@@ -182,16 +180,11 @@ export default function ChatListPage() {
               >
                 <div className="mr-3">
                   <div className="relative">
-                    <div className="w-14 h-14 rounded-full overflow-hidden relative">
-                      <Image
-                        src={conversation.user.image}
-                        alt={conversation.user.name}
-                        fill
-                        className="object-cover object-center"
-                        // placeholder={'blur'}
-                        // blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmerHtmlString)}`}
-                      />
-                    </div>
+                    <AvatarWithSkeleton
+                      src={conversation.user.image}
+                      alt={conversation.user.name}
+                      className="w-14 h-14 rounded-full overflow-hidden relative"
+                    />
                     {conversation.isOnline && (
                       <div className="absolute bottom-0.5 right-0.5 w-3.5 h-3.5 rounded-full bg-[#4CAF50] border-2 border-white" />
                     )}
