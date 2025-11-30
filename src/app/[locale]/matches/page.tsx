@@ -297,7 +297,6 @@ export default function SwipePage() {
                     : undefined
                 }
               >
-                {/* Front Face */}
                 <div
                   onClick={() => {
                     console.log('clicked');
@@ -313,7 +312,6 @@ export default function SwipePage() {
                   />
                 </div>
 
-                {/* Back Face */}
                 <ProfileCardBack
                   bio={profile.bio}
                   interests={profile.interests}

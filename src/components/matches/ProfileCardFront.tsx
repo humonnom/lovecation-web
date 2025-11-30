@@ -7,7 +7,6 @@ interface ProfileCardFrontProps {
   city: string;
   onPass: () => void;
   onLike: () => void;
-  onAnyAction?: () => void;
   imagePriority?: boolean;
 }
 
@@ -17,7 +16,6 @@ export function ProfileCardFront({
   city,
   onPass,
   onLike,
-  onAnyAction,
   imagePriority = false,
 }: ProfileCardFrontProps) {
   return (
