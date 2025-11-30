@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 import { Heart, X } from 'lucide-react';
 import Image from 'next/image';
-import { useLocale, useTranslations } from 'next-intl';
+import { useLocale } from 'next-intl';
 import { useProfiles } from '@/hooks/queries/useProfiles';
 import userDetailData from '@/data/userDetailDummyData.json';
 import { Profile } from '@/types/supabase';
@@ -11,7 +11,6 @@ import { MatchModal } from '@/components/matches/MatchModal';
 import { SwipeActionButtons } from '@/components/matches/SwipeActionButtons';
 
 export default function SwipePage() {
-  const t = useTranslations('userDetail.interestsList');
   const locale = useLocale();
 
   // locale에 따라 gender 결정: ja -> male, ko -> female
@@ -126,9 +125,9 @@ export default function SwipePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-primary-light/30 to-white">
+    <div className="fixed inset-0 bg-gradient-to-b from-primary-light/30 to-white flex items-center justify-center">
       {/* Main Content */}
-      <div className="max-w-md mx-auto p-4">
+      <div className="max-w-md w-full px-4">
         {currentProfile && (
           <div
             className={`relative transition-all duration-300 ${
