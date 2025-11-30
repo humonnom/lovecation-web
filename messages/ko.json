@@ -25,7 +25,11 @@
     "flipCardHint": "카드를 눌러서 더 많은 정보를 확인해보세요!",
     "moreInfoHint": "더 알아보려면 누르세요",
     "swipeRightHint": "오른쪽으로 스와이프 하세요",
-    "heartActionHint": "하트 버튼을 눌러도 호감을 표현할 수 있습니다"
+    "heartActionHint": "하트 버튼을 눌러도 호감을 표현할 수 있습니다",
+    "emptyTitle": "모든 추천 프로필을\n확인했어요!",
+    "emptySubtitle": "매치된 상대와 대화를 시작해보세요.",
+    "goToChat": "대화하러 가기",
+    "restart": "처음부터 다시 하기"
   },
   "chat": {
     "title": "채팅",

@@ -25,7 +25,11 @@
     "flipCardHint": "カードをタップして詳細を確認してみよう！",
     "moreInfoHint": "もっと知るにはタップ",
     "swipeRightHint": "右にスワイプしてください",
-    "heartActionHint": "ハートボタンでも好意を伝えられます"
+    "heartActionHint": "ハートボタンでも好意を伝えられます",
+    "emptyTitle": "すべての\nおすすめプロフィールを\n確認しました！",
+    "emptySubtitle": "マッチした相手とチャットを始めましょう。",
+    "goToChat": "チャットに進む",
+    "restart": "最初からやり直す"
   },
   "chat": {
     "title": "チャット",

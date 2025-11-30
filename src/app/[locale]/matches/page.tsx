@@ -173,22 +173,24 @@ export default function SwipePage() {
           <div className="w-24 h-24 bg-primary-light/50 rounded-full flex items-center justify-center mx-auto mb-6">
             <Heart className="w-12 h-12 text-primary" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">
-            모든 추천 프로필을 확인하셨습니다.
+          <h2 className="text-2xl font-bold text-gray-800 mb-2 whitespace-pre-line">
+            {t('emptyTitle')}
           </h2>
-          <p className="text-gray-600 mb-6">매치된 상대와 대화를 시작해보세요.</p>
-          <button
-            onClick={() => setCurrentIndex(0)}
-            className="mr-3 px-6 py-3 bg-primary text-white rounded-full font-semibold hover:bg-primary/90 transition"
-          >
-            데모 처음부터 다시 사용해보기
-          </button>
-          <button
-            onClick={() => router.push('/chat')}
-            className="px-6 py-3 bg-primary text-white rounded-full font-semibold hover:bg-primary/90 transition"
-          >
-            대화하러 가기
-          </button>
+          <p className="text-gray-600 mb-6">{t('emptySubtitle')}</p>
+          <div className={'flex flex-col gap-4'}>
+            <button
+              onClick={() => router.push('/chat')}
+              className="px-6 py-3 bg-primary text-white rounded-full font-semibold hover:bg-primary/90 transition"
+            >
+              {t('goToChat')}
+            </button>
+            <button
+              onClick={() => setCurrentIndex(0)}
+              className="px-6 py-3 bg-primary text-white rounded-full font-semibold hover:bg-primary/90 transition"
+            >
+              {t('restart')}
+            </button>
+          </div>
         </div>
       </PageContainer>
     );
