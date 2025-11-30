@@ -8,6 +8,7 @@ interface ProfileCardFrontProps {
   onPass: () => void;
   onLike: () => void;
   onAnyAction?: () => void;
+  imagePriority?: boolean;
 }
 
 export function ProfileCardFront({
@@ -17,6 +18,7 @@ export function ProfileCardFront({
   onPass,
   onLike,
   onAnyAction,
+  imagePriority = false,
 }: ProfileCardFrontProps) {
   return (
     <div
@@ -33,6 +35,8 @@ export function ProfileCardFront({
           src={avatarUrl || '/placeholder.svg'}
           alt={nickname}
           className="w-full h-full object-cover"
+          priority={imagePriority}
+          loading={imagePriority ? 'eager' : 'lazy'}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60" />
 

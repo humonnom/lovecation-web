@@ -82,20 +82,13 @@ export default function SwipePage() {
 
     setTimeout(() => {
       if (swipeDirection === 'right') {
-        // 30% 확률로 매치 발생
-        const isMatch = Math.random() > 0.7;
-        if (isMatch) {
-          setMatchedProfile(currentProfile);
-          setShowMatch(true);
-          // 매치 발생 시 카드는 오른쪽으로 나간 상태를 유지 (direction을 유지)
-        } else {
-          moveToNext();
-          setDirection(null);
-        }
+        // 무조건 매치되도록
+        setMatchedProfile(currentProfile);
+        setShowMatch(true);
       } else {
         moveToNext();
-        setDirection(null);
       }
+      setDirection(null);
     }, 300);
   };
 
@@ -246,8 +239,8 @@ export default function SwipePage() {
           className="absolute bottom-30 right-9 z-20"
         />
 
-        {/* Render current and next card */}
-        {profiles.slice(currentIndex, currentIndex + 2).map((profile, idx) => {
+        {/* Render current and next card; while swiping, only render current card to prevent flicker */}
+        {profiles.slice(currentIndex, currentIndex + (direction ? 1 : 2)).map((profile, idx) => {
           const isCurrentCard = idx === 0;
           const isBackgroundCard = idx === 1;
 
@@ -316,6 +309,7 @@ export default function SwipePage() {
                     city={profile.city || ''}
                     onPass={() => handleSwipe('left')}
                     onLike={() => handleSwipe('right')}
+                    imagePriority={isCurrentCard || isBackgroundCard}
                   />
                 </div>
 
