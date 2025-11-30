@@ -52,7 +52,6 @@ export function ProfileCardFront({
           <div
             onClick={(e) => {
               e.stopPropagation();
-              onAnyAction?.();
             }}
           >
             <SwipeActionButtons onPass={onPass} onLike={onLike} disabled={false} />
