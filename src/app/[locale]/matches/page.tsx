@@ -24,6 +24,8 @@ export default function SwipePage() {
   const [showMatch, setShowMatch] = useState(false);
   const [matchedProfile, setMatchedProfile] = useState<Profile | null>(null);
   const [isFlipped, setIsFlipped] = useState(false);
+  const [dragStart, setDragStart] = useState<{ x: number; y: number } | null>(null);
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 
   // userDetailData와 결합하여 최종 프로필 생성
   const profiles = useMemo(() => {
@@ -78,6 +80,38 @@ export default function SwipePage() {
     // 채팅 페이지로 이동하는 로직
     alert('채팅 페이지로 이동합니다!');
     handleMatchClose();
+  };
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    if (isFlipped) return; // 카드가 뒤집힌 상태에서는 드래그 불가
+    setDragStart({ x: e.clientX, y: e.clientY });
+  };
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (!dragStart || isFlipped) return;
+
+    const deltaX = e.clientX - dragStart.x;
+    const deltaY = e.clientY - dragStart.y;
+    setDragOffset({ x: deltaX, y: deltaY });
+  };
+
+  const handlePointerUp = () => {
+    if (!dragStart) return;
+
+    const SWIPE_THRESHOLD = 100;
+
+    if (Math.abs(dragOffset.x) > SWIPE_THRESHOLD) {
+      // 스와이프 성공
+      if (dragOffset.x > 0) {
+        handleSwipe('right');
+      } else {
+        handleSwipe('left');
+      }
+    }
+
+    // 초기화
+    setDragStart(null);
+    setDragOffset({ x: 0, y: 0 });
   };
 
   if (loading) {
@@ -142,23 +176,38 @@ export default function SwipePage() {
         {/* Current Card */}
         {currentProfile && (
           <div
-            className={`relative transition-all duration-300 z-10 ${
+            className={`relative z-10 ${
               direction === 'left'
-                ? '-translate-x-full opacity-0 rotate-[-30deg]'
+                ? '-translate-x-full opacity-0 rotate-[-30deg] transition-all duration-300'
                 : direction === 'right'
-                  ? 'translate-x-full opacity-0 rotate-[30deg]'
-                  : ''
+                  ? 'translate-x-full opacity-0 rotate-[30deg] transition-all duration-300'
+                  : dragStart
+                    ? ''
+                    : 'transition-all duration-200'
             }`}
-            style={{ perspective: '1000px' }}
+            style={{
+              perspective: '1000px',
+              transform: dragStart
+                ? `translate(${dragOffset.x}px, ${dragOffset.y}px) rotate(${dragOffset.x * 0.1}deg)`
+                : undefined,
+            }}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            onPointerCancel={handlePointerUp}
           >
             {/* Card Container with 3D flip */}
             <div
-              className={`relative w-full aspect-[2/3] transition-transform duration-700 cursor-pointer`}
+              className={`relative w-full aspect-[2/3] transition-transform duration-700 cursor-pointer touch-none`}
               style={{
                 transformStyle: 'preserve-3d',
                 transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
               }}
-              onClick={() => setIsFlipped(!isFlipped)}
+              onClick={(e) => {
+                if (Math.abs(dragOffset.x) < 5 && Math.abs(dragOffset.y) < 5) {
+                  setIsFlipped(!isFlipped);
+                }
+              }}
             >
               {/* Front Face */}
               <ProfileCardFront
