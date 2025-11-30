@@ -3,6 +3,7 @@ import { Sparkles } from 'lucide-react';
 import { BouncingSpeechBubble } from '@/components/common/BouncingSpeechBubble';
 import type { SuggestedMessage } from '@/types/chat';
 import { Z_INDEX } from '@/constants/zIndex';
+import { useLocale } from 'next-intl';
 
 interface AISuggestionOverlayProps {
   suggestions: SuggestedMessage[];
@@ -15,6 +16,8 @@ export function AISuggestionOverlay({
   selectedSuggestion,
   onSuggestionClick,
 }: AISuggestionOverlayProps) {
+  const locale = useLocale();
+
   return (
     <div
       className={`absolute inset-0 ${Z_INDEX.OVERLAY} bg-background/95 backdrop-blur-sm flex items-center justify-center p-6`}
@@ -30,7 +33,7 @@ export function AISuggestionOverlay({
             <Sparkles size={32} className="text-primary" />
           </div>
           <h2 className="text-2xl font-bold text-foreground mb-2">AI가 추천하는 첫 메시지</h2>
-          <p className="text-base text-text-secondary">사쿠라님과의 대화를 시작해보세요!</p>
+          <p className="text-base text-text-secondary">{`${locale === 'ko' ? 'Sakura' : 'Jonghun'}님과의 대화를 시작해보세요!`}</p>
         </motion.div>
 
         {/* 추천 문구 카드들 */}

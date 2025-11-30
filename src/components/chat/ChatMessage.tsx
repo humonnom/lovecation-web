@@ -10,10 +10,15 @@ interface ChatMessageProps {
   showTranslation: boolean;
 }
 
-export function ChatMessage({ message, currentUser, otherUser, showTranslation }: ChatMessageProps) {
+export function ChatMessage({
+  message,
+  currentUser,
+  otherUser,
+  showTranslation,
+}: ChatMessageProps) {
   const isMine = message.isCurrentUser;
   const showTranslatedText = showTranslation && !isMine && message.translatedText;
-  const avatarSrc = message.senderId === 'minsuk' ? currentUser.image : otherUser.image;
+  const avatarSrc = isMine ? currentUser.image : otherUser.image;
 
   if (message.voiceDuration) {
     return (
@@ -28,7 +33,7 @@ export function ChatMessage({ message, currentUser, otherUser, showTranslation }
         </div>
         <div className="max-w-[70%]">
           {!isMine && (
-            <p className="text-sm text-primary font-semibold mb-1 ml-3">{message.senderName}</p>
+            <p className="text-sm text-primary font-semibold mb-1 ml-3">{message.senderId}</p>
           )}
           <div
             className={`rounded-[18px] p-3 flex items-center gap-2 min-w-[200px] shadow-sm ${
@@ -47,7 +52,9 @@ export function ChatMessage({ message, currentUser, otherUser, showTranslation }
                 />
               ))}
             </div>
-            <span className="text-xs font-semibold text-background/90">{message.voiceDuration}</span>
+            <span className="text-xs font-semibold text-background/90">
+              {message.voiceDuration}
+            </span>
           </div>
           <span
             className={`text-xs mt-1 block ${
@@ -72,7 +79,9 @@ export function ChatMessage({ message, currentUser, otherUser, showTranslation }
         <Image src={avatarSrc} alt="avatar" fill className="object-cover object-center" />
       </div>
       <div className="max-w-[70%]">
-        {!isMine && <p className="text-sm text-primary font-semibold mb-1 ml-3">{message.senderName}</p>}
+        {!isMine && (
+          <p className="text-sm text-primary font-semibold mb-1 ml-3">{message.senderId}</p>
+        )}
         <div
           className={`rounded-[18px] p-3 shadow-sm ${
             isMine ? 'bg-border rounded-br-sm' : 'bg-text-secondary rounded-bl-sm'
@@ -95,7 +104,9 @@ export function ChatMessage({ message, currentUser, otherUser, showTranslation }
             </motion.div>
           )}
 
-          <div className={`flex items-center justify-end gap-1 ${showTranslatedText ? 'mt-2' : 'mt-1'}`}>
+          <div
+            className={`flex items-center justify-end gap-1 ${showTranslatedText ? 'mt-2' : 'mt-1'}`}
+          >
             <span className={`text-xs ${isMine ? 'text-text-secondary' : 'text-background/70'}`}>
               {message.timestamp}
             </span>

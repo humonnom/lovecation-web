@@ -15,38 +15,63 @@ import { BaseModal } from '@/components/common/BaseModal';
 import { useRouter } from '@/i18n/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 
-const mockMessages: Message[] = chatData as Message[];
+const getUserInfo = (locale: string) => {
+  const male = {
+    name: 'Jonghun',
+    image:
+      'https://tfvieqghcwnhsqexspxy.supabase.co/storage/v1/object/public/profile-images/sample-m-1.jpg',
+    isOnline: true,
+  };
 
-const currentUser = {
-  name: '민석',
-  image: '/profiles/man-profile1.jpg',
+  const female = {
+    name: 'Sakura',
+    image:
+      'https://tfvieqghcwnhsqexspxy.supabase.co/storage/v1/object/public/profile-images/sample2.jpg',
+    isOnline: true,
+  };
+  return locale === 'ko'
+    ? { currentUser: male, otherUser: female }
+    : { currentUser: female, otherUser: male };
 };
 
-const otherUser = {
-  name: '사쿠라',
-  nameJa: 'さくら (Sakura)',
-  image:
-    'https://tfvieqghcwnhsqexspxy.supabase.co/storage/v1/object/public/profile-images/sample2.jpg',
-  isOnline: true,
+const suggestedMessages: {
+  [locale: string]: SuggestedMessage[];
+} = {
+  ko: [
+    {
+      id: 1,
+      text: '안녕하세요! 한국어 공부 중이시라니 멋지네요.👍어떻게 시작하게 되셨어요?',
+      translation: 'こんにちは！韓国語を勉強中だなんて素敵ですね。👍どうやって始めたんですか？',
+    },
+    {
+      id: 2,
+      text: '안녕하세요! 프로필 보니까 한국 문화 정말 좋아하시는 것 같아서 인사드려요😊',
+      translation: 'こんにちは！プロフィールを見て韓国文化が本当に好きみたいで挨拶しますね😊',
+    },
+    {
+      id: 3,
+      text: '안녕하세요! 한국 드라마 좋아하신다고 들었는데, 추천 좀 해주실 수 있나요?😃',
+      translation: 'こんにちは！韓国ドラマが好きだと聞きましたが、おすすめを教えてもらえますか？😃',
+    },
+  ],
+  ja: [
+    {
+      id: 1,
+      text: 'こんにちは!写真を撮るのがお好きなんですね。',
+      translation: '안녕하세요! 사진 찍는 것 좋아하시나봐요.',
+    },
+    {
+      id: 2,
+      text: 'こんにちは〜 プロフィール写真素敵ですね。😃',
+      translation: '안녕하세요~ 프로필 사진이 멋있어요. 😃',
+    },
+    {
+      id: 3,
+      text: '美味しいお店巡りがお好きなんですね。私も好きです 😃',
+      translation: '맛집 탐방 좋아하시나봐요. 저도 좋아하는데 😃',
+    },
+  ],
 };
-
-const suggestedMessages: SuggestedMessage[] = [
-  {
-    id: 1,
-    text: '안녕하세요! 한국어 공부 중이시라니 멋지네요.👍어떻게 시작하게 되셨어요?',
-    translation: 'こんにちは！韓国語を勉強中だなんて素敵ですね。👍どうやって始めたんですか？',
-  },
-  {
-    id: 2,
-    text: '안녕하세요! 프로필 보니까 한국 문화 정말 좋아하시는 것 같아서 인사드려요😊',
-    translation: 'こんにちは！プロフィールを見て韓国文化が本当に好きみたいで挨拶しますね😊',
-  },
-  {
-    id: 3,
-    text: '안녕하세요! 한국 드라마 좋아하신다고 들었는데, 추천 좀 해주실 수 있나요?😃',
-    translation: 'こんにちは！韓国ドラマが好きだと聞きましたが、おすすめを教えてもらえますか？😃',
-  },
-];
 
 const STEPS = ['ai-suggestion', 'chat'] as const;
 
@@ -65,6 +90,9 @@ export default function ChatDetailPage() {
   const [myPagePromptDismissed, setMyPagePromptDismissed] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
+
+  const { currentUser, otherUser } = getUserInfo(locale);
+  const mockMessages: Message[] = chatData[locale as 'ja' | 'ko'] as Message[];
 
   // 스크롤 자동 이동
   useEffect(() => {
@@ -139,8 +167,8 @@ export default function ChatDetailPage() {
     setTimeout(() => {
       const newMessage: Message = {
         id: 0,
-        senderId: 'minsuk',
-        senderName: '민석',
+        senderId: 'Jonghun',
+        senderName: '종훈',
         text: suggestion.text,
         translatedText: suggestion.translation,
         timestamp: '10:32',
@@ -177,7 +205,7 @@ export default function ChatDetailPage() {
     <Funnel>
       <Step name="ai-suggestion">
         <AISuggestionOverlay
-          suggestions={suggestedMessages}
+          suggestions={suggestedMessages[locale]}
           selectedSuggestion={selectedSuggestion}
           onSuggestionClick={handleSuggestionClick}
         />
@@ -191,13 +219,11 @@ export default function ChatDetailPage() {
               <div className="flex items-center flex-1">
                 <AvatarWithSkeleton
                   src={otherUser.image}
-                  alt={locale === 'ja' ? otherUser.nameJa : otherUser.name}
+                  alt={otherUser.name}
                   className="w-11 h-11 rounded-full overflow-hidden relative mr-3"
                 />
                 <div className="flex-1">
-                  <h2 className="text-base font-bold text-foreground mb-0.5">
-                    {locale === 'ja' ? otherUser.nameJa : otherUser.name}
-                  </h2>
+                  <h2 className="text-base font-bold text-foreground mb-0.5">{otherUser.name}</h2>
                   <p className="text-sm text-primary font-medium">
                     {otherUser.isOnline ? t('online') : t('offline')}
                   </p>
@@ -214,7 +240,9 @@ export default function ChatDetailPage() {
           {/* Translation Toggle */}
           <div className="flex items-center px-5 py-3 bg-background border-b border-border relative">
             <Languages size={20} className="text-primary" />
-            <span className="flex-1 text-sm font-semibold text-foreground ml-2.5">{t('realtimeTranslation')}</span>
+            <span className="flex-1 text-sm font-semibold text-foreground ml-2.5">
+              {t('realtimeTranslation')}
+            </span>
             <button
               onClick={() => setShowTranslation(!showTranslation)}
               className={`w-12 h-7 rounded-full p-0.5 transition-colors ${
