@@ -12,6 +12,7 @@ import { ProfileCardFront } from '@/components/matches/ProfileCardFront';
 import { ProfileCardBack } from '@/components/matches/ProfileCardBack';
 import { HintBubble } from '@/components/common/HintBubble';
 import { useRouter } from '@/i18n/navigation';
+import { SwipeCard } from '@/components/matches/SwipeCard';
 
 const PageContainer = ({
   children,
@@ -53,8 +54,6 @@ export default function SwipePage() {
   const [showMatch, setShowMatch] = useState(false);
   const [matchedProfile, setMatchedProfile] = useState<Profile | null>(null);
   const [isFlipped, setIsFlipped] = useState(false);
-  const [dragStart, setDragStart] = useState<{ x: number; y: number } | null>(null);
-  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const router = useRouter();
 
   // userDetailData와 결합하여 최종 프로필 생성
@@ -107,37 +106,7 @@ export default function SwipePage() {
     router.push('/chat/1');
   };
 
-  const handlePointerDown = (e: React.PointerEvent) => {
-    if (isFlipped) return; // 카드가 뒤집힌 상태에서는 드래그 불가
-    setDragStart({ x: e.clientX, y: e.clientY });
-  };
-
-  const handlePointerMove = (e: React.PointerEvent) => {
-    if (!dragStart || isFlipped) return;
-
-    const deltaX = e.clientX - dragStart.x;
-    const deltaY = e.clientY - dragStart.y;
-    setDragOffset({ x: deltaX, y: deltaY });
-  };
-
-  const handlePointerUp = () => {
-    if (!dragStart) return;
-
-    const SWIPE_THRESHOLD = 100;
-
-    if (Math.abs(dragOffset.x) > SWIPE_THRESHOLD) {
-      // 스와이프 성공
-      if (dragOffset.x > 0) {
-        handleSwipe('right');
-      } else {
-        handleSwipe('left');
-      }
-    }
-
-    // 초기화
-    setDragStart(null);
-    setDragOffset({ x: 0, y: 0 });
-  };
+  // drag handlers are now provided by useSwipeCard
 
   if (loading) {
     return (
@@ -236,73 +205,25 @@ export default function SwipePage() {
             const isBackgroundCard = idx === 1;
 
             return (
-              <div
+              <SwipeCard
                 key={profile.id}
-                className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${
-                  isCurrentCard
-                    ? `z-10 ${
-                        direction === 'left'
-                          ? '-translate-x-full opacity-0 rotate-[-30deg]'
-                          : direction === 'right'
-                            ? 'translate-x-full opacity-0 rotate-[30deg]'
-                            : dragStart
-                              ? ''
-                              : 'transition-all duration-200'
-                      }`
-                    : 'z-0'
-                }`}
-                style={{
-                  perspective: '1000px',
-                  transform:
-                    isCurrentCard && dragStart
-                      ? `translate(${dragOffset.x}px, ${dragOffset.y}px) rotate(${dragOffset.x * 0.1}deg)`
-                      : isBackgroundCard
-                        ? direction !== null
-                          ? 'scale(1)'
-                          : 'scale(0.92)'
-                        : undefined,
-                  filter: isBackgroundCard && direction === null ? 'blur(4px)' : 'blur(0px)',
-                  opacity: isBackgroundCard && direction === null ? 0.6 : 1,
-                }}
-                onPointerDown={isCurrentCard ? handlePointerDown : undefined}
-                onPointerMove={isCurrentCard ? handlePointerMove : undefined}
-                onPointerUp={isCurrentCard ? handlePointerUp : undefined}
-                onPointerCancel={isCurrentCard ? handlePointerUp : undefined}
-              >
-                {/* Card Container with 3D flip */}
-                <div
-                  className={`relative h-full max-h-full aspect-[2/3] w-auto max-w-[92vw] transition-transform duration-700 ${
-                    isCurrentCard ? 'cursor-pointer touch-none' : 'pointer-events-none'
-                  }`}
-                  style={{
-                    transformStyle: 'preserve-3d',
-                    transform: isCurrentCard && isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
-                  }}
-                  onClick={
-                    isCurrentCard
-                      ? () => {
-                          if (Math.abs(dragOffset.x) < 5 && Math.abs(dragOffset.y) < 5) {
-                            setIsFlipped(!isFlipped);
-                          }
-                        }
-                      : undefined
-                  }
-                >
-                  <div
-                    onClick={() => {
-                      console.log('clicked');
-                    }}
-                  >
-                    <ProfileCardFront
-                      avatarUrl={profile.avatar_url || '/placeholder.svg'}
-                      nickname={profile.nickname}
-                      city={profile.city || ''}
-                      onPass={() => handleSwipe('left')}
-                      onLike={() => handleSwipe('right')}
-                      imagePriority={isCurrentCard || isBackgroundCard}
-                    />
-                  </div>
-
+                isCurrent={isCurrentCard}
+                isBackground={isBackgroundCard}
+                direction={direction}
+                flipped={isFlipped}
+                onToggleFlip={() => setIsFlipped(!isFlipped)}
+                onSwipe={(dir) => handleSwipe(dir)}
+                front={
+                  <ProfileCardFront
+                    avatarUrl={profile.avatar_url || '/placeholder.svg'}
+                    nickname={profile.nickname}
+                    city={profile.city || ''}
+                    onPass={() => handleSwipe('left')}
+                    onLike={() => handleSwipe('right')}
+                    imagePriority={isCurrentCard || isBackgroundCard}
+                  />
+                }
+                back={
                   <ProfileCardBack
                     bio={profile.bio}
                     interests={profile.interests}
@@ -313,8 +234,8 @@ export default function SwipePage() {
                       setIsFlipped(false);
                     }}
                   />
-                </div>
-              </div>
+                }
+              />
             );
           })}
         </div>
