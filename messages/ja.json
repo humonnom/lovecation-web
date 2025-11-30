@@ -22,7 +22,10 @@
     "title": "新しい出会い",
     "subtitle": "気になるプロフィールを探してみよう",
     "learnMore": "もっと見る",
-    "flipCardHint": "カードをタップして詳細を確認してみよう！"
+    "flipCardHint": "カードをタップして詳細を確認してみよう！",
+    "moreInfoHint": "もっと知るにはタップ",
+    "swipeRightHint": "右にスワイプしてください",
+    "heartActionHint": "ハートボタンでも好意を伝えられます"
   },
   "chat": {
     "title": "チャット",

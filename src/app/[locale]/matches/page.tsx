@@ -214,7 +214,7 @@ export default function SwipePage() {
             condition={currentIndex === 0}
             dismissCondition={!isFlipped}
             delay={1000}
-            text={'더 알아보려면 누르세요'}
+            text={t('moreInfoHint')}
             position="bottom"
             className="absolute bottom-30 left-1/2 -translate-x-1/2 z-20"
           />
@@ -225,7 +225,7 @@ export default function SwipePage() {
           condition={currentIndex === 1 && !loading && profiles.length > 1}
           dismissCondition={isFlipped}
           delay={1000}
-          text="오른쪽으로 스와이프 하세요"
+          text={t('swipeRightHint')}
           position="right"
           className="absolute right-0 top-0 translate-y-10 translate-x-2 z-20"
         />
@@ -233,7 +233,7 @@ export default function SwipePage() {
           condition={currentIndex === 1 && !loading && profiles.length > 1}
           dismissCondition={isFlipped}
           delay={1000}
-          text="하트 버튼을 눌러도 호감을 표현할 수 있습니다"
+          text={t('heartActionHint')}
           position="bottom-right"
           className="absolute bottom-30 right-9 z-20"
         />

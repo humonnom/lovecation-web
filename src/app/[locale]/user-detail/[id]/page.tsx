@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import {
   Cake,
@@ -25,11 +25,11 @@ import type { UserDetailDataMap } from '@/types/userDetail';
 import { DetailHeader } from '@/components/layout/DetailHeader';
 
 export default function UserDetailPage() {
-  const router = useRouter();
+  const locale = useLocale();
   const params = useParams();
   const t = useTranslations();
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
-  const [isKR, setIsKR] = useState(true);
+  const [isKR, setIsKR] = useState(locale === 'ko');
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState<Profile | null>(null);
 
