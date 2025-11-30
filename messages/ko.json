@@ -193,5 +193,14 @@
         "cafe_exhibition_walk": "카페, 전시회, 조용한 산책"
       }
     }
+  },
+  "chatDetail": {
+    "online": "온라인",
+    "offline": "오프라인",
+    "realtimeTranslation": "실시간 번역",
+    "translationHint": "자동 번역 기능을 사용할 수 있습니다.",
+    "registerTitle": "회원 등록하고 대화 시작하기",
+    "registerSubtitle": "자동 번역 기능으로 부담없이 대화할 수 있습니다.",
+    "goToMyPage": "마이페이지로 이동"
   }
 }

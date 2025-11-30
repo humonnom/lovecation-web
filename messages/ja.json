@@ -193,5 +193,14 @@
         "cafe_exhibition_walk": "カフェ、展示会、静かな散歩"
       }
     }
+  },
+  "chatDetail": {
+    "online": "オンライン",
+    "offline": "オフライン",
+    "realtimeTranslation": "リアルタイム翻訳",
+    "translationHint": "自動翻訳機能を利用できます。",
+    "registerTitle": "会員登録してチャットを始めましょう",
+    "registerSubtitle": "自動翻訳機能で気軽に会話できます。",
+    "goToMyPage": "マイページに移動"
   }
 }

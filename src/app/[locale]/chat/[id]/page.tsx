@@ -13,6 +13,7 @@ import type { Message, SuggestedMessage } from '@/types/chat';
 import { AvatarWithSkeleton } from '@/components/common/AvatarWithSkeleton';
 import { BaseModal } from '@/components/common/BaseModal';
 import { useRouter } from '@/i18n/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 
 const mockMessages: Message[] = chatData as Message[];
 
@@ -52,6 +53,8 @@ const STEPS = ['ai-suggestion', 'chat'] as const;
 export default function ChatDetailPage() {
   const { Funnel, Step, setStep } = useFunnel(STEPS);
   const router = useRouter();
+  const locale = useLocale();
+  const t = useTranslations('chatDetail');
   const [showTranslation, setShowTranslation] = useState(false);
   const [selectedSuggestion, setSelectedSuggestion] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -188,13 +191,15 @@ export default function ChatDetailPage() {
               <div className="flex items-center flex-1">
                 <AvatarWithSkeleton
                   src={otherUser.image}
-                  alt={otherUser.name}
+                  alt={locale === 'ja' ? otherUser.nameJa : otherUser.name}
                   className="w-11 h-11 rounded-full overflow-hidden relative mr-3"
                 />
                 <div className="flex-1">
-                  <h2 className="text-base font-bold text-foreground mb-0.5">{otherUser.name}</h2>
+                  <h2 className="text-base font-bold text-foreground mb-0.5">
+                    {locale === 'ja' ? otherUser.nameJa : otherUser.name}
+                  </h2>
                   <p className="text-sm text-primary font-medium">
-                    {otherUser.isOnline ? '온라인' : '오프라인'}
+                    {otherUser.isOnline ? t('online') : t('offline')}
                   </p>
                 </div>
               </div>
@@ -209,7 +214,7 @@ export default function ChatDetailPage() {
           {/* Translation Toggle */}
           <div className="flex items-center px-5 py-3 bg-background border-b border-border relative">
             <Languages size={20} className="text-primary" />
-            <span className="flex-1 text-sm font-semibold text-foreground ml-2.5">실시간 번역</span>
+            <span className="flex-1 text-sm font-semibold text-foreground ml-2.5">{t('realtimeTranslation')}</span>
             <button
               onClick={() => setShowTranslation(!showTranslation)}
               className={`w-12 h-7 rounded-full p-0.5 transition-colors ${
@@ -226,7 +231,7 @@ export default function ChatDetailPage() {
             {/* 번역 힌트 말풍선 */}
             {showTranslationHint && (
               <BouncingSpeechBubble
-                text="자동 번역 기능을 사용할 수 있습니다."
+                text={t('translationHint')}
                 position="bottom"
                 /* zIndex must be higher than the header(Z_INDEX.HEADER) */
                 className="absolute -top-12 right-5 z-51"
@@ -291,8 +296,8 @@ export default function ChatDetailPage() {
           {/* My-Page Prompt Modal (reuses BaseModal design) */}
           <BaseModal
             open={showMyPagePrompt}
-            title={'회원 등록하기'}
-            subtitle={'회원으로 등록하시면 실제 대화 기능을 사용할 수 있습니다.'}
+            title={t('registerTitle')}
+            subtitle={t('registerSubtitle')}
             onClose={() => {
               setMyPagePromptDismissed(true);
               setShowMyPagePrompt(false);
@@ -303,7 +308,7 @@ export default function ChatDetailPage() {
                 onClick={handleGoMyPage}
                 className="w-full py-4 bg-primary text-white rounded-full font-semibold hover:bg-primary/90 transition shadow-lg"
               >
-                마이페이지로 이동하여 등록하기
+                {t('goToMyPage')}
               </button>
             </div>
           </BaseModal>
