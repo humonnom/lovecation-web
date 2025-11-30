@@ -9,7 +9,12 @@ import { Profile } from '@/types/supabase';
 import { MatchModal } from '@/components/matches/MatchModal';
 import { ProfileCardFront } from '@/components/matches/ProfileCardFront';
 import { ProfileCardBack } from '@/components/matches/ProfileCardBack';
-import { BackgroundCard } from '@/components/matches/BackgroundCard';
+
+const PageContainer = ({ children }: { children: React.ReactNode }) => (
+  <div className="fixed inset-0 bg-gradient-to-b from-primary-light/30 to-white flex items-center justify-center p-4">
+    {children}
+  </div>
+);
 
 export default function SwipePage() {
   const locale = useLocale();
@@ -116,20 +121,20 @@ export default function SwipePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-primary-light/30 to-white flex items-center justify-center p-4">
+      <PageContainer>
         <div className="text-center">
           <div className="w-24 h-24 bg-primary-light/50 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse">
             <Heart className="w-12 h-12 text-primary" />
           </div>
           <h2 className="text-2xl font-bold text-gray-800 mb-2">프로필을 불러오는 중...</h2>
         </div>
-      </div>
+      </PageContainer>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-primary-light/30 to-white flex items-center justify-center p-4">
+      <PageContainer>
         <div className="text-center">
           <div className="w-24 h-24 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <X className="w-12 h-12 text-red-500" />
@@ -137,13 +142,13 @@ export default function SwipePage() {
           <h2 className="text-2xl font-bold text-gray-800 mb-2">오류가 발생했습니다</h2>
           <p className="text-gray-600 mb-6">{error}</p>
         </div>
-      </div>
+      </PageContainer>
     );
   }
 
   if (!currentProfile && !showMatch) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-primary-light/30 to-white flex items-center justify-center p-4">
+      <PageContainer>
         <div className="text-center">
           <div className="w-24 h-24 bg-primary-light/50 rounded-full flex items-center justify-center mx-auto mb-6">
             <Heart className="w-12 h-12 text-primary" />
@@ -157,79 +162,94 @@ export default function SwipePage() {
             처음으로 돌아가기
           </button>
         </div>
-      </div>
+      </PageContainer>
     );
   }
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-b from-primary-light/30 to-white flex items-center justify-center p-4">
+    <PageContainer>
       {/* Main Content */}
-      <div className="w-full max-w-sm relative" style={{ maxHeight: 'min(80vh, 600px)' }}>
-        {/* Background Card - 다음 카드 */}
-        {profiles[currentIndex + 1] && (
-          <BackgroundCard
-            avatarUrl={profiles[currentIndex + 1].avatar_url || '/placeholder.svg'}
-            nickname={profiles[currentIndex + 1].nickname}
-          />
-        )}
+      <div className="w-full max-w-sm relative" style={{ height: 'min(80vh, 600px)' }}>
+        {/* Render current and next card */}
+        {profiles.slice(currentIndex, currentIndex + 2).map((profile, idx) => {
+          const isCurrentCard = idx === 0;
+          const isBackgroundCard = idx === 1;
 
-        {/* Current Card */}
-        {currentProfile && (
-          <div
-            className={`relative z-10 ${
-              direction === 'left'
-                ? '-translate-x-full opacity-0 rotate-[-30deg] transition-all duration-300'
-                : direction === 'right'
-                  ? 'translate-x-full opacity-0 rotate-[30deg] transition-all duration-300'
-                  : dragStart
-                    ? ''
-                    : 'transition-all duration-200'
-            }`}
-            style={{
-              perspective: '1000px',
-              transform: dragStart
-                ? `translate(${dragOffset.x}px, ${dragOffset.y}px) rotate(${dragOffset.x * 0.1}deg)`
-                : undefined,
-            }}
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={handlePointerUp}
-            onPointerCancel={handlePointerUp}
-          >
-            {/* Card Container with 3D flip */}
+          return (
             <div
-              className={`relative w-full aspect-[2/3] transition-transform duration-700 cursor-pointer touch-none`}
+              key={profile.id}
+              className={`absolute inset-0 transition-all duration-300 ${
+                isCurrentCard
+                  ? `z-10 ${
+                      direction === 'left'
+                        ? '-translate-x-full opacity-0 rotate-[-30deg]'
+                        : direction === 'right'
+                          ? 'translate-x-full opacity-0 rotate-[30deg]'
+                          : dragStart
+                            ? ''
+                            : 'transition-all duration-200'
+                    }`
+                  : 'z-0'
+              }`}
               style={{
-                transformStyle: 'preserve-3d',
-                transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+                perspective: '1000px',
+                transform:
+                  isCurrentCard && dragStart
+                    ? `translate(${dragOffset.x}px, ${dragOffset.y}px) rotate(${dragOffset.x * 0.1}deg)`
+                    : isBackgroundCard
+                      ? direction !== null
+                        ? 'scale(1)'
+                        : 'scale(0.92)'
+                      : undefined,
+                filter: isBackgroundCard && direction === null ? 'blur(4px)' : 'blur(0px)',
+                opacity: isBackgroundCard && direction === null ? 0.6 : 1,
               }}
-              onClick={(e) => {
-                if (Math.abs(dragOffset.x) < 5 && Math.abs(dragOffset.y) < 5) {
-                  setIsFlipped(!isFlipped);
-                }
-              }}
+              onPointerDown={isCurrentCard ? handlePointerDown : undefined}
+              onPointerMove={isCurrentCard ? handlePointerMove : undefined}
+              onPointerUp={isCurrentCard ? handlePointerUp : undefined}
+              onPointerCancel={isCurrentCard ? handlePointerUp : undefined}
             >
-              {/* Front Face */}
-              <ProfileCardFront
-                avatarUrl={currentProfile.avatar_url || '/placeholder.svg'}
-                nickname={currentProfile.nickname}
-                city={currentProfile.city || ''}
-                onPass={() => handleSwipe('left')}
-                onLike={() => handleSwipe('right')}
-              />
-
-              {/* Back Face */}
-              <ProfileCardBack
-                bio={currentProfile.bio}
-                interests={currentProfile.interests}
-                onClose={(e) => {
-                  e.stopPropagation();
-                  setIsFlipped(false);
+              {/* Card Container with 3D flip */}
+              <div
+                className={`relative w-full aspect-[2/3] transition-transform duration-700 ${
+                  isCurrentCard ? 'cursor-pointer touch-none' : 'pointer-events-none'
+                }`}
+                style={{
+                  transformStyle: 'preserve-3d',
+                  transform: isCurrentCard && isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
                 }}
-              />
+                onClick={
+                  isCurrentCard
+                    ? () => {
+                        if (Math.abs(dragOffset.x) < 5 && Math.abs(dragOffset.y) < 5) {
+                          setIsFlipped(!isFlipped);
+                        }
+                      }
+                    : undefined
+                }
+              >
+                {/* Front Face */}
+                <ProfileCardFront
+                  avatarUrl={profile.avatar_url || '/placeholder.svg'}
+                  nickname={profile.nickname}
+                  city={profile.city || ''}
+                  onPass={() => handleSwipe('left')}
+                  onLike={() => handleSwipe('right')}
+                />
+
+                {/* Back Face */}
+                <ProfileCardBack
+                  bio={profile.bio}
+                  interests={profile.interests}
+                  onClose={(e) => {
+                    e.stopPropagation();
+                    setIsFlipped(false);
+                  }}
+                />
+              </div>
             </div>
-          </div>
-        )}
+          );
+        })}
       </div>
 
       {showMatch && matchedProfile && (
@@ -239,6 +259,6 @@ export default function SwipePage() {
           onClose={handleMatchClose}
         />
       )}
-    </div>
+    </PageContainer>
   );
 }
