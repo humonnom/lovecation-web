@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from 'react';
 import { Heart, X } from 'lucide-react';
-import Image from 'next/image';
 import { useLocale } from 'next-intl';
 import { useProfiles } from '@/hooks/queries/useProfiles';
 import userDetailData from '@/data/userDetailDummyData.json';
@@ -10,6 +9,7 @@ import { Profile } from '@/types/supabase';
 import { MatchModal } from '@/components/matches/MatchModal';
 import { ProfileCardFront } from '@/components/matches/ProfileCardFront';
 import { ProfileCardBack } from '@/components/matches/ProfileCardBack';
+import { BackgroundCard } from '@/components/matches/BackgroundCard';
 
 export default function SwipePage() {
   const locale = useLocale();
@@ -131,36 +131,13 @@ export default function SwipePage() {
     <div className="fixed inset-0 bg-gradient-to-b from-primary-light/30 to-white flex items-center justify-center p-4">
       {/* Main Content */}
       <div className="w-full max-w-sm relative" style={{ maxHeight: 'min(80vh, 600px)' }}>
-        {profiles.slice(currentIndex, currentIndex + 3).map((profile, index) => {
-          if (index === 0) return null; // 현재 카드는 따로 렌더링
-
-          const opacity = 1 - index * 0.3;
-
-          return (
-            <div
-              key={profile.id}
-              className="absolute inset-0 pointer-events-none transition-opacity duration-300"
-              style={{
-                opacity,
-                zIndex: -index,
-                transformOrigin: 'center bottom',
-              }}
-            >
-              <div className="bg-white rounded-3xl shadow-2xl overflow-hidden w-full aspect-[2/3]">
-                <div className="relative h-full">
-                  <Image
-                    width={500}
-                    height={500}
-                    src={profile.avatar_url || '/placeholder.svg'}
-                    alt={profile.nickname}
-                    className="w-full h-full object-cover blur-sm"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/60" />
-                </div>
-              </div>
-            </div>
-          );
-        })}
+        {/* Background Card - 다음 카드 */}
+        {profiles[currentIndex + 1] && (
+          <BackgroundCard
+            avatarUrl={profiles[currentIndex + 1].avatar_url || '/placeholder.svg'}
+            nickname={profiles[currentIndex + 1].nickname}
+          />
+        )}
 
         {/* Current Card */}
         {currentProfile && (
