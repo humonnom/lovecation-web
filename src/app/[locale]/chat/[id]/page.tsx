@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
 import { Languages, MoreVertical } from 'lucide-react';
 import { motion } from 'motion/react';
 import { DetailHeader } from '@/components/layout/DetailHeader';
@@ -12,6 +11,8 @@ import { useFunnel } from '@/hooks/useFunnel';
 import chatData from '@/data/chatExampleDummyData.json';
 import type { Message, SuggestedMessage } from '@/types/chat';
 import { AvatarWithSkeleton } from '@/components/common/AvatarWithSkeleton';
+import { BaseModal } from '@/components/common/BaseModal';
+import { useRouter } from '@/i18n/navigation';
 
 const mockMessages: Message[] = chatData as Message[];
 
@@ -50,12 +51,15 @@ const STEPS = ['ai-suggestion', 'chat'] as const;
 
 export default function ChatDetailPage() {
   const { Funnel, Step, setStep } = useFunnel(STEPS);
+  const router = useRouter();
   const [showTranslation, setShowTranslation] = useState(false);
   const [selectedSuggestion, setSelectedSuggestion] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [autoPlayStarted, setAutoPlayStarted] = useState(false);
   const [showTranslationHint, setShowTranslationHint] = useState(false);
+  const [showMyPagePrompt, setShowMyPagePrompt] = useState(false);
+  const [myPagePromptDismissed, setMyPagePromptDismissed] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
 
@@ -149,6 +153,21 @@ export default function ChatDetailPage() {
         startAutoPlay();
       }, 500);
     }, 500);
+  };
+
+  // 남은 대화가 3개 이하일 때 마이페이지 유도 모달 표시 (한 번만 표시)
+  useEffect(() => {
+    const total = mockMessages.length;
+    const remaining = total - messages.length;
+    if (remaining <= 3 && messages.length > 0 && !showMyPagePrompt && !myPagePromptDismissed) {
+      setShowMyPagePrompt(true);
+    }
+  }, [messages, showMyPagePrompt, myPagePromptDismissed]);
+
+  const handleGoMyPage = () => {
+    setMyPagePromptDismissed(true);
+    setShowMyPagePrompt(false);
+    router.push('/my-profile');
   };
 
   return (
@@ -268,6 +287,26 @@ export default function ChatDetailPage() {
             {/* 스크롤 타겟 */}
             <div ref={messagesEndRef} className={'h-10'} />
           </div>
+
+          {/* My-Page Prompt Modal (reuses BaseModal design) */}
+          <BaseModal
+            open={showMyPagePrompt}
+            title={'회원 등록하기'}
+            subtitle={'회원으로 등록하시면 실제 대화 기능을 사용할 수 있습니다.'}
+            onClose={() => {
+              setMyPagePromptDismissed(true);
+              setShowMyPagePrompt(false);
+            }}
+          >
+            <div className="space-y-3">
+              <button
+                onClick={handleGoMyPage}
+                className="w-full py-4 bg-primary text-white rounded-full font-semibold hover:bg-primary/90 transition shadow-lg"
+              >
+                마이페이지로 이동하여 등록하기
+              </button>
+            </div>
+          </BaseModal>
         </div>
       </Step>
     </Funnel>

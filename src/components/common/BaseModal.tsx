@@ -24,7 +24,10 @@ export function BaseModal({
   return (
     <div
       className={`fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4 ${containerClassName}`}
-      onClick={onClose}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClose?.();
+      }}
     >
       <div
         className={`bg-gradient-to-b from-primary-light/30 to-white rounded-3xl shadow-2xl max-w-md w-full p-8 text-center animate-in fade-in zoom-in duration-500 ${contentClassName}`}
