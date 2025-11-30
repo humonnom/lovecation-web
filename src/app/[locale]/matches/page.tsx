@@ -3,16 +3,16 @@
 import { useMemo, useState } from 'react';
 import { Heart, X } from 'lucide-react';
 import Image from 'next/image';
-import { useLocale, useTranslations } from 'next-intl';
+import { useLocale } from 'next-intl';
 import { useProfiles } from '@/hooks/queries/useProfiles';
 import userDetailData from '@/data/userDetailDummyData.json';
 import { Profile } from '@/types/supabase';
 import { MatchModal } from '@/components/matches/MatchModal';
-import { SwipeActionButtons } from '@/components/matches/SwipeActionButtons';
+import { ProfileCardFront } from '@/components/matches/ProfileCardFront';
+import { ProfileCardBack } from '@/components/matches/ProfileCardBack';
 
 export default function SwipePage() {
   const locale = useLocale();
-  const t = useTranslations('userDetail.interestsList');
 
   // locale에 따라 gender 결정: ja -> male, ko -> female
   const targetGender = locale === 'ja' ? 'male' : 'female';
@@ -131,7 +131,6 @@ export default function SwipePage() {
     <div className="fixed inset-0 bg-gradient-to-b from-primary-light/30 to-white flex items-center justify-center p-4">
       {/* Main Content */}
       <div className="w-full max-w-sm relative" style={{ maxHeight: 'min(80vh, 600px)' }}>
-        {/* Card Stack - 뒤에 있는 카드들 (뒤집거나 스와이프할 때만 표시) */}
         {profiles.slice(currentIndex, currentIndex + 3).map((profile, index) => {
           if (index === 0) return null; // 현재 카드는 따로 렌더링
 
@@ -185,82 +184,23 @@ export default function SwipePage() {
               onClick={() => setIsFlipped(!isFlipped)}
             >
               {/* Front Face */}
-              <div
-                className="absolute inset-0 bg-white rounded-3xl shadow-2xl overflow-hidden"
-                style={{
-                  backfaceVisibility: 'hidden',
-                  WebkitBackfaceVisibility: 'hidden',
-                }}
-              >
-                <div className="relative h-full">
-                  <Image
-                    width={500}
-                    height={500}
-                    src={currentProfile.avatar_url || '/placeholder.svg'}
-                    alt={currentProfile.nickname}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60" />
-
-                  {/* Profile Info */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 flex justify-between">
-                    <div className="text-white -mb-1">
-                      <div className="flex flex-col items-baseline gap-2">
-                        <h2 className="text-3xl font-bold">{currentProfile.nickname}</h2>
-                        <div className="flex items-center gap-1 text-sm">
-                          <span>📍</span>
-                          <span>{currentProfile.city}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div onClick={(e) => e.stopPropagation()}>
-                      <SwipeActionButtons
-                        onPass={() => handleSwipe('left')}
-                        onLike={() => handleSwipe('right')}
-                        disabled={!currentProfile}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <ProfileCardFront
+                avatarUrl={currentProfile.avatar_url || '/placeholder.svg'}
+                nickname={currentProfile.nickname}
+                city={currentProfile.city || ''}
+                onPass={() => handleSwipe('left')}
+                onLike={() => handleSwipe('right')}
+              />
 
               {/* Back Face */}
-              <div
-                className="absolute inset-0 bg-white rounded-3xl shadow-2xl overflow-hidden overflow-y-auto"
-                style={{
-                  backfaceVisibility: 'hidden',
-                  WebkitBackfaceVisibility: 'hidden',
-                  transform: 'rotateY(180deg)',
+              <ProfileCardBack
+                bio={currentProfile.bio}
+                interests={currentProfile.interests}
+                onClose={(e) => {
+                  e.stopPropagation();
+                  setIsFlipped(false);
                 }}
-              >
-                <div className="p-6 h-full">
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-xl font-bold text-gray-800">About</h3>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setIsFlipped(false);
-                      }}
-                      className="p-2 rounded-full hover:bg-gray-100 transition"
-                    >
-                      <X className="w-5 h-5 text-gray-600" />
-                    </button>
-                  </div>
-                  <p className="text-gray-700 leading-relaxed mb-4">{currentProfile.bio}</p>
-
-                  {/* Interests */}
-                  <div className="flex flex-wrap gap-2">
-                    {currentProfile.interests.map((interest, idx) => (
-                      <span
-                        key={idx}
-                        className="px-3 py-1.5 bg-primary-light/50 text-primary rounded-full text-sm font-medium"
-                      >
-                        {t(interest)}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
+              />
             </div>
           </div>
         )}
