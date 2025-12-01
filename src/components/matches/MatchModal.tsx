@@ -46,7 +46,7 @@ export function MatchModal({
         </div>
       </div>
 
-      <p className="text-gray-600 mb-8">{matchedProfile.nickname}님에게 메시지를 보내보세요!</p>
+      <p className="text-gray-600 mb-8">{t('sendMessagePrompt', { nickname: matchedProfile.nickname })}</p>
 
       {/* Action Buttons */}
       <div className="space-y-3">
@@ -55,13 +55,13 @@ export function MatchModal({
           className="w-full py-4 bg-primary text-white rounded-full font-semibold flex items-center justify-center gap-2 hover:bg-primary/90 transition shadow-lg"
         >
           <MessageCircle className="w-5 h-5" />
-          메시지 보내기
+          {t('sendMessage')}
         </button>
         <button
           onClick={onClose}
           className="w-full py-4 bg-white text-gray-700 rounded-full font-semibold border-2 border-gray-200 hover:bg-gray-50 transition"
         >
-          계속 둘러보기
+          {t('keepBrowsing')}
         </button>
       </div>
     </BaseModal>
