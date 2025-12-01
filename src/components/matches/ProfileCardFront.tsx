@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { SwipeActionButtons } from './SwipeActionButtons';
+import React from 'react';
 
 interface ProfileCardFrontProps {
   avatarUrl: string;
@@ -8,6 +9,7 @@ interface ProfileCardFrontProps {
   onPass: () => void;
   onLike: () => void;
   imagePriority?: boolean;
+  hint?: React.ReactNode;
 }
 
 export function ProfileCardFront({
@@ -17,6 +19,7 @@ export function ProfileCardFront({
   onPass,
   onLike,
   imagePriority = false,
+  hint,
 }: ProfileCardFrontProps) {
   return (
     <div
@@ -27,6 +30,7 @@ export function ProfileCardFront({
       }}
     >
       <div className="relative h-full">
+        {hint}
         <Image
           width={500}
           height={500}

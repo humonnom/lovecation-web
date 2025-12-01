@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { SwipeDirection, useSwipeCard } from '@/hooks/useSwipeCard';
 
 interface SwipeCardProps {
@@ -60,8 +61,6 @@ export function SwipeCard({
     }
   };
 
-  const transform = `rotateY(${flipped ? 180 : 0}deg)`;
-
   return (
     <div
       className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${isCurrent ? 'z-10' : 'z-0'} ${getDirectionClass()}`}
@@ -74,13 +73,16 @@ export function SwipeCard({
       onPointerUp={isCurrent ? onPointerUp : undefined}
       onPointerCancel={isCurrent ? onPointerUp : undefined}
     >
-      {/* Card Container with 3D flip */}
-      <div
-        className={`relative h-full max-h-full aspect-[2/3] w-auto max-w-[92vw] transition-transform duration-700 ${isCurrent ? 'cursor-pointer touch-none' : 'pointer-events-none'}`}
+      {/* Card Container with 3D flip (animated via motion) */}
+      <motion.div
+        className={`relative h-full max-h-full aspect-[2/3] w-auto max-w-[92vw] ${isCurrent ? 'cursor-pointer touch-none' : 'pointer-events-none'}`}
         style={{
           transformStyle: 'preserve-3d',
-          transform: transform,
+          WebkitTransformStyle: 'preserve-3d',
+          willChange: 'transform',
         }}
+        transition={{ duration: 0.7 }}
+        animate={{ rotateY: flipped ? 180 : 0 }}
         onClick={
           isCurrent
             ? () => {
@@ -91,15 +93,31 @@ export function SwipeCard({
             : undefined
         }
       >
+        {/* Front face */}
         <div
-          onClick={() => {
-            // prevent bubbling issues for nested buttons in front face
+          className="absolute inset-0"
+          style={{
+            pointerEvents: flipped ? 'none' : 'auto',
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+            transform: 'translateZ(0)',
           }}
         >
           {front}
         </div>
-        {/*{back}*/}
-      </div>
+        {/* Back face */}
+        <div
+          className="absolute inset-0"
+          style={{
+            pointerEvents: flipped ? 'auto' : 'none',
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+            transform: 'rotateY(180deg) translateZ(0)',
+          }}
+        >
+          {back}
+        </div>
+      </motion.div>
     </div>
   );
 }

@@ -171,34 +171,6 @@ export default function SwipePage() {
       <div className="w-full flex flex-col items-center" style={{ height: '100dvh' }}>
         <div className="flex-1" />
         <div className="w-full max-w-sm relative" style={{ height: 'min(75dvh, 640px)' }}>
-          {/* Flip Hint */}
-          <HintBubble
-            condition={currentIndex === 0 && !loading && profiles.length > 0}
-            dismissCondition={isFlipped}
-            delay={1000}
-            text={t('flipCardHint')}
-            position="bottom"
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 z-20"
-          />
-
-          {/* Second Card Hints: swipe right + heart click */}
-          <HintBubble
-            condition={currentIndex === 1 && !loading && profiles.length > 1}
-            dismissCondition={isFlipped}
-            delay={1000}
-            text={t('swipeRightHint')}
-            position="right"
-            className="absolute right-1/6 top-0 translate-y-10 translate-x-2 z-20"
-          />
-          <HintBubble
-            condition={currentIndex === 1 && !loading && profiles.length > 1}
-            dismissCondition={isFlipped}
-            delay={1000}
-            text={t('heartActionHint')}
-            position="bottom-right"
-            className="absolute bottom-1/5 right-9 z-20"
-          />
-
           {/* Render current and next card; while swiping, only render current card to prevent flicker */}
           {profiles.slice(currentIndex, currentIndex + (direction ? 1 : 2)).map((profile, idx) => {
             const isCurrentCard = idx === 0;
@@ -221,6 +193,34 @@ export default function SwipePage() {
                     onPass={() => handleSwipe('left')}
                     onLike={() => handleSwipe('right')}
                     imagePriority={isCurrentCard || isBackgroundCard}
+                    hint={
+                      <>
+                        <HintBubble
+                          condition={currentIndex === 0 && !loading && profiles.length > 0}
+                          dismissCondition={isFlipped}
+                          delay={500}
+                          text={t('flipCardHint')}
+                          position="bottom"
+                          className="absolute top-1/2 left-1/2 -translate-x-1/2 z-20"
+                        />
+                        <HintBubble
+                          condition={currentIndex === 1 && !loading && profiles.length > 1}
+                          dismissCondition={isFlipped}
+                          delay={500}
+                          text={t('swipeRightHint')}
+                          position="right"
+                          className="absolute right-1/6 top-0 translate-y-10 translate-x-2 z-20"
+                        />
+                        <HintBubble
+                          condition={currentIndex === 1 && !loading && profiles.length > 1}
+                          dismissCondition={isFlipped}
+                          delay={500}
+                          text={t('heartActionHint')}
+                          position="bottom-right"
+                          className="absolute bottom-1/5 right-9 z-20"
+                        />
+                      </>
+                    }
                   />
                 }
                 back={
@@ -233,6 +233,15 @@ export default function SwipePage() {
                       e.stopPropagation();
                       setIsFlipped(false);
                     }}
+                    hint={
+                      <HintBubble
+                        condition={currentIndex === 0}
+                        delay={500}
+                        text={t('moreInfoHint')}
+                        position="bottom"
+                        className="absolute bottom-1/6 left-1/2 -translate-x-1/2 z-20"
+                      />
+                    }
                   />
                 }
               />

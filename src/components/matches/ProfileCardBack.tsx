@@ -1,7 +1,6 @@
 import { X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from '@/i18n/navigation';
-import { HintBubble } from '@/components/common/HintBubble';
 
 interface ProfileCardBackProps {
   bio: string;
@@ -9,6 +8,7 @@ interface ProfileCardBackProps {
   profileId: string;
   currentIndex: number;
   onClose: (e: React.MouseEvent) => void;
+  hint?: React.ReactNode;
 }
 
 export function ProfileCardBack({
@@ -17,6 +17,7 @@ export function ProfileCardBack({
   profileId,
   currentIndex,
   onClose,
+  hint,
 }: ProfileCardBackProps) {
   const t = useTranslations('userDetail.interestsList');
   const tMatch = useTranslations('match');
@@ -30,14 +31,7 @@ export function ProfileCardBack({
   };
 
   return (
-    <div
-      className="absolute inset-0 bg-white rounded-3xl shadow-2xl overflow-hidden overflow-y-auto"
-      style={{
-        backfaceVisibility: 'hidden',
-        WebkitBackfaceVisibility: 'hidden',
-        transform: 'rotateY(180deg)',
-      }}
-    >
+    <div className="absolute inset-0 bg-white rounded-3xl shadow-2xl overflow-hidden overflow-y-auto">
       <div className="p-6 h-full flex flex-col">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-xl font-bold text-gray-800">About</h3>
@@ -58,13 +52,7 @@ export function ProfileCardBack({
             </span>
           ))}
         </div>
-        <HintBubble
-          condition={currentIndex === 0}
-          delay={1000}
-          text={tMatch('moreInfoHint')}
-          position="bottom"
-          className="absolute bottom-1/6 left-1/2 -translate-x-1/2 z-20"
-        />
+        {hint}
 
         {/* Learn More Button */}
         <button
