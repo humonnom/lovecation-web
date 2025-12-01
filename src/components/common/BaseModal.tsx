@@ -40,7 +40,7 @@ export function BaseModal({
                 {title}
               </h2>
             )}
-            {subtitle && <p className="text-gray-600">{subtitle}</p>}
+            {subtitle && <p className="text-gray-600 whitespace-pre-line">{subtitle}</p>}
           </div>
         )}
         {children}

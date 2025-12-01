@@ -29,7 +29,12 @@
     "emptyTitle": "모든 추천 프로필을\n확인했어요!",
     "emptySubtitle": "매치된 상대와 대화를 시작해보세요.",
     "goToChat": "대화하러 가기",
-    "restart": "처음부터 다시 하기"
+    "restart": "처음부터 다시 하기",
+    "matchSuccess": "매치 성공!",
+    "matchedWith": "{nickname}님과 매칭되었습니다!",
+    "sendMessagePrompt": "{nickname}님에게 메시지를 보내보세요!",
+    "sendMessage": "메시지 보내기",
+    "keepBrowsing": "계속 둘러보기"
   },
   "chat": {
     "title": "채팅",
@@ -214,7 +219,7 @@
     "realtimeTranslation": "실시간 번역",
     "translationHint": "자동 번역 기능을 사용할 수 있습니다.",
     "registerTitle": "회원 등록하고\n 대화 시작하기",
-    "registerSubtitle": "자동 번역 기능으로 부담없이 대화할 수 있습니다.",
+    "registerSubtitle": "자동 번역 기능으로\n 부담없이 대화할 수 있습니다.",
     "goToMyPage": "마이페이지로 이동"
   }
 }

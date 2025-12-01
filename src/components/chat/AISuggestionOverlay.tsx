@@ -40,7 +40,7 @@ export function AISuggestionOverlay({
         <div className="space-y-3 relative">
           {/* 데모 안내 말풍선 */}
           <BouncingSpeechBubble
-            text="메세지를 선택해보세요!"
+            text="메시지를 선택해보세요!"
             position="left"
             className="absolute -right-2 top-1/2 -translate-y-1/2 z-10"
           />

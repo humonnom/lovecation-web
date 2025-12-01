@@ -29,7 +29,12 @@
     "emptyTitle": "すべての\nおすすめプロフィールを\n確認しました！",
     "emptySubtitle": "マッチした相手とチャットを始めましょう。",
     "goToChat": "チャットに進む",
-    "restart": "最初からやり直す"
+    "restart": "最初からやり直す",
+    "matchSuccess": "マッチ成功！",
+    "matchedWith": "{nickname}さんとマッチしました！",
+    "sendMessagePrompt": "{nickname}さんにメッセージを送ってみましょう！",
+    "sendMessage": "メッセージを送る",
+    "keepBrowsing": "続ける"
   },
   "chat": {
     "title": "チャット",

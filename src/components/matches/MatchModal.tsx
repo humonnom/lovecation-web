@@ -1,5 +1,6 @@
 import { Heart, MessageCircle, User } from 'lucide-react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { Profile } from '@/types/supabase';
 import { BaseModal } from '@/components/common/BaseModal';
 
@@ -16,10 +17,12 @@ export function MatchModal({
   onSendMessage,
   onClose,
 }: MatchModalProps) {
+  const t = useTranslations('match');
+
   return (
     <BaseModal
-      title={"매치 성공!"}
-      subtitle={`${matchedProfile.nickname}님과 매칭되었습니다!`}
+      title={t('matchSuccess')}
+      subtitle={t('matchedWith', { nickname: matchedProfile.nickname })}
       onClose={onClose}
     >
       {/* Profile Avatars with icon fallback */}
