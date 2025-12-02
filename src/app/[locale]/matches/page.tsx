@@ -8,11 +8,8 @@ import { useHeader } from '@/lib/providers/HeaderProvider';
 import userDetailData from '@/data/userDetailDummyData.json';
 import { Profile } from '@/types/supabase';
 import { MatchModal } from '@/components/matches/MatchModal';
-import { ProfileCardFront } from '@/components/matches/ProfileCardFront';
-import { ProfileCardBack } from '@/components/matches/ProfileCardBack';
-import { HintBubble } from '@/components/common/HintBubble';
 import { useRouter } from '@/i18n/navigation';
-import { SwipeCard } from '@/components/matches/SwipeCard';
+import FlipCard from '@/components/matches/FlipCard';
 
 const PageContainer = ({
   children,
@@ -171,82 +168,82 @@ export default function SwipePage() {
       <div className="w-full flex flex-col items-center" style={{ height: '100dvh' }}>
         <div className="flex-1" />
         <div className="w-full max-w-sm relative" style={{ height: 'min(75dvh, 640px)' }}>
-          {/* Render current and next card; while swiping, only render current card to prevent flicker */}
-          {profiles.slice(currentIndex, currentIndex + (direction ? 1 : 2)).map((profile, idx) => {
-            const isCurrentCard = idx === 0;
-            const isBackgroundCard = idx === 1;
+          <FlipCard front={<p>front</p>} back={<p>back</p>} />
+          {/*{profiles.slice(currentIndex, currentIndex + (direction ? 1 : 2)).map((profile, idx) => {*/}
+          {/*  const isCurrentCard = idx === 0;*/}
+          {/*  const isBackgroundCard = idx === 1;*/}
 
-            return (
-              <SwipeCard
-                key={profile.id}
-                isCurrent={isCurrentCard}
-                isBackground={isBackgroundCard}
-                direction={direction}
-                flipped={isFlipped}
-                onToggleFlip={() => setIsFlipped(!isFlipped)}
-                onSwipe={(dir) => handleSwipe(dir)}
-                front={
-                  <ProfileCardFront
-                    avatarUrl={profile.avatar_url || '/placeholder.svg'}
-                    nickname={profile.nickname}
-                    city={profile.city || ''}
-                    onPass={() => handleSwipe('left')}
-                    onLike={() => handleSwipe('right')}
-                    imagePriority={isCurrentCard || isBackgroundCard}
-                    hint={
-                      <>
-                        <HintBubble
-                          condition={currentIndex === 0 && !loading && profiles.length > 0}
-                          dismissCondition={isFlipped}
-                          delay={500}
-                          text={t('flipCardHint')}
-                          position="bottom"
-                          className="absolute top-1/2 left-1/2 -translate-x-1/2 z-20"
-                        />
-                        <HintBubble
-                          condition={currentIndex === 1 && !loading && profiles.length > 1}
-                          dismissCondition={isFlipped}
-                          delay={500}
-                          text={t('swipeRightHint')}
-                          position="right"
-                          className="absolute right-1/6 top-0 translate-y-10 translate-x-2 z-20"
-                        />
-                        <HintBubble
-                          condition={currentIndex === 1 && !loading && profiles.length > 1}
-                          dismissCondition={isFlipped}
-                          delay={500}
-                          text={t('heartActionHint')}
-                          position="bottom-right"
-                          className="absolute bottom-1/5 right-9 z-20"
-                        />
-                      </>
-                    }
-                  />
-                }
-                back={
-                  <ProfileCardBack
-                    bio={profile.bio}
-                    interests={profile.interests}
-                    profileId={profile.id}
-                    currentIndex={currentIndex}
-                    onClose={(e) => {
-                      e.stopPropagation();
-                      setIsFlipped(false);
-                    }}
-                    hint={
-                      <HintBubble
-                        condition={currentIndex === 0}
-                        delay={500}
-                        text={t('moreInfoHint')}
-                        position="bottom"
-                        className="absolute bottom-1/6 left-1/2 -translate-x-1/2 z-20"
-                      />
-                    }
-                  />
-                }
-              />
-            );
-          })}
+          {/*  return (*/}
+          {/*    <SwipeCard*/}
+          {/*      key={profile.id}*/}
+          {/*      isCurrent={isCurrentCard}*/}
+          {/*      isBackground={isBackgroundCard}*/}
+          {/*      direction={direction}*/}
+          {/*      flipped={isFlipped}*/}
+          {/*      onToggleFlip={() => setIsFlipped(!isFlipped)}*/}
+          {/*      onSwipe={(dir) => handleSwipe(dir)}*/}
+          {/*      front={*/}
+          {/*        <ProfileCardFront*/}
+          {/*          avatarUrl={profile.avatar_url || '/placeholder.svg'}*/}
+          {/*          nickname={profile.nickname}*/}
+          {/*          city={profile.city || ''}*/}
+          {/*          onPass={() => handleSwipe('left')}*/}
+          {/*          onLike={() => handleSwipe('right')}*/}
+          {/*          imagePriority={isCurrentCard || isBackgroundCard}*/}
+          {/*          hint={*/}
+          {/*            <>*/}
+          {/*              <HintBubble*/}
+          {/*                condition={currentIndex === 0 && !loading && profiles.length > 0}*/}
+          {/*                dismissCondition={isFlipped}*/}
+          {/*                delay={500}*/}
+          {/*                text={t('flipCardHint')}*/}
+          {/*                position="bottom"*/}
+          {/*                className="absolute top-1/2 left-1/2 -translate-x-1/2 z-20"*/}
+          {/*              />*/}
+          {/*              <HintBubble*/}
+          {/*                condition={currentIndex === 1 && !loading && profiles.length > 1}*/}
+          {/*                dismissCondition={isFlipped}*/}
+          {/*                delay={500}*/}
+          {/*                text={t('swipeRightHint')}*/}
+          {/*                position="right"*/}
+          {/*                className="absolute right-1/6 top-0 translate-y-10 translate-x-2 z-20"*/}
+          {/*              />*/}
+          {/*              <HintBubble*/}
+          {/*                condition={currentIndex === 1 && !loading && profiles.length > 1}*/}
+          {/*                dismissCondition={isFlipped}*/}
+          {/*                delay={500}*/}
+          {/*                text={t('heartActionHint')}*/}
+          {/*                position="bottom-right"*/}
+          {/*                className="absolute bottom-1/5 right-9 z-20"*/}
+          {/*              />*/}
+          {/*            </>*/}
+          {/*          }*/}
+          {/*        />*/}
+          {/*      }*/}
+          {/*      back={*/}
+          {/*        <ProfileCardBack*/}
+          {/*          bio={profile.bio}*/}
+          {/*          interests={profile.interests}*/}
+          {/*          profileId={profile.id}*/}
+          {/*          currentIndex={currentIndex}*/}
+          {/*          onClose={(e) => {*/}
+          {/*            e.stopPropagation();*/}
+          {/*            setIsFlipped(false);*/}
+          {/*          }}*/}
+          {/*          hint={*/}
+          {/*            <HintBubble*/}
+          {/*              condition={currentIndex === 0}*/}
+          {/*              delay={500}*/}
+          {/*              text={t('moreInfoHint')}*/}
+          {/*              position="bottom"*/}
+          {/*              className="absolute bottom-1/6 left-1/2 -translate-x-1/2 z-20"*/}
+          {/*            />*/}
+          {/*          }*/}
+          {/*        />*/}
+          {/*      }*/}
+          {/*    />*/}
+          {/*  );*/}
+          {/*})}*/}
         </div>
         <div className="flex-1" />
       </div>
