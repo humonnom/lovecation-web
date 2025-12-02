@@ -10,6 +10,7 @@ import { Profile } from '@/types/supabase';
 import { MatchModal } from '@/components/matches/MatchModal';
 import { useRouter } from '@/i18n/navigation';
 import FlipCard from '@/components/matches/FlipCard';
+import { ProfileCardFront } from '@/components/matches/ProfileCardFront';
 
 const PageContainer = ({
   children,
@@ -161,6 +162,8 @@ export default function SwipePage() {
       </PageContainer>
     );
   }
+
+  const profile = profiles[0];
 
   return (
     <PageContainer>
