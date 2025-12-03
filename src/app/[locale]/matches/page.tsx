@@ -13,6 +13,7 @@ import { ProfileCardBack } from '@/components/matches/ProfileCardBack';
 import { HintBubble } from '@/components/common/HintBubble';
 import { useRouter } from '@/i18n/navigation';
 import { SwipeCard } from '@/components/matches/SwipeCard';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 const PageContainer = ({
   children,
@@ -33,6 +34,7 @@ export default function SwipePage() {
   const locale = useLocale();
   const { setHeader } = useHeader();
   const t = useTranslations('match');
+  const isMobile = useIsMobile();
 
   // locale에 따라 gender 결정: ja -> male, ko -> female
   const targetGender = locale === 'ja' ? 'male' : 'female';
@@ -203,14 +205,16 @@ export default function SwipePage() {
                           position="bottom"
                           className="absolute top-1/2 left-1/2 -translate-x-1/2 z-20"
                         />
-                        <HintBubble
-                          condition={currentIndex === 1 && !loading && profiles.length > 1}
-                          dismissCondition={isFlipped}
-                          delay={500}
-                          text={t('swipeRightHint')}
-                          position="right"
-                          className="absolute right-1/6 top-0 translate-y-10 translate-x-2 z-20"
-                        />
+                        {isMobile && (
+                          <HintBubble
+                            condition={currentIndex === 1 && !loading && profiles.length > 1}
+                            dismissCondition={isFlipped}
+                            delay={500}
+                            text={t('swipeRightHint')}
+                            position="right"
+                            className="absolute right-1/6 top-0 translate-y-10 translate-x-2 z-20"
+                          />
+                        )}
                         <HintBubble
                           condition={currentIndex === 1 && !loading && profiles.length > 1}
                           dismissCondition={isFlipped}
