@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { SwipeDirection, useSwipeCard } from '@/hooks/useSwipeCard';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 interface SwipeCardProps {
   isCurrent: boolean;
@@ -23,8 +24,9 @@ export function SwipeCard({
   front,
   back,
 }: SwipeCardProps) {
+  const isMobile = useIsMobile();
   const { dragStart, dragOffset, onPointerDown, onPointerMove, onPointerUp } = useSwipeCard({
-    disabled: flipped,
+    disabled: flipped || !isMobile,
     onSwipe,
   });
 
