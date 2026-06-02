@@ -2,25 +2,38 @@ name: Keep Supabase Active
 
 on:
   schedule:
-    # 매주 월요일, 목요일 오전 9시 (KST 기준 자정 UTC)
+    # 매주 월요일, 목요일 UTC 00:00 (KST 09:00)
     - cron: '0 0 * * 1,4'
-  workflow_dispatch:  # 수동 실행도 가능하게
+  workflow_dispatch: # 수동 실행도 가능하게
 
 jobs:
   ping-supabase:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Supabase Database
+      - name: Ping Supabase REST API
         run: |
-          response=$(curl -s -o /dev/null -w "%{http_code}" \
-            -X GET "${{ secrets.SUPABASE_URL }}/rest/v1/profiles?limit=1" \
+          echo "🔍 Secrets 설정 여부 확인..."
+          if [ -z "${{ secrets.SUPABASE_URL }}" ]; then
+            echo "❌ SUPABASE_URL이 설정되지 않았습니다."
+            exit 1
+          fi
+          if [ -z "${{ secrets.SUPABASE_ANON_KEY }}" ]; then
+            echo "❌ SUPABASE_ANON_KEY가 설정되지 않았습니다."
+            exit 1
+          fi
+
+          response=$(curl -s -o /tmp/body.txt -w "%{http_code}" \
+            -X GET "${{ secrets.SUPABASE_URL }}/rest/v1/profiles?select=id&limit=1" \
             -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Content-Type: application/json")
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
 
           echo "Response code: $response"
+          echo "Response body: $(cat /tmp/body.txt)"
 
-          if [ $response -eq 200 ] || [ $response -eq 404 ]; then
-            echo "✅ Supabase is active"
+          # 200/206: 정상 조회, 401/403: RLS 차단이지만 DB는 응답함
+          if [ "$response" -eq 200 ] || [ "$response" -eq 206 ] || [ "$response" -eq 401 ] || [ "$response" -eq 403 ]; then
+            echo "✅ Supabase is active (DB responded)"
           else
-            echo "⚠️ Unexpected response"
+            echo "❌ Unexpected response: $response"
+            exit 1
           fi
