@@ -18,7 +18,8 @@
       "Bash(echo 'Plugin root: __TRACKED_VAR__')",
       "Bash(gh auth *)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
     ],
     "deny": [],
     "ask": []
